@@ -6,260 +6,477 @@
 <title>مواقيت الصلاة في اللاذقية</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Reem+Kufi:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Bodoni+Moda:opsz,wght@6..96,400..700&display=swap" rel="stylesheet">
 <style>
 /* ===== أساسيات: كل القياسات بوحدة rem، والمسرح 96×54rem يتمدد ليملأ الشاشة ===== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { font-size: 1.851852vh; }
-html, body { width: 100%; height: 100%; overflow: hidden; background: #040A11; }
-body { font-family: 'Amiri', 'Tahoma', 'Arial', sans-serif; color: #F3E9D2; -webkit-font-smoothing: antialiased; }
-.kufi { font-family: 'Reem Kufi', 'Tahoma', 'Arial', sans-serif; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #010504; }
+body { font-family: 'Noto Naskh Arabic', 'Amiri', 'Tahoma', serif; color: #F2F0EA; -webkit-font-smoothing: antialiased; }
+.num { font-family: 'Bodoni Moda', 'Didot', 'Bodoni 72', 'Times New Roman', serif; -webkit-font-feature-settings: "lnum" 1; font-feature-settings: "lnum" 1; }
+.quran { font-family: 'Amiri', 'Noto Naskh Arabic', serif; }
 
-#stage { position: absolute; left: 50%; top: 50%; width: 96rem; height: 54rem; margin-left: -48rem; margin-top: -27rem; overflow: hidden; background: #06111C; }
+#stage { position: absolute; left: 50%; top: 50%; width: 96rem; height: 54rem; margin-left: -48rem; margin-top: -27rem; overflow: hidden; background: #020A08; }
 
-/* ===== السماء والبحر ===== */
-.sky { position: absolute; left: 0; top: 0; width: 96rem; height: 54rem; opacity: 0; will-change: opacity; }
-#skyWindow { position: absolute; left: 0; top: 0; width: 96rem; height: 36.5rem; overflow: hidden; z-index: 3; }
-#stars { position: absolute; left: 0; top: 0; width: 96rem; height: 36.5rem; transition: opacity 40s linear; }
-.star { position: absolute; display: block; border-radius: 50%; background: #FFF6E0; opacity: 0.6; animation: twinkle 5s ease-in-out infinite alternate; }
-#stars.paused .star { animation-play-state: paused; }
-@keyframes twinkle { from { opacity: 0.12; } to { opacity: 1; } }
+/* ===== الخلفية: لونها يتبدّل مع أوقات الصلاة ===== */
+.bg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; will-change: opacity; }
+#scene { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 2; }
+#scene svg { display: block; width: 100%; height: 100%; }
+#medal { position: absolute; left: 29.25rem; top: 10.3rem; width: 37.5rem; height: 37.5rem; z-index: 3; animation: spin 900s linear infinite; will-change: transform; }
+#medal svg { display: block; width: 100%; height: 100%; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+#glitter { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 4; }
+.gl { position: absolute; display: block; border-radius: 50%; background: #FFF6DC; animation: tw 3s ease-in-out infinite alternate; }
+.gl.soft { background: radial-gradient(circle, rgba(255,238,196,0.85) 0%, rgba(240,200,120,0.3) 40%, rgba(240,200,120,0) 70%); }
+@keyframes tw { from { opacity: 0.12; } to { opacity: 1; } }
+#vignette { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 5;
+  background: radial-gradient(ellipse 72% 78% at 50% 44%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%); }
 
-#clouds { position: absolute; left: 0; top: 0; width: 96rem; height: 36.5rem; transition: opacity 40s linear; }
-.cloud { position: absolute; left: 0; will-change: transform; animation: drift 300s linear infinite; }
-.cloud svg { display: block; width: 100%; height: 100%; fill: #FFFFFF; }
-@keyframes drift { from { transform: translateX(-22rem); } to { transform: translateX(104rem); } }
+/* ===== المعادن: ذهب وفضة ===== */
+.gold { color: #E2C27A; }
+.silver { color: #E4E4E0; }
+.pale { color: #E8DDB2; }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .gold, .silver, .pale { color: transparent; -webkit-text-fill-color: transparent; -webkit-background-clip: text; background-clip: text;
+    background-size: 300% 100%, 100% 100%; background-repeat: no-repeat; background-position: 0% 0, 0 0; }
+  .gold { background-image: linear-gradient(105deg, rgba(255,252,236,0) 42%, rgba(255,252,236,0.95) 50%, rgba(255,252,236,0) 58%),
+    linear-gradient(180deg, #FCEDBC 0%, #F0D28C 26%, #D6AD62 50%, #B48A45 66%, #E5C47D 84%, #C59C55 100%); }
+  .silver { background-image: linear-gradient(105deg, rgba(255,255,255,0) 42%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 58%),
+    linear-gradient(180deg, #FFFFFF 0%, #F1F1EE 35%, #C9C9C5 62%, #E2E2DE 82%, #B4B4AF 100%); }
+  .pale { background-image: linear-gradient(105deg, rgba(255,252,236,0) 42%, rgba(255,252,236,0.95) 50%, rgba(255,252,236,0) 58%),
+    linear-gradient(180deg, #FBF3D6 0%, #ECDDAA 40%, #CDB678 66%, #E9D9A4 86%, #BFA769 100%); }
+  .go { animation: shine 2.4s ease-in-out 1; }
+}
+@keyframes shine { from { background-position: 0% 0, 0 0; } to { background-position: 100% 0, 0 0; } }
 
-#sun, #moon { position: absolute; left: 0; top: 0; width: 0; height: 0; opacity: 0; will-change: transform; }
-.sun-halo { position: absolute; left: -8rem; top: -8rem; width: 16rem; height: 16rem; border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,228,165,0.55) 0%, rgba(255,214,140,0.20) 34%, rgba(255,214,140,0) 68%); }
-.sun-core { position: absolute; left: -1.8rem; top: -1.8rem; width: 3.6rem; height: 3.6rem; border-radius: 50%;
-  background: radial-gradient(circle at 44% 40%, #FFFCEE 0%, #FFE7A8 55%, #F6C163 100%); }
-[data-p="sunrise"] .sun-core, [data-p="sunset"] .sun-core { background: radial-gradient(circle at 44% 40%, #FFEBC8 0%, #FFB066 58%, #EE7840 100%); }
-[data-p="sunrise"] .sun-halo, [data-p="sunset"] .sun-halo { background: radial-gradient(circle, rgba(255,160,95,0.62) 0%, rgba(255,140,80,0.22) 36%, rgba(255,140,80,0) 70%); }
-.moon-halo { position: absolute; left: -6rem; top: -6rem; width: 12rem; height: 12rem; border-radius: 50%;
-  background: radial-gradient(circle, rgba(220,228,255,0.30) 0%, rgba(220,228,255,0.08) 40%, rgba(220,228,255,0) 70%); }
-.moon-disc { position: absolute; left: -1.7rem; top: -1.7rem; width: 3.4rem; height: 3.4rem; }
+/* ===== الواجهة ===== */
+#ui { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 7; transition: transform 3s ease; }
 
-#sea { position: absolute; left: 0; top: 36.5rem; width: 96rem; height: 17.5rem; overflow: hidden; z-index: 3; }
-#horizon { position: absolute; left: 0; top: 0; width: 96rem; height: 0.08rem; background: rgba(255,240,214,0.28); }
-#reflect { position: absolute; left: 0; top: 0; width: 7rem; margin-left: -3.5rem; height: 15rem; opacity: 0;
-  background: repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0, rgba(0,0,0,0) 0.32rem, rgba(6,16,26,0.45) 0.32rem, rgba(6,16,26,0.45) 0.46rem),
-              radial-gradient(ellipse 50% 100% at 50% 0%, rgba(255,216,150,0.85) 0%, rgba(255,216,150,0.3) 40%, rgba(255,216,150,0) 100%);
-  animation: glint 3.4s ease-in-out infinite alternate; will-change: transform; }
-#reflect.moonref { background: repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0, rgba(0,0,0,0) 0.32rem, rgba(6,16,26,0.45) 0.32rem, rgba(6,16,26,0.45) 0.46rem),
-              radial-gradient(ellipse 40% 100% at 50% 0%, rgba(226,232,255,0.7) 0%, rgba(226,232,255,0.22) 40%, rgba(226,232,255,0) 100%); }
-@keyframes glint { from { transform: scaleX(0.75); } to { transform: scaleX(1.15); } }
-#reflectWrap { position: absolute; left: 0; top: 0; width: 0; height: 15rem; }
-.wave { position: absolute; display: block; height: 0.09rem; border-radius: 0.05rem; background: rgba(243,233,210,0.45); opacity: 0.3; animation: wave 7s ease-in-out infinite alternate; }
-@keyframes wave { from { transform: translateX(-0.9rem); opacity: 0.12; } to { transform: translateX(0.9rem); opacity: 0.55; } }
+/* الهلال المرصّع */
+#crescent { position: absolute; left: 41.25rem; top: 0; width: 14.0625rem; height: 10.3125rem; animation: bob 6s ease-in-out infinite alternate; will-change: transform; }
+#crescent svg, #adCrescent svg, #splashIcon svg { display: block; width: 100%; height: 100%; }
+@keyframes bob { from { transform: translateY(0); } to { transform: translateY(0.3rem); } }
+.twk { animation: twk 4.5s ease-in-out infinite; opacity: 0; }
+@keyframes twk { 0%, 70% { opacity: 0; } 82% { opacity: 1; } 100% { opacity: 0; } }
+.halo { animation: halo 5s ease-in-out infinite alternate; }
+@keyframes halo { from { opacity: 0.7; } to { opacity: 1; } }
 
-/* ===== العمارة: القوس الكبير والقناديل والرواق ===== */
-#bigArch { position: absolute; left: 0; top: 0; width: 96rem; height: 54rem; z-index: 4; }
-#bigArch path { fill: none; }
-.ab-l { stroke: #EADFC6; stroke-opacity: 0.24; stroke-width: 7; stroke-dasharray: 11 11; }
-.ab-d { stroke: #141B1F; stroke-opacity: 0.32; stroke-width: 7; stroke-dasharray: 11 11; stroke-dashoffset: 11; }
-.ab-in { stroke: #D6AE62; stroke-opacity: 0.50; stroke-width: 1.2; }
-.ab-out { stroke: #D6AE62; stroke-opacity: 0.22; stroke-width: 1; }
+/* التاريخ والمدينة */
+.rule { position: absolute; top: 0; bottom: 0; width: 0.14rem;
+  background: linear-gradient(to bottom, rgba(242,236,220,0) 0%, rgba(242,236,220,0.85) 18%, rgba(242,236,220,0.85) 82%, rgba(242,236,220,0) 100%); }
+#dateBlock { position: absolute; top: 2.85rem; left: 3.9rem; padding-left: 0.95rem; text-align: left; }
+#dateBlock .rule { left: 0; }
+#dayName { display: block; font-size: 2.45rem; font-weight: 700; line-height: 1.3; color: #D9C59E; }
+#gDate { display: block; font-size: 1.75rem; line-height: 1.5; color: #F4F4F0; }
+#hDate { display: block; font-size: 1.75rem; line-height: 1.45; color: #BDB49E; }
+#cityBlock { position: absolute; top: 2.85rem; right: 3.9rem; padding-right: 0.95rem; text-align: right; }
+#cityBlock .rule { right: 0; }
+#city { font-size: 2.45rem; font-weight: 700; line-height: 1.3; color: #D9C59E; }
+#country { font-size: 1.75rem; line-height: 1.5; color: #F4F4F0; }
+#status { font-size: 1.5rem; line-height: 1.8; white-space: nowrap; color: #EDEDE8; }
+.chip { display: inline-block; vertical-align: middle; height: 1.75rem; line-height: 1.75rem; padding: 0 0.4rem; margin: 0 0.15rem; border-radius: 0.35rem;
+  background: rgba(88,96,94,0.55); color: #F4F4F0; font-family: 'Bodoni Moda', 'Times New Roman', serif; font-size: 1.25rem; }
+.chip svg { display: inline-block; width: 1.25rem; height: 1.25rem; vertical-align: -0.18rem; }
+#speaker { position: absolute; left: 88.3rem; top: 11.55rem; width: 3.6rem; height: 3rem; }
+#speaker svg { display: block; width: 100%; height: 100%; }
 
-.lantern { position: absolute; top: 0; width: 3.6rem; margin-left: -1.8rem; z-index: 5; transform-origin: 50% 0; animation: swing 6.8s ease-in-out infinite alternate; will-change: transform; }
-.lantern .chain { width: 0.1rem; margin: 0 auto; background: linear-gradient(to bottom, #6E5424, #D6AE62); }
-.lantern .lsvg { position: relative; display: block; width: 3.6rem; height: 7.44rem; z-index: 1; }
-.lantern .glowwrap { position: absolute; left: 50%; width: 13rem; height: 13rem; margin-left: -6.5rem; transition: opacity 40s linear; }
-.lantern .glow { width: 13rem; height: 13rem; border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,198,105,0.50) 0%, rgba(255,186,96,0.16) 38%, rgba(255,186,96,0) 68%);
-  animation: flicker 3.1s ease-in-out infinite alternate; }
-@keyframes swing { from { transform: rotate(-2.3deg); } to { transform: rotate(2.3deg); } }
-@keyframes flicker { 0% { opacity: 0.72; } 45% { opacity: 1; } 100% { opacity: 0.84; } }
-
-#arcade { position: absolute; left: 0; top: 39.2rem; width: 96rem; height: 14.8rem; z-index: 6; }
-#arcade svg { display: block; width: 96rem; height: 14.8rem; }
-.mer, .wall { fill: #11171B; fill-opacity: 0.96; }
-.courses rect { fill: #EADFC6; fill-opacity: 0.05; }
-.bay-fill { fill: #061018; fill-opacity: 0.50; }
-.bay-fill.next { fill: #256B57; fill-opacity: 0.72; }
-.bay-pat { opacity: 0.08; }
-.bay-pat.next { opacity: 0.30; }
-.vl { fill: none; stroke: #EADFC6; stroke-opacity: 0.55; stroke-width: 7; stroke-dasharray: 6 6; }
-.vd { fill: none; stroke: #222B30; stroke-width: 7; stroke-dasharray: 6 6; stroke-dashoffset: 6; }
-.vline { fill: none; stroke: #D6AE62; stroke-opacity: 0.6; stroke-width: 1.1; }
-.floor { fill: #0B1013; }
-.floorline, .topline { fill: #D6AE62; fill-opacity: 0.5; }
-
-/* ===== النصوص ===== */
-#ui { position: absolute; left: 0; top: 0; width: 96rem; height: 54rem; z-index: 7; transition: transform 3s ease; }
-.shadow { text-shadow: 0 0.12rem 0.7rem rgba(0,0,0,0.5); }
-
-#cityBlock { position: absolute; top: 2.5rem; right: 10.5rem; text-align: right; }
-#city { font-size: 2.7rem; font-weight: 600; line-height: 1.15; }
-#country { font-size: 1.35rem; opacity: 0.78; line-height: 1.3; }
-#status { margin-top: 0.55rem; font-size: 1.12rem; line-height: 1.3; white-space: nowrap; }
-#status svg { width: 1.2rem; height: 1.2rem; vertical-align: -0.22rem; margin-left: 0.35rem; }
-#status.on { color: #BFE3C9; }
-#status.off { color: #F2C98A; }
-#status.warn { color: #F2C98A; }
-
-#dateBlock { position: absolute; top: 2.5rem; left: 10.5rem; text-align: left; }
-#dayName { font-size: 2.3rem; font-weight: 600; line-height: 1.2; }
-#gDate { font-size: 1.4rem; line-height: 1.45; }
-#hDate { font-size: 1.4rem; line-height: 1.35; color: #E7C47C; }
-
-#clock { position: absolute; top: 8.2rem; left: 0; width: 96rem; text-align: center; direction: ltr; unicode-bidi: embed; line-height: 1; white-space: nowrap; }
+/* الساعة */
+#clock { position: absolute; top: 8.45rem; left: 0; width: 100%; text-align: center; direction: ltr; unicode-bidi: embed; line-height: 1; white-space: nowrap; }
 #clock span { display: inline-block; }
-#ckHm { font-size: 8.6rem; font-weight: 600; letter-spacing: 0.02em; }
-#ckSec { font-size: 3.3rem; font-weight: 500; opacity: 0.66; margin-left: 0.5rem; }
-#ckAp { font-size: 2.8rem; font-weight: 500; color: #E7C47C; margin-right: 0.9rem; }
+#ckHm { font-size: 11.5rem; font-weight: 500; letter-spacing: 0.005em; padding: 0 0.06em; }
+#ckSec { font-size: 3.95rem; font-weight: 600; margin-left: 1.1rem; }
+#ckAp { font-family: 'Noto Naskh Arabic', serif; font-size: 2.5rem; font-weight: 500; color: #DDBE78; margin-right: 1.05rem; vertical-align: 1.9rem; }
 
-#countdown { position: absolute; top: 18.3rem; left: 0; width: 96rem; text-align: center; white-space: nowrap; }
-#cdLabel { font-size: 2rem; opacity: 0.9; }
-#cdTime { font-size: 3rem; font-weight: 600; margin-right: 0.6rem; display: inline-block; }
-#countdown.soon #cdTime { color: #F2D28E; animation: soon 1.6s ease-in-out infinite alternate; }
-@keyframes soon { from { opacity: 1; } to { opacity: 0.55; } }
+/* شريط العدّ التنازلي */
+#countdown { position: absolute; top: 20.85rem; left: 0; width: 100%; text-align: center; white-space: nowrap; }
+#cdBox { position: relative; display: inline-block; height: 4.45rem; line-height: 4.2rem; padding: 0 2rem; border: 0.13rem solid rgba(214,201,156,0.92); border-radius: 0.8rem;
+  background: linear-gradient(180deg, rgba(98,110,92,0.93) 0%, rgba(64,80,70,0.93) 45%, rgba(42,60,52,0.95) 100%);
+  box-shadow: 0 0.4rem 1.2rem rgba(0,0,0,0.45), inset 0 0.1rem 0 rgba(255,250,225,0.25); }
+#cdBox:before { content: ''; position: absolute; left: 18%; right: 18%; top: -0.13rem; height: 0.13rem;
+  background: linear-gradient(to right, rgba(255,226,150,0), rgba(255,240,190,1) 50%, rgba(255,226,150,0)); }
+#cdBox:after { content: ''; position: absolute; left: 22%; right: 22%; top: -1.5rem; height: 2.8rem;
+  background: radial-gradient(ellipse at center, rgba(255,222,140,0.38) 0%, rgba(255,222,140,0) 70%); }
+#cdLabel { font-size: 2.3rem; color: #F4F1E6; vertical-align: middle; }
+#cdTime { font-size: 3.25rem; font-weight: 700; margin-right: 0.8rem; vertical-align: middle; }
+#countdown.soon #cdTime { animation: soon 1.6s ease-in-out infinite alternate; }
+@keyframes soon { from { opacity: 1; } to { opacity: 0.5; } }
 
-#verse { position: absolute; top: 24rem; left: 23rem; width: 50rem; text-align: center; opacity: 0; transform: translateY(0.6rem); transition: opacity 0.9s ease, transform 0.9s ease; }
+/* الآية */
+#verse { position: absolute; top: 26.15rem; left: 20rem; width: 56rem; text-align: center; opacity: 0; transform: translateY(0.6rem); transition: opacity 1.1s ease, transform 1.1s ease; }
 #verse.show { opacity: 1; transform: translateY(0); }
-#verseText { font-size: 2.3rem; line-height: 1.75; }
-#verseText.mid { font-size: 2.05rem; }
-#verseText.long { font-size: 1.85rem; }
-#verseRef { margin-top: 0.4rem; font-size: 1.2rem; color: #E7C47C; }
+#verseText { font-family: 'Amiri', 'Noto Naskh Arabic', serif; font-size: 3rem; line-height: 1.6; color: #E8DFC6; text-shadow: 0 0.15rem 0.6rem rgba(0,0,0,0.6); }
+#verseRef { margin-top: 0.15rem; font-size: 1.4rem; color: #DCD3BA; }
 
-.bay { position: absolute; top: 40.8rem; width: 13.2rem; height: 11.8rem; text-align: center; }
-.bay-icon { position: absolute; top: 1.5rem; left: 50%; width: 2.5rem; height: 2.5rem; margin-left: -1.25rem; color: #D6AE62; }
-.bay-icon svg { display: block; width: 2.5rem; height: 2.5rem; }
-.bay-name { position: absolute; top: 4.3rem; left: 0; width: 13.2rem; font-size: 1.95rem; font-weight: 500; line-height: 1.2; transition: opacity 1s; }
-.bay-time { position: absolute; top: 6.7rem; left: 0; width: 13.2rem; font-size: 2.9rem; font-weight: 600; line-height: 1.2; white-space: nowrap; transition: opacity 1s, color 1s; }
-.bay-time .ap { font-size: 1.45rem; font-weight: 500; opacity: 0.8; }
-.bay.is-passed .bay-name, .bay.is-passed .bay-time, .bay.is-passed .bay-icon { opacity: 0.45; }
-.bay.is-next .bay-time { color: #F6D893; }
-.bay.is-next .bay-icon { color: #F6D893; }
+/* زر صوت الأذان */
+#mic { display: none; position: absolute; left: 73.78rem; top: 19.5rem; width: 13.125rem; height: 13.125rem; }
+#mic .glow { position: absolute; left: -2rem; top: -2rem; width: 17.125rem; height: 17.125rem; border-radius: 50%;
+  background: radial-gradient(circle, rgba(110,190,235,0.22) 0%, rgba(110,190,235,0.06) 45%, rgba(110,190,235,0) 70%); }
+#mic .rings { position: absolute; left: 0; top: 0; width: 13.125rem; height: 13.125rem; will-change: transform; }
+#mic .rings svg, #mic .disc svg { display: block; width: 100%; height: 100%; }
+#mic .r1 { animation: spin 40s linear infinite; }
+#mic .r2 { animation: spin 64s linear infinite reverse; }
+#mic .disc { position: absolute; left: 0; top: 0; width: 13.125rem; height: 13.125rem; }
+.spec { position: absolute; top: 4.85rem; height: 3.4rem; direction: ltr; }
+.spec i { position: absolute; top: 50%; width: 0.14rem; border-radius: 0.09rem; transform: scaleY(0.25); opacity: 0.35; }
+.spec.l i { background: linear-gradient(to top, rgba(214,180,110,0.1), rgba(250,236,196,0.95) 50%, rgba(214,180,110,0.1)); }
+.spec.r i { background: linear-gradient(to top, rgba(120,190,235,0.1), rgba(226,240,252,0.95) 50%, rgba(120,190,235,0.1)); }
+#mic.on .spec i { opacity: 1; transform: scaleY(1); animation: eq 1.2s ease-in-out infinite alternate; }
+@keyframes eq { from { transform: scaleY(0.35); } to { transform: scaleY(1); } }
+#mic.idle .spec i { opacity: 0.85; transform: scaleY(0.8); }
+#mic.off .rings, #mic.off .glow { opacity: 0.4; }
 
-#demoBadge { position: absolute; left: 1.2rem; bottom: 0.4rem; font-size: 1rem; color: #F2C98A; display: none; z-index: 8; }
+/* بطاقات المواقيت الزجاجية */
+.bay { position: absolute; top: 38.15rem; width: 13.125rem; height: 10.5rem; text-align: center; border-radius: 0.95rem; border: 0.14rem solid rgba(198,192,172,0.8);
+  background: linear-gradient(180deg, rgba(92,94,86,0.8) 0%, rgba(48,49,45,0.84) 36%, rgba(27,28,26,0.88) 62%, rgba(46,44,36,0.88) 100%);
+  box-shadow: 0 0.6rem 1.6rem rgba(0,0,0,0.55), inset 0 0.12rem 0 rgba(255,255,255,0.22), inset 0 -0.5rem 1.1rem rgba(222,178,96,0.12); }
+.bay:before { content: ''; position: absolute; left: -2.6rem; right: -2.6rem; bottom: -2.6rem; height: 6.4rem; z-index: -1;
+  background: radial-gradient(2.2rem 1.7rem at left 2.75rem top 3.55rem, rgba(244,202,116,0.2) 0%, rgba(244,202,116,0) 100%),
+              radial-gradient(2.2rem 1.7rem at right 2.75rem top 3.55rem, rgba(244,202,116,0.2) 0%, rgba(244,202,116,0) 100%); }
+.bay-name { position: absolute; top: 0.55rem; left: 0; width: 100%; font-size: 2.45rem; font-weight: 700; line-height: 1.45; color: #CFB482; }
+.bay-sub { position: absolute; top: 3.55rem; left: 0; width: 100%; font-size: 1.3rem; line-height: 1.4; color: #F7F2E4; display: none; }
+.bay-time { position: absolute; top: 4.55rem; left: 0; width: 100%; font-size: 4.55rem; font-weight: 500; line-height: 1.12; white-space: nowrap; }
+.bay-time .ap { font-family: 'Noto Naskh Arabic', serif; font-size: 1.6rem; font-weight: 500; color: #CFB482; -webkit-text-fill-color: #CFB482; margin-left: 0.2rem; }
+.bay-orn { position: absolute; left: 50%; top: -2.3rem; width: 5rem; height: 2.73rem; margin-left: -2.5rem; display: none; }
+.bay-orn svg { display: block; width: 100%; height: 100%; }
+.bay.is-next { border-color: #F0D28E;
+  background: linear-gradient(180deg, rgba(112,102,74,0.9) 0%, rgba(70,61,40,0.92) 38%, rgba(52,44,27,0.92) 64%, rgba(98,78,42,0.92) 100%);
+  box-shadow: 0 0 1.3rem rgba(246,206,120,0.6), 0 0 3.4rem rgba(246,206,120,0.26), 0 0.6rem 1.6rem rgba(0,0,0,0.5),
+              inset 0 0.12rem 0 rgba(255,240,200,0.55), inset 0 0 1.5rem rgba(246,206,120,0.28); }
+.bay.is-next:before { background: radial-gradient(2.5rem 2.3rem at left 2.75rem top 3.3rem, rgba(255,214,128,0.68) 0%, rgba(255,214,128,0) 100%),
+                                  radial-gradient(2.5rem 2.3rem at right 2.75rem top 3.3rem, rgba(255,214,128,0.68) 0%, rgba(255,214,128,0) 100%); }
+.bay.is-next:after { content: ''; position: absolute; left: 6%; right: 6%; top: -0.14rem; height: 0.14rem;
+  background: linear-gradient(to right, rgba(255,232,170,0), #FFF3CC 50%, rgba(255,232,170,0)); box-shadow: 0 0 0.8rem rgba(255,220,140,0.9); }
+.bay.is-next .bay-name { top: 0.3rem; color: #F2DDA4; }
+.bay.is-next .bay-sub { display: block; }
+.bay.is-next .bay-time { top: 5.05rem; font-size: 4.3rem; }
+.bay.is-next .bay-orn { display: block; }
+
+#demoBadge { position: absolute; left: 2.6rem; bottom: 0.3rem; font-size: 1.05rem; color: #C9B58A; display: none; z-index: 8; }
 
 /* ===== الطبقات المنبثقة ===== */
-.overlay { position: absolute; left: 0; top: 0; width: 96rem; height: 54rem; z-index: 30; opacity: 0; visibility: hidden; transition: opacity 1.2s ease, visibility 0s linear 1.2s; }
+.overlay { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 30; opacity: 0; visibility: hidden; transition: opacity 1.2s ease, visibility 0s linear 1.2s; }
 .overlay.show { opacity: 1; visibility: visible; transition: opacity 1.2s ease; }
 
-#adhan { background: radial-gradient(ellipse 62% 72% at 50% 40%, rgba(20,64,54,0.95) 0%, rgba(4,10,16,0.97) 72%); }
-#adGlow { position: absolute; left: 18rem; top: -4rem; width: 60rem; height: 50rem; border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(214,174,98,0.30) 0%, rgba(214,174,98,0) 62%);
-  animation: breathe 4.6s ease-in-out infinite alternate; }
-@keyframes breathe { from { opacity: 0.5; transform: scale(0.94); } to { opacity: 1; transform: scale(1.04); } }
-#adArch { position: absolute; left: 26rem; top: 3.5rem; width: 44rem; height: 35rem; }
-#adArch path { fill: none; stroke: #D6AE62; stroke-width: 2; stroke-linecap: round; }
-#adArch path.thin { stroke-width: 1; stroke-opacity: 0.5; }
-#adKicker { position: absolute; top: 14.2rem; left: 0; width: 96rem; text-align: center; font-size: 2.3rem; opacity: 0.9; }
-#adTitle { position: absolute; top: 17.4rem; left: 0; width: 96rem; text-align: center; font-size: 7rem; font-weight: 700; color: #F2D28E; line-height: 1.2; }
-#adTime { position: absolute; top: 27.6rem; left: 0; width: 96rem; text-align: center; font-size: 2.8rem; font-weight: 500; opacity: 0.85; }
-#adTime .ap { font-size: 1.6rem; }
-#adDua { position: absolute; top: 40.2rem; left: 20rem; width: 56rem; text-align: center; opacity: 0; transition: opacity 1.6s ease; }
+#adhan { background: radial-gradient(ellipse 34% 60% at 50% 42%, rgba(16,52,43,0.96) 0%, rgba(4,20,16,0.97) 60%, rgba(1,6,5,0.985) 100%); }
+#adArch { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+#adArch path { fill: none; stroke: #E6CF94; stroke-width: 1.6; stroke-linecap: round; }
+#adArch path.thin { stroke-width: 0.9; stroke-opacity: 0.4; }
+#adCrescent { position: absolute; left: 50%; margin-left: -7.03rem; top: 0.6rem; width: 14.0625rem; height: 10.3125rem; }
+#adKicker { position: absolute; top: 12.2rem; left: 0; width: 100%; text-align: center; font-size: 2.6rem; color: #F2EFE6; }
+#adTitle { position: absolute; top: 15.2rem; left: 0; width: 100%; text-align: center; font-size: 7.4rem; font-weight: 700; line-height: 1.4; }
+#adTime { position: absolute; top: 27rem; left: 0; width: 100%; text-align: center; font-size: 3.6rem; font-weight: 600; }
+#adTime .ap { font-family: 'Noto Naskh Arabic', serif; font-size: 2rem; -webkit-text-fill-color: #DDBE78; color: #DDBE78; }
+#adDua { position: absolute; top: 35.4rem; left: 50%; margin-left: -23rem; width: 46rem; text-align: center; opacity: 0; transition: opacity 1.6s ease; }
 #adDua.show { opacity: 1; }
-#adDuaText { font-size: 2.15rem; line-height: 1.75; }
-#adDuaRef { font-size: 1.2rem; color: #E7C47C; margin-top: 0.3rem; }
-#adHint { position: absolute; bottom: 1.6rem; left: 0; width: 96rem; text-align: center; font-size: 1.3rem; opacity: 0.7; }
+#adDuaText { font-family: 'Amiri', 'Noto Naskh Arabic', serif; font-size: 2.35rem; line-height: 1.55; color: #E8DFC6; }
+#adDuaRef { font-size: 1.45rem; color: #CDB98E; margin-top: 0.3rem; }
+#adHint { position: absolute; bottom: 1.4rem; left: 0; width: 100%; text-align: center; font-size: 1.6rem; color: #CFC8B4; }
 
-#splash { background: rgba(3,8,14,0.6); }
-#splashCard { position: absolute; left: 26rem; top: 6.5rem; width: 44rem; height: 41rem; text-align: center; }
-#splashCard svg.frame { position: absolute; left: 0; top: 0; width: 44rem; height: 41rem; }
-#splashIcon { position: absolute; top: 7.2rem; left: 50%; width: 4rem; height: 4rem; margin-left: -2rem; color: #E7C47C; }
-#splashTitle { position: absolute; top: 11.8rem; left: 0; width: 44rem; font-size: 3.3rem; font-weight: 600; line-height: 1.2; }
-#splashText { position: absolute; top: 17.2rem; left: 5rem; width: 34rem; font-size: 1.75rem; line-height: 1.6; }
-#startBtn { position: absolute; top: 24.6rem; left: 50%; width: 22rem; margin-left: -11rem; padding: 0.75rem 0; font-family: 'Reem Kufi', 'Tahoma', sans-serif; font-size: 1.9rem; font-weight: 600; color: #F3E9D2; background: #2E7D66; border: 0.12rem solid #D6AE62; border-radius: 0.8rem; outline: none; cursor: pointer; }
-#startBtn:focus { box-shadow: 0 0 0 0.35rem rgba(214,174,98,0.55); }
-#splashKeys { position: absolute; top: 31.4rem; left: 5rem; width: 34rem; font-size: 1.3rem; line-height: 1.6; opacity: 0.75; }
+#splash { background: rgba(1,8,6,0.7); }
+#splashCard { position: absolute; left: 50%; margin-left: -23rem; top: 8.5rem; width: 46rem; height: 37rem; text-align: center; border-radius: 1.2rem; border: 0.14rem solid rgba(226,206,150,0.92);
+  background: linear-gradient(180deg, rgba(70,82,70,0.97) 0%, rgba(34,48,42,0.98) 45%, rgba(16,30,26,0.98) 100%);
+  box-shadow: 0 0 2.4rem rgba(246,206,120,0.25), 0 1.4rem 3rem rgba(0,0,0,0.6), inset 0 0.12rem 0 rgba(255,244,210,0.3); }
+#splashIcon { position: absolute; top: 0.6rem; left: 50%; width: 11rem; height: 8.07rem; margin-left: -5.5rem; }
+#splashTitle { position: absolute; top: 9.2rem; left: 0; width: 46rem; font-size: 3.5rem; font-weight: 700; line-height: 1.4; }
+#splashText { position: absolute; top: 15.2rem; left: 3rem; width: 40rem; font-size: 2rem; line-height: 1.6; color: #F2EFE6; }
+#startBtn { position: absolute; top: 21.6rem; left: 50%; width: 24rem; margin-left: -12rem; padding: 0.45rem 0 0.65rem; font-family: 'Noto Naskh Arabic', serif; font-size: 2.3rem; font-weight: 700;
+  color: #2A1C06; border: 0.1rem solid #F6DC96; border-radius: 0.8rem; outline: none; cursor: pointer;
+  background: linear-gradient(180deg, #F8E3A6 0%, #E2BE72 55%, #C59A4E 100%); box-shadow: 0 0 1.6rem rgba(240,200,110,0.4); }
+#startBtn:focus { box-shadow: 0 0 0 0.35rem rgba(246,220,150,0.45), 0 0 2.4rem rgba(240,200,110,0.65); }
+#splashKeys { position: absolute; top: 29rem; left: 3rem; width: 40rem; font-size: 1.5rem; line-height: 1.6; color: #CFC8B4; }
+
+/* ===== أيقونات Lucide ===== */
+.lu { display: inline-block; width: 1em; height: 1em; vertical-align: -0.14em; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.bay-ic { display: inline-block; width: 1.7rem; height: 1.7rem; margin-left: 0.4rem; vertical-align: -0.12rem; color: #CFB482; }
+.bay-ic .lu { display: block; width: 100%; height: 100%; }
+.bay.is-next .bay-ic { color: #F6DFA6; }
+
+/* ===== ثيم ليل الجامع ===== */
+#sky { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 2; display: none; }
+#sky svg { display: block; width: 100%; height: 100%; }
+.twk2 { animation: tw 4s ease-in-out infinite alternate; }
+.th-nightsky #sky { display: block; }
+.th-nightsky #scene, .th-nightsky #medal { display: none; }
+
+/* ===== التلميحات أسفل الشاشة ===== */
+#hints { position: absolute; left: 0; width: 100%; bottom: 0.85rem; text-align: center; z-index: 8; transition: opacity 0.6s; }
+.hint { display: inline-block; margin: 0 0.6rem; padding: 0.15rem 1.15rem 0.3rem; border-radius: 2rem; border: 0.1rem solid rgba(214,201,156,0.45);
+  background: rgba(10,16,14,0.5); color: #E7DEC4; font-size: 1.4rem; line-height: 2.1rem; cursor: pointer; }
+.hint .lu { width: 1.4rem; height: 1.4rem; margin-left: 0.4rem; vertical-align: -0.25rem; color: #E2C27A; }
+
+/* ===== رف القرآن والأذكار ===== */
+#bays { transition: opacity 0.5s ease, transform 0.5s ease; }
+.shelf-open #bays { opacity: 0; transform: translateY(2rem); }
+.shelf-open #hints { opacity: 0; }
+#shelf { position: absolute; left: 0; width: 100%; top: 35.2rem; height: 16.6rem; z-index: 9; opacity: 0; visibility: hidden; transform: translateY(2rem);
+  transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s linear 0.5s; }
+.shelf-open #shelf { opacity: 1; visibility: visible; transform: translateY(0); transition: opacity 0.5s ease, transform 0.5s ease; }
+#shelfTitle { position: absolute; top: 0; right: 4rem; font-size: 1.6rem; color: #D9C59E; }
+#shelfTitle .lu { color: #E2C27A; margin-left: 0.4rem; }
+#shelfKeys { position: absolute; top: 0; left: 4rem; font-size: 1.35rem; color: #BDB49E; }
+#shelfRow { position: absolute; left: 0; right: 0; top: 2.4rem; bottom: 0; overflow-x: auto; overflow-y: hidden; white-space: nowrap; direction: ltr;
+  padding: 1.2rem 3rem 0; scrollbar-width: none; -ms-overflow-style: none; }
+#shelfRow::-webkit-scrollbar { display: none; }
+.sc { position: relative; display: inline-block; vertical-align: top; direction: rtl; width: 14.2rem; height: 11.6rem; margin: 0 0.55rem; border-radius: 0.95rem;
+  text-align: center; white-space: normal; cursor: pointer; border: 0.14rem solid rgba(198,192,172,0.75);
+  box-shadow: 0 0.6rem 1.6rem rgba(0,0,0,0.55), inset 0 0.12rem 0 rgba(255,255,255,0.2);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+.sc-ic { width: 3.1rem; height: 3.1rem; margin: 1.35rem auto 0.35rem; }
+.sc-ic .lu { display: block; width: 100%; height: 100%; }
+.sc-t { font-size: 2.05rem; font-weight: 700; line-height: 1.35; color: #F1E6C6; }
+.sc-s { font-size: 1.25rem; line-height: 1.5; color: #CFC6AE; padding: 0 0.6rem; height: 1.9rem; overflow: hidden; }
+.sc.focus { border-color: #F0D28E; transform: translateY(-0.6rem);
+  box-shadow: 0 0 1.3rem rgba(246,206,120,0.6), 0 0 3rem rgba(246,206,120,0.25), 0 0.6rem 1.6rem rgba(0,0,0,0.5), inset 0 0 1.2rem rgba(246,206,120,0.22); }
+
+/* ===== شاشات القرآن والأذكار والسور والإعدادات ===== */
+#adhan { z-index: 40; }
+.ovbg { background: radial-gradient(ellipse 34% 60% at 50% 42%, #0F3229 0%, #08221C 60%, #020D0A 100%); }
+.ov-arch { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+.ov-arch path { fill: none; stroke: #E6CF94; stroke-width: 1.4; }
+.ov-arch path.thin { stroke-width: 0.9; stroke-opacity: 0.35; }
+.ov-cres { position: absolute; left: 50%; margin-left: -7.03rem; top: 0.6rem; width: 14.0625rem; height: 10.3125rem; }
+.ov-cres svg { display: block; width: 100%; height: 100%; }
+.ov-head { position: absolute; top: 10.4rem; left: 0; width: 100%; text-align: center; }
+.ov-title { font-size: 3.3rem; font-weight: 700; line-height: 1.4; }
+.ov-sub { font-size: 1.65rem; line-height: 1.5; color: #D8CFB4; }
+.ov-sub .lu { color: #E2C27A; margin-left: 0.3rem; }
+.ov-clock { position: absolute; top: 2.6rem; left: 3.6rem; text-align: left; direction: rtl; }
+.ov-clock .t { font-size: 3.1rem; font-weight: 600; line-height: 1.1; color: #EBD08C; text-align: left; }
+.ov-clock .t .ap { font-family: 'Noto Naskh Arabic', serif; font-size: 1.5rem; }
+.ov-clock .n { font-size: 1.45rem; color: #D8CFB4; text-align: left; }
+.ov-box { position: absolute; top: 17.6rem; left: 50%; width: 62rem; margin-left: -31rem; height: 20rem; display: flex; align-items: center; justify-content: center; text-align: center; }
+#rdText, #akText { font-family: 'Amiri', 'Noto Naskh Arabic', serif; color: #F1E8CF; line-height: 1.85; text-shadow: 0 0.15rem 0.7rem rgba(0,0,0,0.6); transition: opacity 0.22s ease; width: 100%; }
+#akText { font-family: 'Noto Naskh Arabic', 'Amiri', serif; line-height: 1.75; }
+#akText.quran { font-family: 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.85; }
+#rdText.fade { opacity: 0; }
+.am { font-family: 'Amiri', serif; color: #E2C27A; }
+.ov-info { position: absolute; bottom: 9.4rem; left: 50%; width: 44rem; margin-left: -22rem; text-align: center; font-size: 1.6rem; color: #D8CFB4; }
+.bar { height: 0.3rem; margin-top: 0.6rem; border-radius: 0.15rem; background: rgba(255,255,255,0.13); overflow: hidden; }
+.bar i { display: block; float: right; height: 100%; width: 0; border-radius: 0.15rem; background: linear-gradient(to left, #FFF3CC, #D6AD62); transition: width 0.4s ease; }
+.ov-state { position: absolute; top: 38rem; left: 0; width: 100%; text-align: center; font-size: 1.6rem; color: #F2D89A; }
+.ctl { position: absolute; bottom: 2.4rem; left: 0; width: 100%; text-align: center; white-space: nowrap; }
+.cb { display: inline-block; vertical-align: middle; margin: 0 0.6rem; width: 5rem; height: 5rem; border-radius: 50%; border: 0.12rem solid rgba(214,201,156,0.7);
+  background: rgba(20,26,24,0.6); color: #EBD496; cursor: pointer; text-align: center; }
+.cb .lu { width: 2.3rem; height: 2.3rem; margin-top: 1.2rem; }
+.cb.main { width: 6.6rem; height: 6.6rem; border-color: #F6DC96; color: #2A1C06; background: linear-gradient(180deg, #F8E3A6 0%, #E2BE72 55%, #C59A4E 100%); box-shadow: 0 0 1.6rem rgba(240,200,110,0.4); }
+.cb.main .lu { width: 3rem; height: 3rem; margin-top: 1.65rem; }
+.cb.pill { width: auto; height: 4rem; border-radius: 2rem; padding: 0 1.4rem; font-size: 1.5rem; line-height: 3.7rem; color: #E7DEC4; }
+.cb.pill .lu { width: 1.6rem; height: 1.6rem; margin: 0 0 0 0.45rem; vertical-align: -0.3rem; color: #E2C27A; }
+.flip .lu { transform: scaleX(-1); }
+
+#akCount { position: absolute; bottom: 7.6rem; left: 50%; width: 9.2rem; height: 9.2rem; margin-left: -4.6rem; cursor: pointer; }
+#akCount svg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+#akNum { position: absolute; top: 1.5rem; left: 0; width: 100%; text-align: center; font-size: 3.6rem; font-weight: 600; line-height: 1.2; color: #F2DCA0; }
+#akOf { position: absolute; top: 6rem; left: 0; width: 100%; text-align: center; font-size: 1.2rem; color: #D8CFB4; white-space: nowrap; }
+#akCount.tap { animation: tap 0.35s ease; }
+@keyframes tap { 0% { transform: scale(1); } 40% { transform: scale(1.08); } 100% { transform: scale(1); } }
+#akRef { position: absolute; top: 35rem; left: 0; width: 100%; text-align: center; font-size: 1.45rem; color: #CDB98E; }
+#adhkar .ov-box { height: 17rem; }
+
+#picker { background: rgba(2,10,8,0.94); }
+.pk-head { position: absolute; top: 2.2rem; left: 0; width: 100%; text-align: center; }
+#pkGrid { position: absolute; top: 9.8rem; bottom: 2rem; left: 4rem; right: 4rem; overflow-y: auto; direction: rtl; padding: 0.6rem; scrollbar-width: none; }
+#pkGrid::-webkit-scrollbar { display: none; }
+.pt { display: inline-block; vertical-align: top; width: 15.4%; margin: 0 0.55% 1rem; height: 5.4rem; border-radius: 0.8rem; border: 0.12rem solid rgba(198,192,172,0.45);
+  background: linear-gradient(180deg, rgba(70,72,66,0.7), rgba(26,27,25,0.85)); cursor: pointer; text-align: right; white-space: nowrap; overflow: hidden; }
+.pt-n { display: inline-block; width: 3.6rem; text-align: center; font-size: 1.6rem; color: #D6B46C; line-height: 5.2rem; }
+.pt-t { font-size: 1.9rem; font-weight: 700; color: #F1E6C6; line-height: 5.2rem; }
+.pt.focus { border-color: #F0D28E; box-shadow: 0 0 1rem rgba(246,206,120,0.55), inset 0 0 1rem rgba(246,206,120,0.2); }
+.x-btn { position: absolute; top: 2.6rem; right: 3.6rem; width: 4.4rem; height: 4.4rem; border-radius: 50%; border: 0.12rem solid rgba(214,201,156,0.6); color: #EBD496; text-align: center; cursor: pointer; background: rgba(20,26,24,0.6); z-index: 2; }
+.x-btn .lu { width: 2rem; height: 2rem; margin-top: 1.08rem; }
+
+#settings { background: rgba(1,8,6,0.72); }
+.st-panel { position: absolute; left: 50%; top: 50%; width: 62rem; margin-left: -31rem; height: 40rem; margin-top: -20rem; border-radius: 1.2rem; border: 0.14rem solid rgba(226,206,150,0.92);
+  background: linear-gradient(180deg, rgba(70,82,70,0.97) 0%, rgba(34,48,42,0.98) 45%, rgba(16,30,26,0.98) 100%);
+  box-shadow: 0 0 2.4rem rgba(246,206,120,0.25), 0 1.4rem 3rem rgba(0,0,0,0.6), inset 0 0.12rem 0 rgba(255,244,210,0.3); }
+.st-panel .x-btn { top: 1.6rem; right: 1.6rem; }
+.st-head { padding-top: 2rem; text-align: center; }
+#stRows { margin-top: 1.6rem; }
+.st-row { position: relative; height: 6rem; margin: 0 2.6rem; border-top: 0.08rem solid rgba(214,201,156,0.18); cursor: pointer; }
+.st-label { position: absolute; right: 0.8rem; top: 0; line-height: 6rem; font-size: 2rem; color: #F1E6C6; }
+.st-label .lu { color: #E2C27A; margin-left: 0.5rem; }
+.st-val { position: absolute; left: 0.8rem; top: 1.05rem; height: 3.9rem; width: 31rem; border-radius: 2rem; border: 0.1rem solid rgba(214,201,156,0.45); text-align: center; line-height: 3.7rem; font-size: 1.75rem; color: #F4F1E6; white-space: nowrap; }
+.st-arr { position: absolute; top: 0; width: 3.4rem; height: 100%; color: #E2C27A; }
+.st-arr:first-child { right: 0.2rem; } .st-arr:last-child { left: 0.2rem; }
+.st-arr .lu { width: 1.8rem; height: 1.8rem; margin-top: 0.95rem; }
+.st-v { display: inline-block; max-width: 23rem; overflow: hidden; vertical-align: top; }
+.sw { display: inline-block; width: 1.5rem; height: 1.5rem; border-radius: 50%; margin-left: 0.6rem; vertical-align: -0.2rem; border: 0.1rem solid #E2C27A; }
+.st-row.focus .st-val { border-color: #F0D28E; background: rgba(246,206,120,0.13); box-shadow: 0 0 1rem rgba(246,206,120,0.45); }
+.st-foot { position: absolute; bottom: 1.5rem; left: 0; width: 100%; text-align: center; font-size: 1.35rem; color: #BDB49E; }
+
+#toast { position: absolute; left: 50%; bottom: 7rem; z-index: 60; transform: translateX(-50%); padding: 0.45rem 1.6rem 0.6rem; border-radius: 2rem; white-space: nowrap;
+  background: rgba(8,12,10,0.88); border: 0.1rem solid rgba(214,201,156,0.6); color: #F2EFE6; font-size: 1.6rem; opacity: 0; transition: opacity 0.4s; pointer-events: none; }
+#toast.show { opacity: 1; }
+#toast .lu { color: #E2C27A; }
+
+/* ===== الوضع العمودي (موبايل) ===== */
+#stage.portrait { width: 54rem; height: 96rem; margin-left: -27rem; margin-top: -48rem; }
+.portrait #crescent { left: 19.97rem; top: 0.9rem; }
+.portrait #dateBlock { top: 2.3rem; left: 2.2rem; }
+.portrait #cityBlock { top: 2.3rem; right: 2.2rem; }
+.portrait #dayName, .portrait #city { font-size: 2.1rem; }
+.portrait #gDate, .portrait #hDate, .portrait #country { font-size: 1.5rem; }
+.portrait #status { font-size: 1.3rem; }
+.portrait #speaker, .portrait #mic { display: none; }
+.portrait #clock { top: 13.4rem; }
+.portrait #countdown { top: 26.4rem; }
+.portrait #verse { top: 32.6rem; left: 3rem; width: 48rem; }
+.portrait #medal { left: 8.25rem; top: 18.5rem; }
+.portrait .bay { width: 15.6rem; }
+.portrait #hints { bottom: 2.2rem; }
+.portrait .hint { font-size: 1.6rem; line-height: 2.5rem; }
+.portrait #shelf { top: 55rem; height: 38rem; }
+.portrait #shelfTitle { right: 2.4rem; } .portrait #shelfKeys { display: none; }
+.portrait #shelfRow { white-space: normal; overflow-x: hidden; overflow-y: auto; direction: rtl; padding: 1.4rem 1.2rem 2rem; }
+.portrait .sc { width: 15.2rem; margin: 0.6rem 0.6rem 0.9rem; }
+.portrait .ov-head { top: 11.6rem; }
+.portrait .ov-clock { top: 2.4rem; left: 2.2rem; }
+.portrait .ov-clock .t { font-size: 2.5rem; }
+.portrait .ov-box, .portrait #adhkar .ov-box { top: 21rem; width: 44rem; margin-left: -22rem; height: 46rem; }
+.portrait .ov-state, .portrait #akRef { top: 68rem; }
+.portrait .ov-info { bottom: 15rem; width: 44rem; }
+.portrait .ctl { bottom: 5rem; }
+.portrait #akCount { bottom: 14rem; }
+.portrait #pkGrid { left: 1.6rem; right: 1.6rem; top: 11rem; }
+.portrait .pt { width: 31.2%; }
+.portrait .st-panel { width: 50rem; margin-left: -25rem; }
+.portrait .st-val { width: 26rem; }
+.portrait .st-v { max-width: 18rem; }
+.portrait #adCrescent { top: 8rem; }
+.portrait #adKicker { top: 21rem; } .portrait #adTitle { top: 24rem; } .portrait #adTime { top: 36rem; } .portrait #adDua { top: 50rem; }
+.portrait #splashCard { top: 29.5rem; }
+.portrait #toast { bottom: 12rem; }
+
+/* مستوى اللمعة: ?shine=0 أقل، ?shine=2 أكثر */
+.shine-0 .twk, .shine-0 .gl { animation: none !important; }
+.shine-0 .gl { opacity: 0.5; }
+.shine-2 .bay.is-next { box-shadow: 0 0 1.8rem rgba(246,206,120,0.8), 0 0 4.4rem rgba(246,206,120,0.4), 0 0.6rem 1.6rem rgba(0,0,0,0.5), inset 0 0.12rem 0 rgba(255,240,200,0.6), inset 0 0 1.8rem rgba(246,206,120,0.35); }
 
 @media (prefers-reduced-motion: reduce) {
-  .lantern, .star, .wave, .cloud, #reflect, .glow, #adGlow, #countdown.soon #cdTime { animation: none !important; }
+  #medal, .gl, #crescent, .twk, .halo, .go, #mic .r1, #mic .r2, #mic.on .spec i, #countdown.soon #cdTime { animation: none !important; }
 }
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <radialGradient id="lgGlow" cx="50%" cy="55%" r="60%">
-      <stop offset="0" stop-color="#FFF1C4"/>
-      <stop offset="0.55" stop-color="#F6BE55"/>
-      <stop offset="1" stop-color="#B9701D"/>
+    <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FCEDBE"/><stop offset="0.38" stop-color="#EBCB82"/><stop offset="0.7" stop-color="#B98B42"/><stop offset="1" stop-color="#EACB86"/>
+    </linearGradient>
+    <linearGradient id="gGoldV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FCEDBE"/><stop offset="0.45" stop-color="#E2BF73"/><stop offset="1" stop-color="#A97C35"/>
+    </linearGradient>
+    <linearGradient id="gStar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF6D6"/><stop offset="0.55" stop-color="#EED292"/><stop offset="1" stop-color="#C9A056"/>
+    </linearGradient>
+    <radialGradient id="gHalo" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#FFE3A0" stop-opacity="0.5"/><stop offset="0.45" stop-color="#F2CF85" stop-opacity="0.14"/><stop offset="1" stop-color="#F2CF85" stop-opacity="0"/>
     </radialGradient>
-    <pattern id="lgLattice" width="7" height="7" patternUnits="userSpaceOnUse">
-      <path d="M0 0L7 7M7 0L0 7" stroke="#5E4216" stroke-width="1.5"/>
-    </pattern>
+    <radialGradient id="gOrb" cx="45%" cy="40%" r="60%">
+      <stop offset="0" stop-color="#FFFBEA"/><stop offset="0.5" stop-color="#F6DA92"/><stop offset="1" stop-color="#C99A4A"/>
+    </radialGradient>
   </defs>
 </svg>
 
 <div id="stage">
-  <div id="skyA" class="sky"></div>
-  <div id="skyB" class="sky"></div>
-
-  <div id="skyWindow">
-    <div id="stars"></div>
-    <div id="clouds">
-      <div class="cloud" style="top:5.5rem;width:15rem;height:6rem;animation-duration:310s;animation-delay:-60s;opacity:0.55"><svg viewBox="0 0 200 80"><path d="M28 70a20 20 0 0 1 6-39 30 30 0 0 1 56-12 24 24 0 0 1 42 4 22 22 0 0 1 40 12 18 18 0 0 1 2 35z"/></svg></div>
-      <div class="cloud" style="top:13rem;width:10rem;height:4rem;animation-duration:380s;animation-delay:-250s;opacity:0.4"><svg viewBox="0 0 200 80"><path d="M28 70a20 20 0 0 1 6-39 30 30 0 0 1 56-12 24 24 0 0 1 42 4 22 22 0 0 1 40 12 18 18 0 0 1 2 35z"/></svg></div>
-      <div class="cloud" style="top:21rem;width:19rem;height:7.6rem;animation-duration:460s;animation-delay:-140s;opacity:0.35"><svg viewBox="0 0 200 80"><path d="M28 70a20 20 0 0 1 6-39 30 30 0 0 1 56-12 24 24 0 0 1 42 4 22 22 0 0 1 40 12 18 18 0 0 1 2 35z"/></svg></div>
-    </div>
-    <div id="sun"><div class="sun-halo"></div><div class="sun-core"></div></div>
-    <div id="moon"><div class="moon-halo"></div>
-      <svg class="moon-disc" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="#C8D2E0" fill-opacity="0.17"/><path id="moonLit" fill="#F4EEDC" d=""/></svg>
-    </div>
-  </div>
-
-  <div id="sea">
-    <div id="horizon"></div>
-    <div id="reflectWrap"><div id="reflect"></div></div>
-    <div id="waves"></div>
-  </div>
-
-  <svg id="bigArch" viewBox="0 0 960 540" aria-hidden="true">
-    <path class="ab-l" d="M210 392V170C210 104 330 70 480 36C630 70 750 104 750 170V392"/>
-    <path class="ab-d" d="M210 392V170C210 104 330 70 480 36C630 70 750 104 750 170V392"/>
-    <path class="ab-in" d="M219 392V171C219 109 335 77 480 45C625 77 741 109 741 171V392"/>
-    <path class="ab-out" d="M201 392V169C201 99 325 63 480 27C635 63 759 99 759 169V392"/>
-  </svg>
-
-  <div id="lanternL" class="lantern" style="left:5.4rem;animation-duration:6.6s"></div>
-  <div id="lanternR" class="lantern" style="left:90.6rem;animation-duration:7.9s;animation-delay:-2.4s"></div>
-
-  <div id="arcade"></div>
+  <div id="bgA" class="bg"></div>
+  <div id="bgB" class="bg"></div>
+  <div id="scene"></div>
+  <div id="sky"></div>
+  <div id="medal"></div>
+  <div id="glitter"></div>
+  <div id="vignette"></div>
 
   <div id="ui">
-    <div id="cityBlock" class="shadow">
-      <div id="city" class="kufi"></div>
+    <div id="crescent"></div>
+    <div id="dateBlock"><i class="rule"></i><span id="dayName"></span><span id="gDate"></span><span id="hDate"></span></div>
+    <div id="cityBlock"><i class="rule"></i>
+      <div id="city"></div>
       <div id="country"></div>
-      <div id="status"><span id="statusIcon"></span><span id="statusText"></span></div>
+      <div id="status"></div>
     </div>
-    <div id="dateBlock" class="shadow">
-      <div id="dayName" class="kufi"></div>
-      <div id="gDate"></div>
-      <div id="hDate"></div>
-    </div>
-    <div id="clock" class="kufi shadow"><span id="ckAp"></span><span id="ckHm"></span><span id="ckSec"></span></div>
-    <div id="countdown" class="shadow"><span id="cdLabel"></span><span id="cdTime" class="kufi"></span></div>
-    <div id="verse" class="shadow"><div id="verseText"></div><div id="verseRef"></div></div>
+    <div id="speaker"></div>
+    <div id="clock"><span id="ckAp"></span><span id="ckHm" class="num gold"></span><span id="ckSec" class="num gold"></span></div>
+    <div id="countdown"><span id="cdBox"><span id="cdLabel"></span><span id="cdTime" class="num pale"></span></span></div>
+    <div id="verse"><div id="verseText"></div><div id="verseRef"></div></div>
+    <div id="mic" class="off"></div>
     <div id="bays"></div>
+    <div id="hints"><span class="hint" id="hintShelf"><svg class="lu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>القرآن والأذكار</span><span class="hint" id="hintSet"><svg class="lu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>الإعدادات</span></div>
+    <div id="shelf">
+      <div id="shelfTitle"><svg class="lu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14"/><path d="M16 12h2"/><path d="M16 8h2"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/><path d="M6 12h2"/><path d="M6 8h2"/></svg>القرآن والأذكار</div>
+      <div id="shelfKeys">الأسهم للتنقل، OK للفتح، رجوع للإغلاق</div>
+      <div id="shelfRow"></div>
+    </div>
     <div id="demoBadge">وضع التجربة: الوقت المعروض ليس الوقت الحقيقي</div>
   </div>
 
+  <div id="reader" class="overlay ovbg">
+    <svg id="rdArch" class="ov-arch" aria-hidden="true"></svg>
+    <div class="ov-cres" id="rdCres"></div>
+    <div class="ov-clock num" id="rdClock"></div>
+    <div class="ov-head"><div class="ov-title gold" id="rdTitle"></div><div class="ov-sub" id="rdSub"></div></div>
+    <div class="ov-box" id="rdBox"><div id="rdText"></div></div>
+    <div class="ov-state" id="rdState"></div>
+    <div class="ov-info"><span id="rdInfo"></span><div class="bar"><i id="rdBarFill"></i></div></div>
+    <div class="ctl">
+      <span class="cb pill" id="rdRec"><svg class="lu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg>القارئ</span>
+      <span class="cb" id="rdPrev"><svg class="lu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" x2="19" y1="5" y2="19"/></svg></span>
+      <span class="cb main" id="rdPlay"><svg class="lu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></svg></span>
+      <span class="cb" id="rdNext"><svg class="lu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" x2="5" y1="19" y2="5"/></svg></span>
+      <span class="cb pill" id="rdClose"><svg class="lu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>إغلاق</span>
+    </div>
+  </div>
+
+  <div id="adhkar" class="overlay ovbg">
+    <svg id="akArch" class="ov-arch" aria-hidden="true"></svg>
+    <div class="ov-cres" id="akCres"></div>
+    <div class="ov-clock num" id="akClock"></div>
+    <div class="ov-head"><div class="ov-title gold" id="akTitle"></div><div class="ov-sub" id="akSub"></div></div>
+    <div class="ov-box" id="akBox"><div id="akText"></div></div>
+    <div id="akRef"></div>
+    <div id="akCount"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="rgba(20,26,24,0.7)" stroke="rgba(214,201,156,0.35)" stroke-width="2"/>
+      <circle id="akRing" cx="50" cy="50" r="46" fill="none" stroke="#E8C77E" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="0 289" transform="rotate(-90 50 50)"/></svg>
+      <div id="akNum" class="num"></div><div id="akOf"></div></div>
+    <div class="ctl">
+      <span class="cb" id="akPrev"><svg class="lu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" x2="19" y1="5" y2="19"/></svg></span>
+      <span class="cb" style="visibility:hidden;width:9.2rem"></span>
+      <span class="cb" id="akNext"><svg class="lu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" x2="5" y1="19" y2="5"/></svg></span>
+      <span class="cb pill" id="akClose"><svg class="lu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>إغلاق</span>
+    </div>
+  </div>
+
+  <div id="picker" class="overlay">
+    <div class="x-btn" id="pkClose"><svg class="lu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></div>
+    <div class="pk-head"><div class="ov-title gold">اختر سورة</div><div class="ov-sub" id="pkSub"></div></div>
+    <div id="pkGrid"></div>
+  </div>
+
+  <div id="settings" class="overlay">
+    <div class="st-panel">
+      <div class="x-btn" id="stClose"><svg class="lu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></div>
+      <div class="st-head"><div class="ov-title gold">الإعدادات</div></div>
+      <div id="stRows"></div>
+      <div class="st-foot">فوق وتحت لاختيار السطر، يمين ويسار للتغيير، رجوع للإغلاق</div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
   <div id="adhan" class="overlay">
-    <div id="adGlow"></div>
-    <svg id="adArch" viewBox="0 0 440 350" aria-hidden="true">
-      <path id="adArchPath" d="M20 348V150C20 92 120 52 220 14C320 52 420 92 420 150V348"/>
-      <path class="thin" d="M34 348V152C34 100 128 64 220 30C312 64 406 100 406 152V348"/>
-    </svg>
+    <svg id="adArch" viewBox="0 0 1024 576" aria-hidden="true"><path id="adArchPath" d=""/></svg>
+    <div id="adCrescent"></div>
     <div id="adKicker"></div>
-    <div id="adTitle" class="kufi"></div>
-    <div id="adTime" class="kufi"></div>
+    <div id="adTitle" class="gold"></div>
+    <div id="adTime" class="num pale"></div>
     <div id="adDua"><div id="adDuaText"></div><div id="adDuaRef"></div></div>
     <div id="adHint"></div>
   </div>
 
   <div id="splash" class="overlay show">
     <div id="splashCard">
-      <svg class="frame" viewBox="0 0 440 410" aria-hidden="true">
-        <path d="M14 404V150C14 92 114 50 220 12C326 50 426 92 426 150V404Z" fill="#071019" fill-opacity="0.92" stroke="#D6AE62" stroke-width="2"/>
-        <path d="M26 404V152C26 100 120 62 220 27C320 62 414 100 414 152V404" fill="none" stroke="#D6AE62" stroke-opacity="0.35" stroke-width="1"/>
-      </svg>
       <div id="splashIcon"></div>
-      <div id="splashTitle" class="kufi">مواقيت الصلاة</div>
+      <div id="splashTitle" class="gold">مواقيت الصلاة</div>
       <div id="splashText">اضغط OK في الريموت ليعمل الأذان تلقائياً في أوقاته.</div>
       <button id="startBtn" type="button">تفعيل الأذان</button>
       <div id="splashKeys">الزر الأحمر يجرّب صوت الأذان، والزر الأخضر يكتمه أو يعيده.</div>
@@ -434,10 +651,10 @@ var PrayerEngine = (function () {
     return hijriFromTable(jdn) || hijriTabularJdn(jdn);
   }
 
-  /* طور القمر: 0 محاق، 0.5 بدر */
+  /* طور القمر: 0 محاق، 0.5 بدر (مرجع: اقتران 12 آب 2026، كسوف الشمس الكلي) */
   function moonPhase(ms) {
     var synodic = 29.530588853;
-    var ref = Date.UTC(2000, 0, 6, 18, 14);
+    var ref = Date.UTC(2026, 7, 12, 17, 37);
     var p = ((ms - ref) / 86400000) % synodic / synodic;
     return p < 0 ? p + 1 : p;
   }
@@ -467,17 +684,20 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
     offsets: { fajr: 0, sunrise: 0, dhuhr: 0, asr: 0, maghrib: 0, isha: 0 }, // دقائق تعديل لمطابقة مسجد حيّك
     hijriOffset: 0,           // +1 أو -1 إذا اختلف التاريخ الهجري عن الإعلان المحلي
     use24h: false,
-    arabicDigits: true,
+    hindiDigits: false,       // false = أرقام 123 ، true = أرقام ١٢٣
     adhanFile: 'adhan.mp3',
     fajrAdhanFile: 'adhan-fajr.mp3',   // اختياري؛ إن لم يوجد يُستخدم adhan.mp3
     adhanVolume: 1.0,
     fajrVolume: 0.8,
     adhanFor: { fajr: true, dhuhr: true, asr: true, maghrib: true, isha: true },
     reminderMinutes: 10,
-    verseSeconds: 40
+    verseSeconds: 40,
+    theme: 'auto',            // auto = اللون يتبدّل مع كل صلاة. أو لون ثابت: emerald, amethyst, turquoise, sapphire, amber, ruby, onyx
+    shine: 1,                 // اللمعة: 0 هادئة، 1 مثل التصميم، 2 أكثر
+    quranVolume: 1.0
   };
 
-  /* ===== معاملات الرابط: ?city=..&lat=..&lng=..&tz=..&method=..&asr=Hanafi&h24=1&digits=latin&hijri=-1 ===== */
+  /* ===== معاملات الرابط: ?city=..&lat=..&lng=..&tz=..&method=..&asr=Hanafi&h24=1&digits=hindi&hijri=-1&theme=ruby ===== */
   function getParams() {
     var out = {}, q = (window.location.search || '').replace(/^\?/, '');
     if (!q) return out;
@@ -497,8 +717,11 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
   if (P.method && PrayerEngine.METHODS[P.method]) CONFIG.method = P.method;
   if (P.asr === 'Hanafi' || P.asr === 'Shafi') CONFIG.asr = P.asr;
   if (P.h24 === '1') CONFIG.use24h = true;
-  if (P.digits === 'latin') CONFIG.arabicDigits = false;
+  if (P.digits === 'hindi') CONFIG.hindiDigits = true;
+  if (P.digits === 'latin') CONFIG.hindiDigits = false;
   if (P.hijri && !isNaN(parseInt(P.hijri, 10))) CONFIG.hijriOffset = parseInt(P.hijri, 10);
+  if (P.theme) CONFIG.theme = P.theme;
+  if (P.shine === '0' || P.shine === '1' || P.shine === '2') CONFIG.shine = parseInt(P.shine, 10);
 
   /* ===== الوقت (يمكن تجربته بـ ?t=2026-11-10T15:12&speed=60) ===== */
   var REAL0 = Date.now(), FAKE0 = null, SPEED = 1;
@@ -519,7 +742,7 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
 
   /* ===== التنسيق ===== */
   var AR = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-  function dg(s) { s = String(s); return CONFIG.arabicDigits ? s.replace(/[0-9]/g, function (c) { return AR[+c]; }) : s; }
+  function dg(s) { s = String(s); return CONFIG.hindiDigits ? s.replace(/[0-9]/g, function (c) { return AR[+c]; }) : s; }
   function pad2(n) { return n < 10 ? '0' + n : '' + n; }
   function hm(ms) {
     var p = parts(ms), h = p.h;
@@ -580,16 +803,117 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
   ];
   var DUA = 'اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ، وَالصَّلَاةِ الْقَائِمَةِ، آتِ مُحَمَّدًا الْوَسِيلَةَ وَالْفَضِيلَةَ، وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ';
 
-  /* ألوان السماء والبحر لكل فترة من اليوم: s = السماء (أعلى، وسط، الأفق)، w = البحر (أعلى، أسفل) */
-  var PAL = {
-    night:   { s: ['#050E18', '#0B1E30', '#183450'], w: ['#0B1D2C', '#040B12'], night: 1 },
-    fajr:    { s: ['#0A1630', '#2A3363', '#8A5A80'], w: ['#2A2E4F', '#0A1120'], night: 0.8 },
-    sunrise: { s: ['#1E3D6A', '#8A6E80', '#F0C08A'], w: ['#5B6C82', '#162A40'], night: 0.12 },
-    day:     { s: ['#0E4A6C', '#2A7898', '#86BFCC'], w: ['#1F6A86', '#0B3548'], night: 0 },
-    asr:     { s: ['#163F5A', '#4F7C86', '#D6B47E'], w: ['#3E6B72', '#102E42'], night: 0 },
-    sunset:  { s: ['#1F1B47', '#7E3558', '#EE8A4F'], w: ['#6A3F55', '#171730'], night: 0.3 },
-    dusk:    { s: ['#0A1430', '#26285A', '#553863'], w: ['#1E2140', '#080D1C'], night: 0.85 }
+  /* أيقونات Lucide (رخصة ISC) */
+  var LU = {
+    "volume-2": "<path d=\"M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z\"/><path d=\"M16 9a5 5 0 0 1 0 6\"/><path d=\"M19.364 18.364a9 9 0 0 0 0-12.728\"/>",
+    "volume-x": "<path d=\"M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z\"/><line x1=\"22\" x2=\"16\" y1=\"9\" y2=\"15\"/><line x1=\"16\" x2=\"22\" y1=\"9\" y2=\"15\"/>",
+    "mic": "<path d=\"M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z\"/><path d=\"M19 10v2a7 7 0 0 1-14 0v-2\"/><line x1=\"12\" x2=\"12\" y1=\"19\" y2=\"22\"/>",
+    "mic-off": "<line x1=\"2\" x2=\"22\" y1=\"2\" y2=\"22\"/><path d=\"M18.89 13.23A7.12 7.12 0 0 0 19 12v-2\"/><path d=\"M5 10v2a7 7 0 0 0 12 5\"/><path d=\"M15 9.34V5a3 3 0 0 0-5.68-1.33\"/><path d=\"M9 9v3a3 3 0 0 0 5.12 2.12\"/><line x1=\"12\" x2=\"12\" y1=\"19\" y2=\"22\"/>",
+    "settings": "<path d=\"M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>",
+    "play": "<polygon points=\"6 3 20 12 6 21 6 3\"/>",
+    "pause": "<rect x=\"14\" y=\"4\" width=\"4\" height=\"16\" rx=\"1\"/><rect x=\"6\" y=\"4\" width=\"4\" height=\"16\" rx=\"1\"/>",
+    "skip-back": "<polygon points=\"19 20 9 12 19 4 19 20\"/><line x1=\"5\" x2=\"5\" y1=\"19\" y2=\"5\"/>",
+    "skip-forward": "<polygon points=\"5 4 15 12 5 20 5 4\"/><line x1=\"19\" x2=\"19\" y1=\"5\" y2=\"19\"/>",
+    "chevron-down": "<path d=\"m6 9 6 6 6-6\"/>",
+    "chevron-up": "<path d=\"m18 15-6-6-6 6\"/>",
+    "chevron-left": "<path d=\"m15 18-6-6 6-6\"/>",
+    "chevron-right": "<path d=\"m9 18 6-6-6-6\"/>",
+    "book-open": "<path d=\"M12 7v14\"/><path d=\"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z\"/>",
+    "book-open-text": "<path d=\"M12 7v14\"/><path d=\"M16 12h2\"/><path d=\"M16 8h2\"/><path d=\"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z\"/><path d=\"M6 12h2\"/><path d=\"M6 8h2\"/>",
+    "sunrise": "<path d=\"M12 2v8\"/><path d=\"m4.93 10.93 1.41 1.41\"/><path d=\"M2 18h2\"/><path d=\"M20 18h2\"/><path d=\"m19.07 10.93-1.41 1.41\"/><path d=\"M22 22H2\"/><path d=\"m8 6 4-4 4 4\"/><path d=\"M16 18a4 4 0 0 0-8 0\"/>",
+    "sun": "<circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v2\"/><path d=\"M12 20v2\"/><path d=\"m4.93 4.93 1.41 1.41\"/><path d=\"m17.66 17.66 1.41 1.41\"/><path d=\"M2 12h2\"/><path d=\"M20 12h2\"/><path d=\"m6.34 17.66-1.41 1.41\"/><path d=\"m19.07 4.93-1.41 1.41\"/>",
+    "sunset": "<path d=\"M12 10V2\"/><path d=\"m4.93 10.93 1.41 1.41\"/><path d=\"M2 18h2\"/><path d=\"M20 18h2\"/><path d=\"m19.07 10.93-1.41 1.41\"/><path d=\"M22 22H2\"/><path d=\"m16 6-4 4-4-4\"/><path d=\"M16 18a4 4 0 0 0-8 0\"/>",
+    "sun-medium": "<circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 3v1\"/><path d=\"M12 20v1\"/><path d=\"M3 12h1\"/><path d=\"M20 12h1\"/><path d=\"m18.364 5.636-.707.707\"/><path d=\"m6.343 17.657-.707.707\"/><path d=\"m5.636 5.636.707.707\"/><path d=\"m17.657 17.657.707.707\"/>",
+    "moon": "<path d=\"M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z\"/>",
+    "moon-star": "<path d=\"M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9\"/><path d=\"M20 3v4\"/><path d=\"M22 5h-4\"/>",
+    "shield-check": "<path d=\"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z\"/><path d=\"m9 12 2 2 4-4\"/>",
+    "library": "<path d=\"m16 6 4 14\"/><path d=\"M12 6v14\"/><path d=\"M8 8v12\"/><path d=\"M4 4v16\"/>",
+    "palette": "<circle cx=\"13.5\" cy=\"6.5\" r=\".5\" fill=\"currentColor\"/><circle cx=\"17.5\" cy=\"10.5\" r=\".5\" fill=\"currentColor\"/><circle cx=\"8.5\" cy=\"7.5\" r=\".5\" fill=\"currentColor\"/><circle cx=\"6.5\" cy=\"12.5\" r=\".5\" fill=\"currentColor\"/><path d=\"M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z\"/>",
+    "headphones": "<path d=\"M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3\"/>",
+    "sparkles": "<path d=\"M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z\"/><path d=\"M20 3v4\"/><path d=\"M22 5h-4\"/><path d=\"M4 17v2\"/><path d=\"M5 18H3\"/>",
+    "x": "<path d=\"M18 6 6 18\"/><path d=\"m6 6 12 12\"/>",
+    "check": "<path d=\"M20 6 9 17l-5-5\"/>",
+    "square": "<rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"/>",
+    "history": "<path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"/><path d=\"M3 3v5h5\"/><path d=\"M12 7v5l4 2\"/>",
+    "hand-heart": "<path d=\"M11 14h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16\"/><path d=\"m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9\"/><path d=\"m2 15 6 6\"/><path d=\"M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.73 2.73 0 0 0 16 4a2.78 2.78 0 0 0-5 1.8c0 1.2.8 2 1.5 2.8L16 12Z\"/>",
+    "bell": "<path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\"/><path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\"/>",
+    "loader-circle": "<path d=\"M21 12a9 9 0 1 1-6.219-8.56\"/>",
+    "list-music": "<path d=\"M21 15V6\"/><path d=\"M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z\"/><path d=\"M12 12H3\"/><path d=\"M16 6H3\"/><path d=\"M12 18H3\"/>",
+    "sun-moon": "<path d=\"M12 8a2.83 2.83 0 0 0 4 4 4 4 0 1 1-4-4\"/><path d=\"M12 2v2\"/><path d=\"M12 20v2\"/><path d=\"m4.9 4.9 1.4 1.4\"/><path d=\"m17.7 17.7 1.4 1.4\"/><path d=\"M2 12h2\"/><path d=\"M20 12h2\"/><path d=\"m6.3 17.7-1.4 1.4\"/><path d=\"m19.1 4.9-1.4 1.4\"/>",
+    "star": "<path d=\"M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z\"/>"
+    };
+  function lu(name, extra) {
+    return '<svg class="lu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"' + (extra || '') + '>' + (LU[name] || '') + '</svg>';
+  }
+
+  /* ===== القرآن الكريم ===== */
+  var SURA_NAMES = 'الفاتحة البقرة آل_عمران النساء المائدة الأنعام الأعراف الأنفال التوبة يونس هود يوسف الرعد إبراهيم الحجر النحل الإسراء الكهف مريم طه الأنبياء الحج المؤمنون النور الفرقان الشعراء النمل القصص العنكبوت الروم لقمان السجدة الأحزاب سبأ فاطر يس الصافات ص الزمر غافر فصلت الشورى الزخرف الدخان الجاثية الأحقاف محمد الفتح الحجرات ق الذاريات الطور النجم القمر الرحمن الواقعة الحديد المجادلة الحشر الممتحنة الصف الجمعة المنافقون التغابن الطلاق التحريم الملك القلم الحاقة المعارج نوح الجن المزمل المدثر القيامة الإنسان المرسلات النبأ النازعات عبس التكوير الانفطار المطففين الانشقاق البروج الطارق الأعلى الغاشية الفجر البلد الشمس الليل الضحى الشرح التين العلق القدر البينة الزلزلة العاديات القارعة التكاثر العصر الهمزة الفيل قريش الماعون الكوثر الكافرون النصر المسد الإخلاص الفلق الناس'.split(' ');
+  for (var si = 0; si < SURA_NAMES.length; si++) SURA_NAMES[si] = SURA_NAMES[si].replace('_', ' ');
+  var SURA_AYAHS = [7,286,200,176,120,165,206,75,129,109,123,111,43,52,99,128,111,110,98,135,112,78,118,64,77,227,93,88,69,60,34,30,73,54,45,83,182,88,75,85,54,53,89,59,37,35,38,29,18,45,60,49,62,55,78,96,29,22,24,13,14,11,11,18,12,12,30,52,52,44,28,28,20,56,40,31,50,40,46,42,29,19,36,25,22,17,19,26,30,20,15,21,11,8,8,19,5,8,8,11,11,8,3,9,5,4,7,3,6,3,5,4,5,6];
+  /* القرّاء: لكل قارئ أكثر من معرّف محتمل في alquran.cloud، ويُختار الموجود فعلاً */
+  var RECITERS = [
+    { n: 'مشاري العفاسي', ids: ['ar.alafasy'] },
+    { n: 'عبد الباسط عبد الصمد', ids: ['ar.abdulbasitmurattal', 'ar.abdulbasit'] },
+    { n: 'محمود خليل الحصري', ids: ['ar.husary'] },
+    { n: 'محمد صديق المنشاوي', ids: ['ar.minshawi'] },
+    { n: 'ماهر المعيقلي', ids: ['ar.mahermuaiqly'] },
+    { n: 'عبد الرحمن السديس', ids: ['ar.abdurrahmaansudais', 'ar.sudais'] },
+    { n: 'سعود الشريم', ids: ['ar.saoodshuraym', 'ar.shuraim'] },
+    { n: 'أحمد العجمي', ids: ['ar.ahmedajamy', 'ar.ajamy'] },
+    { n: 'علي الحذيفي', ids: ['ar.hudhaify'] },
+    { n: 'أبو بكر الشاطري', ids: ['ar.shaatree'] },
+    { n: 'محمد أيوب', ids: ['ar.muhammadayyoub', 'ar.muhammadayoub'] },
+    { n: 'محمد جبريل', ids: ['ar.muhammadjibreel'] }
+  ];
+  var QAPI = 'https://api.alquran.cloud/v1/';
+  var BASMALA = 'بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ';
+  /* آيات الرقية: [السورة، من، إلى] */
+  var RUQYAH = [[1,1,7],[2,1,5],[2,163,164],[2,255,257],[2,284,286],[3,18,19],[7,117,122],[10,81,82],[20,69,69],[23,115,118],[112,1,4],[113,1,5],[114,1,6]];
+
+  /* ===== أذكار الصباح والمساء (من حصن المسلم) ===== */
+  var KURSI = 'اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ';
+  var IKHLAS = 'قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ';
+  var FALAQ = 'قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۝ مِن شَرِّ مَا خَلَقَ ۝ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ۝ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ';
+  var NAS = 'قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِكِ النَّاسِ ۝ إِلَٰهِ النَّاسِ ۝ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ۝ مِنَ الْجِنَّةِ وَالنَّاسِ';
+  function adhkar(am) {
+    var d = am ? 'أصبحنا وأصبح' : 'أمسينا وأمسى', t = am ? 'هذا اليوم' : 'هذه الليلة', b = am ? 'بعده' : 'بعدها';
+    var list = [
+      { q: 1, t: KURSI, c: 1, r: 'آية الكرسي، البقرة: 255' },
+      { q: 1, t: IKHLAS, c: 3, r: 'سورة الإخلاص' },
+      { q: 1, t: FALAQ, c: 3, r: 'سورة الفلق' },
+      { q: 1, t: NAS, c: 3, r: 'سورة الناس' },
+      { t: d + ' الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير، رب أسألك خير ما في ' + t + ' وخير ما ' + b + '، وأعوذ بك من شر ما في ' + t + ' وشر ما ' + b + '، رب أعوذ بك من الكسل وسوء الكبر، رب أعوذ بك من عذاب في النار وعذاب في القبر', c: 1, r: 'رواه مسلم' },
+      { t: am ? 'اللهم بك أصبحنا، وبك أمسينا، وبك نحيا، وبك نموت، وإليك النشور' : 'اللهم بك أمسينا، وبك أصبحنا، وبك نحيا، وبك نموت، وإليك المصير', c: 1, r: 'رواه الترمذي' },
+      { t: 'اللهم أنت ربي لا إله إلا أنت، خلقتني وأنا عبدك، وأنا على عهدك ووعدك ما استطعت، أعوذ بك من شر ما صنعت، أبوء لك بنعمتك علي، وأبوء بذنبي فاغفر لي، فإنه لا يغفر الذنوب إلا أنت', c: 1, r: 'سيد الاستغفار، رواه البخاري' },
+      { t: 'اللهم عافني في بدني، اللهم عافني في سمعي، اللهم عافني في بصري، لا إله إلا أنت', c: 3, r: 'رواه أبو داود' },
+      { t: 'اللهم إني أسألك العفو والعافية في الدنيا والآخرة، اللهم إني أسألك العفو والعافية في ديني ودنياي وأهلي ومالي، اللهم استر عوراتي وآمن روعاتي، اللهم احفظني من بين يدي ومن خلفي وعن يميني وعن شمالي ومن فوقي، وأعوذ بعظمتك أن أغتال من تحتي', c: 1, r: 'رواه أبو داود وابن ماجه' },
+      { t: 'بسم الله الذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم', c: 3, r: 'رواه أبو داود والترمذي' },
+      { t: 'رضيت بالله ربًا، وبالإسلام دينًا، وبمحمد صلى الله عليه وسلم نبيًا', c: 3, r: 'رواه أبو داود والترمذي' },
+      { t: 'يا حي يا قيوم برحمتك أستغيث، أصلح لي شأني كله، ولا تكلني إلى نفسي طرفة عين', c: 1, r: 'رواه الحاكم' },
+      { t: 'حسبي الله لا إله إلا هو، عليه توكلت وهو رب العرش العظيم', c: 7, r: 'رواه أبو داود' }
+    ];
+    if (!am) list.push({ t: 'أعوذ بكلمات الله التامات من شر ما خلق', c: 3, r: 'رواه أحمد' });
+    list.push({ t: 'لا إله إلا الله وحده لا شريك له، له الملك وله الحمد، وهو على كل شيء قدير', c: 10, r: 'رواه النسائي في عمل اليوم والليلة' });
+    list.push({ t: 'سبحان الله وبحمده', c: 100, r: 'رواه مسلم' });
+    if (am) list.push({ t: 'أستغفر الله وأتوب إليه', c: 100, r: 'رواه البخاري ومسلم' });
+    list.push({ t: 'اللهم صل وسلم على نبينا محمد', c: 10, r: 'رواه الطبراني' });
+    return list;
+  }
+
+  /* لكل صلاة لون حجر كريم، والذهب ثابت فوقها */
+  var GEMS = {
+    emerald:   { c: ['#0F3229', '#08221C', '#020D0A'], g: '70,160,135',  ga: 0.30 },
+    amethyst:  { c: ['#251E52', '#141136', '#060517'], g: '178,146,222', ga: 0.30 },
+    turquoise: { c: ['#0A3D47', '#06272F', '#021115'], g: '112,206,206', ga: 0.26 },
+    sapphire:  { c: ['#112B5D', '#0A1A3D', '#030919'], g: '120,160,235', ga: 0.26 },
+    amber:     { c: ['#352410', '#201507', '#0C0702'], g: '240,186,104', ga: 0.26 },
+    ruby:      { c: ['#431522', '#280C14', '#0F0407'], g: '238,132,112', ga: 0.28 },
+    onyx:      { c: ['#1C1812', '#0C0A07', '#030202'], g: '220,190,130', ga: 0.16 },
+    nightsky:  { c: ['#18348A', '#0C1E5A', '#040A26'], g: '150,175,255', ga: 0.28 }
   };
+  /* العشاء والليل زمرد، الفجر جمشت، الضحى فيروز، الظهر ياقوت أزرق، العصر كهرمان، المغرب ياقوت أحمر */
+  var PERIOD_GEM = { night: 'emerald', fajr: 'amethyst', duha: 'turquoise', dhuhr: 'sapphire', asr: 'amber', maghrib: 'ruby' };
+  function gemFor(per) { return GEMS[CONFIG.theme] || GEMS[PERIOD_GEM[per]] || GEMS.emerald; }
 
   /* ===== أدوات ===== */
   function $(id) { return document.getElementById(id); }
@@ -607,100 +931,306 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
     key: null, T: null, Y: null, N: null, isFriday: false,
     nextKey: '', played: {}, unlocked: false, muted: false, blocked: false,
     fileOk: null, fajrOk: null, adhan: null, period: null, front: 'A',
-    verseIdx: -1, lastSky: 0, skyInit: false, splash: true, ctx: null, playing: null
+    verseIdx: -1, lastSky: 0, skyInit: false, splash: true, ctx: null, playing: null, portrait: false, built: false
   };
 
-  /* ===== بناء المشهد ===== */
+  /* ===== ملاءمة الشاشة ===== */
   function fit() {
     var w = window.innerWidth || document.documentElement.clientWidth;
     var h = window.innerHeight || document.documentElement.clientHeight;
-    document.documentElement.style.fontSize = Math.min(w / 96, h / 54) + 'px';
-  }
-
-  function buildStars() {
-    var r = rng(1448), h = '';
-    for (var i = 0; i < 70; i++) {
-      var s = (0.09 + r() * 0.17).toFixed(2);
-      h += '<i class="star" style="left:' + (r() * 96).toFixed(2) + 'rem;top:' + (r() * 33).toFixed(2) + 'rem;width:' + s + 'rem;height:' + s +
-        'rem;animation-duration:' + (3 + r() * 4.5).toFixed(2) + 's;animation-delay:-' + (r() * 7).toFixed(2) + 's"></i>';
+    var portrait = h > w * 1.05;
+    document.documentElement.style.fontSize = (portrait ? Math.min(w / 54, h / 96) : Math.min(w / 96, h / 54)) + 'px';
+    if (portrait !== S.portrait) {
+      S.portrait = portrait;
+      if (S.built) { closeShelf(); stageClass(); buildScene(); buildGlitter(); layoutBays(); }
     }
-    $('stars').innerHTML = h;
   }
 
-  function buildWaves() {
-    var r = rng(36), h = '';
-    for (var i = 0; i < 18; i++) {
-      var top = i < 11 ? 0.35 + r() * 2.2 : 3 + r() * 12;
-      h += '<i class="wave" style="left:' + (r() * 92).toFixed(2) + 'rem;top:' + top.toFixed(2) + 'rem;width:' + (1.4 + r() * 6).toFixed(2) +
-        'rem;animation-duration:' + (5 + r() * 5).toFixed(2) + 's;animation-delay:-' + (r() * 8).toFixed(2) + 's"></i>';
+  /* ===== هندسة الزخارف (الإحداثيات بمقياس 1024×576، كل وحدة = 0.09375rem) ===== */
+  var U = 0.09375;
+  function f1(x) { return String(Math.round(x * 100) / 100); }
+  function starPts(cx, cy, R, ri, rot) {
+    var pts = [];
+    for (var k = 0; k < 16; k++) {
+      var a = (k * 22.5 + (rot || 0) - 90) * Math.PI / 180, rr = (k % 2 === 0) ? R : ri;
+      pts.push(f1(cx + rr * Math.cos(a)) + ',' + f1(cy + rr * Math.sin(a)));
     }
-    $('waves').innerHTML = h;
+    return pts.join(' ');
   }
-
-  function buildLantern(el, chain) {
-    el.innerHTML =
-      '<div class="chain" style="height:' + chain + 'rem"></div>' +
-      '<div class="glowwrap" style="top:' + (chain + 3.7 - 6.5) + 'rem"><div class="glow"></div></div>' +
-      '<svg class="lsvg" viewBox="0 0 60 124" aria-hidden="true">' +
-        '<circle cx="30" cy="4" r="3" fill="none" stroke="#D6AE62" stroke-width="1.6"/>' +
-        '<path d="M30 7v4" stroke="#D6AE62" stroke-width="1.6"/>' +
-        '<path d="M17 26Q17 13 30 11Q43 13 43 26Z" fill="#9C7432" stroke="#E2C27A" stroke-width="0.9"/>' +
-        '<rect x="12.5" y="25.5" width="35" height="5.5" rx="1.2" fill="#D6AE62"/>' +
-        '<path d="M15 31L10 52L15 92H45L50 52L45 31Z" fill="url(#lgGlow)"/>' +
-        '<path d="M15 31L10 52L15 92H45L50 52L45 31Z" fill="url(#lgLattice)"/>' +
-        '<path d="M15 31L10 52L15 92M45 31L50 52L45 92M10 52H50M30 31V92" fill="none" stroke="#B88A3E" stroke-width="1.4"/>' +
-        '<rect x="12.5" y="92" width="35" height="5.5" rx="1.2" fill="#D6AE62"/>' +
-        '<path d="M15 97.5Q30 116 45 97.5Z" fill="#9C7432" stroke="#E2C27A" stroke-width="0.9"/>' +
-        '<circle cx="30" cy="113.5" r="2.6" fill="#D6AE62"/>' +
-        '<path d="M30 116v7" stroke="#D6AE62" stroke-width="1.2" stroke-linecap="round"/>' +
+  function star5(cx, cy, R, ri) {
+    var pts = [];
+    for (var k = 0; k < 10; k++) {
+      var a = (k * 36 - 90) * Math.PI / 180, rr = (k % 2 === 0) ? R : ri;
+      pts.push(f1(cx + rr * Math.cos(a)) + ',' + f1(cy + rr * Math.sin(a)));
+    }
+    return pts.join(' ');
+  }
+  var TWO_PI = 2 * Math.PI;
+  function normA(x) { x = x % TWO_PI; return x < 0 ? x + TWO_PI : x; }
+  function arcFlags(cx, cy, p0, p1, via) {
+    function ang(p) { return Math.atan2(p.y - cy, p.x - cx); }
+    var inc = normA(ang(p1) - ang(p0)), incVia = normA(ang(via) - ang(p0));
+    if (incVia < inc) return (inc > Math.PI ? '1' : '0') + ' 1';
+    return ((TWO_PI - inc) > Math.PI ? '1' : '0') + ' 0';
+  }
+  /* هلال = دائرة ناقص دائرة مزاحة */
+  function crescentGeo(ax, ay, R, bx, by, r) {
+    var dx = bx - ax, dy = by - ay, d = Math.sqrt(dx * dx + dy * dy);
+    var a = (R * R - r * r + d * d) / (2 * d), h = Math.sqrt(Math.max(0, R * R - a * a));
+    var mx = ax + a * dx / d, my = ay + a * dy / d;
+    var p1 = { x: mx + h * dy / d, y: my - h * dx / d }, p2 = { x: mx - h * dy / d, y: my + h * dx / d };
+    if (p2.y < p1.y) { var t = p1; p1 = p2; p2 = t; }
+    var farA = { x: ax - R * dx / d, y: ay - R * dy / d }, nearB = { x: bx - r * dx / d, y: by - r * dy / d };
+    return 'M' + f1(p1.x) + ' ' + f1(p1.y) + 'A' + R + ' ' + R + ' 0 ' + arcFlags(ax, ay, p1, p2, farA) + ' ' + f1(p2.x) + ' ' + f1(p2.y) +
+      'A' + r + ' ' + r + ' 0 ' + arcFlags(bx, by, p2, p1, nearB) + ' ' + f1(p1.x) + ' ' + f1(p1.y) + 'Z';
+  }
+  function glint(x, y, s, delay) {
+    var q = s * 0.18;
+    return '<path class="twk" style="animation-delay:-' + f1(delay) + 's" fill="#FFFFFF" d="M' + f1(x) + ' ' + f1(y - s) + 'L' + f1(x + q) + ' ' + f1(y - q) + 'L' + f1(x + s) + ' ' + f1(y) +
+      'L' + f1(x + q) + ' ' + f1(y + q) + 'L' + f1(x) + ' ' + f1(y + s) + 'L' + f1(x - q) + ' ' + f1(y + q) + 'L' + f1(x - s) + ' ' + f1(y) + 'L' + f1(x - q) + ' ' + f1(y - q) + 'Z"/>';
+  }
+  /* الهلال الذهبي المرصّع بالألماس، ونجمته */
+  function crescentSVG(uid) {
+    var C = { x: 512, y: 51 }, R = 32.8, O = { x: 522.1, y: 43.4 }, r = 26.4, k = 3.2;
+    var outer = crescentGeo(C.x, C.y, R, O.x, O.y, r), band = crescentGeo(C.x, C.y, R - k, O.x, O.y, r + k);
+    var rnd = rng(911), dots = '', spots = [], n = 0, guard = 0;
+    var cols = ['#FFFFFF', '#F4F3EE', '#DEDDD6', '#BDBCB4', '#97968E', '#FFFDF0'];
+    while (n < 190 && guard++ < 6000) {
+      var x = C.x - R + rnd() * 2 * R, y = C.y - R + rnd() * 2 * R;
+      var d1 = Math.sqrt((x - C.x) * (x - C.x) + (y - C.y) * (y - C.y)), d2 = Math.sqrt((x - O.x) * (x - O.x) + (y - O.y) * (y - O.y));
+      if (d1 > R - k - 0.4 || d2 < r + k + 0.4) continue;
+      var rr = 0.7 + rnd() * 1.1;
+      dots += '<circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + f1(rr) + '" fill="' + cols[Math.floor(rnd() * cols.length)] + '"/>';
+      if (n % 37 === 5) spots.push([x, y]);
+      n++;
+    }
+    var glints = '';
+    for (var g = 0; g < spots.length; g++) glints += glint(spots[g][0], spots[g][1], 3.4, g * 0.9);
+    return '<svg viewBox="440 0 150 110" aria-hidden="true">' +
+      '<defs><clipPath id="cpPave' + uid + '"><path d="' + band + '"/></clipPath></defs>' +
+      '<circle class="halo" cx="514" cy="49" r="62" fill="url(#gHalo)"/>' +
+      '<path d="' + outer + '" fill="url(#gGold)"/>' +
+      '<path d="' + outer + '" fill="none" stroke="#FFF2C8" stroke-opacity="0.55" stroke-width="0.5"/>' +
+      '<path d="' + band + '" fill="#6E6D66"/>' +
+      '<g clip-path="url(#cpPave' + uid + ')">' + dots + '</g>' +
+      '<path d="' + band + '" fill="none" stroke="#8A6928" stroke-width="0.7"/>' + glints +
+      '<circle cx="526" cy="41" r="16" fill="url(#gHalo)"/>' +
+      '<g stroke="#FFF6DA" stroke-linecap="round" class="twk" style="animation-delay:-2.2s"><path d="M526 22V60" stroke-width="0.6"/><path d="M507 41H545" stroke-width="0.6"/></g>' +
+      '<polygon points="' + star5(526, 41.5, 11.8, 4.7) + '" fill="url(#gStar)" stroke="#FFF4D0" stroke-opacity="0.6" stroke-width="0.4"/>' +
       '</svg>';
   }
 
-  function archShape(x, w, apex, spring, bottom) {
-    return 'M' + x + ' ' + bottom + 'V' + spring + 'C' + x + ' ' + (spring - 14) + ' ' + (x + w * 0.3) + ' ' + (apex + 5) + ' ' + (x + w / 2) + ' ' + apex +
-      'C' + (x + w * 0.7) + ' ' + (apex + 5) + ' ' + (x + w) + ' ' + (spring - 14) + ' ' + (x + w) + ' ' + spring + 'V' + bottom + 'Z';
+  /* المحراب: نصفه الأيسر من الأسفل حتى الرأس، والنصف الأيمن مرآته. هندسة للأفقي والعمودي */
+  var NICHE = {
+    land: { W: 1024, H: 576, cx: 512, lw: 260, uw: 177, yLow: 216, yMid: 167, yUp: 140, yTop: 104 },
+    port: { W: 576, H: 1024, cx: 288, lw: 252, uw: 178, yLow: 362, yMid: 318, yUp: 292, yTop: 118 }
+  };
+  function nicheSegs(t, G) {
+    var L = G.cx - G.lw, xu = G.cx - G.uw, d = G.lw - G.uw, cx = G.cx, uw = G.uw, yt = G.yTop;
+    function y(v) { return v + t * (1 - 0.8 * v / G.yLow); }
+    return [
+      ['M', L + t, G.H + 24],
+      ['L', L + t, y(G.yLow)],
+      ['C', L + t, y(G.yLow - 28), L + 0.169 * d + t * 0.7, y(G.yMid + 4), L + 0.554 * d + t * 0.7, y(G.yMid)],
+      ['C', L + 0.843 * d + t * 0.9, y(G.yMid - 3), xu + t, y(G.yUp + 16), xu + t, y(G.yUp)],
+      ['L', xu + t, y(yt)],
+      ['C', xu + t, y(yt * 0.519), cx - 0.531 * uw + t * 0.6, y(yt * 0.298), cx - 0.249 * uw + t * 0.4, y(yt * 0.144)],
+      ['C', cx - 0.13 * uw + t * 0.2, y(yt * 0.0865), cx - 0.045 * uw, y(yt * 0.048), cx, y(0)]
+    ];
   }
-  function archCurve(x, w, apex, spring) {
-    return 'M' + x + ' ' + spring + 'C' + x + ' ' + (spring - 14) + ' ' + (x + w * 0.3) + ' ' + (apex + 5) + ' ' + (x + w / 2) + ' ' + apex +
-      'C' + (x + w * 0.7) + ' ' + (apex + 5) + ' ' + (x + w) + ' ' + (spring - 14) + ' ' + (x + w) + ' ' + spring;
-  }
-
-  /* الرواق: ستة أقواس بحجارة أبلق وشرفات أموية، كل قوس لصلاة */
-  function buildArcade() {
-    var W = 960, top = 10, bottom = 134, apex = 16, spring = 40, bw = 132, pier = 14;
-    var x0 = (W - (6 * bw + 7 * pier)) / 2 + pier;
-    var holes = '', fills = '', vou = '', lines = '', bays = '';
-    for (var i = 0; i < 6; i++) {
-      var x = x0 + i * (bw + pier), shape = archShape(x, bw, apex, spring, bottom), curve = archCurve(x, bw, apex, spring);
-      holes += shape;
-      fills += '<path id="bf' + i + '" class="bay-fill" d="' + shape + '"/><path id="bp' + i + '" class="bay-pat" fill="url(#pStar)" d="' + shape + '"/>';
-      vou += '<path class="vl" d="' + curve + '"/><path class="vd" d="' + curve + '"/>';
-      lines += '<path class="vline" d="M' + x + ' ' + bottom + 'V' + spring + curve.replace(/^M[^C]+/, '') + 'V' + bottom + '"/>';
-      bays += '<div class="bay" id="bay' + i + '" style="left:' + (x / 10) + 'rem"><div class="bay-icon">' + SVG_OPEN + ICONS[PRAYERS[i].k] + '</svg></div>' +
-        '<div class="bay-name kufi shadow"></div><div class="bay-time kufi shadow"></div></div>';
+  function nichePath(t, closed, G) {
+    G = G || (S.portrait ? NICHE.port : NICHE.land);
+    var segs = nicheSegs(t, G), d = '', rev = [], cur = null, i, s, W = G.W;
+    for (i = 0; i < segs.length; i++) {
+      s = segs[i];
+      if (s[0] === 'M') { d += 'M' + f1(s[1]) + ' ' + f1(s[2]); cur = [s[1], s[2]]; continue; }
+      if (s[0] === 'L') { d += 'L' + f1(s[1]) + ' ' + f1(s[2]); rev.push(['L', cur[0], cur[1]]); cur = [s[1], s[2]]; }
+      else { d += 'C' + f1(s[1]) + ' ' + f1(s[2]) + ' ' + f1(s[3]) + ' ' + f1(s[4]) + ' ' + f1(s[5]) + ' ' + f1(s[6]);
+        rev.push(['C', s[3], s[4], s[1], s[2], cur[0], cur[1]]); cur = [s[5], s[6]]; }
     }
-    var wall = 'M0 ' + top + 'H' + W + 'V' + bottom + 'H0Z' + holes;
-    var mer = '';
-    for (var m = 0; m < W; m += 20) mer += 'M' + (m + 3) + ' ' + top + 'v-4h2v-3h2v-3h6v3h2v3h2v4Z';
-    var courses = '';
-    for (var y = top + 4; y < bottom; y += 12) courses += '<rect x="0" y="' + y + '" width="' + W + '" height="6"/>';
-    var star = '<rect x="7" y="7" width="10" height="10"/><rect x="7" y="7" width="10" height="10" transform="rotate(45 12 12)"/>' +
-      '<path d="M0 0L7 7M24 0L17 7M0 24L7 17M24 24L17 17M12 0V4.9M12 24V19.1M0 12H4.9M24 12H19.1"/>';
-    $('arcade').innerHTML =
-      '<svg viewBox="0 0 960 148" aria-hidden="true"><defs>' +
-        '<pattern id="pStar" width="24" height="24" patternUnits="userSpaceOnUse"><g fill="none" stroke="#F3E9D2" stroke-width="0.8">' + star + '</g></pattern>' +
-        '<pattern id="pStarGold" width="24" height="24" patternUnits="userSpaceOnUse"><g fill="none" stroke="#E7C47C" stroke-width="0.9">' + star + '</g></pattern>' +
-        '<clipPath id="wallClip"><path clip-rule="evenodd" d="' + wall + '"/></clipPath>' +
+    for (i = rev.length - 1; i >= 0; i--) {
+      s = rev[i];
+      if (s[0] === 'L') d += 'L' + f1(W - s[1]) + ' ' + f1(s[2]);
+      else d += 'C' + f1(W - s[1]) + ' ' + f1(s[2]) + ' ' + f1(W - s[3]) + ' ' + f1(s[4]) + ' ' + f1(W - s[5]) + ' ' + f1(s[6]);
+    }
+    return d + (closed ? 'Z' : '');
+  }
+  /* نقشة النجوم الثمانية المتشابكة (محفورة) */
+  function carveTile(T) {
+    var c = T / 2, R = T * 0.3, oc = T * 0.4, s = '', k, a, a2;
+    s += '<polygon points="' + starPts(c, c, R, R * 0.7654) + '"/>';
+    var oct = [];
+    for (k = 0; k < 8; k++) { a = (22.5 + k * 45) * Math.PI / 180; oct.push(f1(c + oc * Math.cos(a)) + ',' + f1(c + oc * Math.sin(a))); }
+    s += '<polygon points="' + oct.join(' ') + '"/>';
+    for (k = 0; k < 4; k++) {
+      a = (22.5 + k * 90) * Math.PI / 180; a2 = (67.5 + k * 90) * Math.PI / 180;
+      var mx = c + c * Math.SQRT2 * Math.cos((45 + k * 90) * Math.PI / 180), my = c + c * Math.SQRT2 * Math.sin((45 + k * 90) * Math.PI / 180);
+      s += '<path d="M' + f1(c + oc * Math.cos(a)) + ' ' + f1(c + oc * Math.sin(a)) + 'L' + f1(mx) + ' ' + f1(my) + 'L' + f1(c + oc * Math.cos(a2)) + ' ' + f1(c + oc * Math.sin(a2)) + '"/>';
+    }
+    for (k = 0; k < 4; k++) {
+      a = (k * 90) * Math.PI / 180;
+      s += '<path d="M' + f1(c + R * Math.cos(a)) + ' ' + f1(c + R * Math.sin(a)) + 'L' + f1(c + c * Math.cos(a)) + ' ' + f1(c + c * Math.sin(a)) + '"/>';
+    }
+    return s;
+  }
+  function buildScene() {
+    var G = S.portrait ? NICHE.port : NICHE.land, W = G.W, H = G.H, T = 66, tile = carveTile(T);
+    var panel = S.portrait ? 'M-6 -6H' + (W + 6) + 'V' + (H + 6) + 'H-6Z' : 'M150 -6H874V212Q874 232 894 232H962Q984 232 984 254V600H40V254Q40 232 62 232H130Q150 232 150 212Z';
+    var hole = nichePath(-9, true, G), vb = '0 0 ' + W + ' ' + H;
+    $('scene').innerHTML = '<svg viewBox="' + vb + '" aria-hidden="true"><defs>' +
+      '<pattern id="pCarve" width="' + T + '" height="' + T + '" patternUnits="userSpaceOnUse" x="17" y="-20">' +
+        '<g fill="none" stroke="#000000" stroke-opacity="0.55" stroke-width="4.2" transform="translate(0.9 1.3)">' + tile + '</g>' +
+        '<g fill="none" stroke="#A8D8C6" stroke-opacity="0.11" stroke-width="2.6">' + tile + '</g>' +
+        '<g fill="none" stroke="#E9FFF6" stroke-opacity="0.07" stroke-width="0.7" transform="translate(-0.7 -0.9)">' + tile + '</g>' +
+      '</pattern>' +
+      '<radialGradient id="gFade" cx="50%" cy="28%" r="60%"><stop offset="0.3" stop-color="#FFF"/><stop offset="1" stop-color="#FFF" stop-opacity="0"/></radialGradient>' +
+      '<mask id="mFade"><rect width="' + W + '" height="' + H + '" fill="url(#gFade)"/></mask>' +
+      '<linearGradient id="gLow" x1="0" y1="0" x2="0" y2="1"><stop offset="0.8" stop-color="#FFF"/><stop offset="0.95" stop-color="#FFF" stop-opacity="0"/></linearGradient>' +
+      '<mask id="mLow"><rect width="' + W + '" height="' + H + '" fill="url(#gLow)"/></mask>' +
       '</defs>' +
-      '<path class="mer" d="' + mer + '"/>' +
-      '<path class="wall" fill-rule="evenodd" d="' + wall + '"/>' +
-      '<g class="courses" clip-path="url(#wallClip)">' + courses + '</g>' +
-      fills + vou + lines +
-      '<rect class="topline" x="0" y="' + top + '" width="' + W + '" height="1"/>' +
-      '<rect class="floor" x="0" y="' + bottom + '" width="' + W + '" height="14"/>' +
-      '<rect class="floorline" x="0" y="' + bottom + '" width="' + W + '" height="1.2"/>' +
+      '<path d="M-10 -10H' + (W + 10) + 'V' + (H + 10) + 'H-10Z' + hole + '" fill-rule="evenodd" fill="#000" fill-opacity="0.5"/>' +
+      '<g mask="url(#mFade)"><path d="' + panel + hole + '" fill-rule="evenodd" fill="url(#pCarve)"/></g>' +
+      (S.portrait ? '' : '<path d="' + panel + '" fill="none" stroke="#000" stroke-opacity="0.5" stroke-width="3"/><path d="' + panel + '" fill="none" stroke="#BFE6D6" stroke-opacity="0.08" stroke-width="1.2"/>') +
+      '<g mask="url(#mLow)"><path d="' + nichePath(0, false, G) + '" fill="none" stroke="#000" stroke-opacity="0.5" stroke-width="19"/>' +
+      '<path d="' + nichePath(0, false, G) + '" fill="none" stroke="#8FD1BA" stroke-opacity="0.13" stroke-width="13"/>' +
+      '<path d="' + nichePath(-6, false, G) + '" fill="none" stroke="#D8F2E8" stroke-opacity="0.12" stroke-width="1"/>' +
+      '<path d="' + nichePath(10.5, false, G) + '" fill="none" stroke="#E8DDB4" stroke-opacity="0.72" stroke-width="1.3"/></g>' +
       '</svg>';
-    $('bays').innerHTML = bays;
+    var ids = ['adArch', 'rdArch', 'akArch'];
+    for (var i = 0; i < ids.length; i++) {
+      var sv = $(ids[i]); if (!sv) continue;
+      sv.setAttribute('viewBox', vb);
+      sv.innerHTML = '<path' + (ids[i] === 'adArch' ? ' id="adArchPath"' : '') + ' class="draw" d="' + nichePath(10.5, false, G) + '"/><path class="thin" d="' + nichePath(0, false, G) + '"/>';
+    }
+    buildSky();
+  }
+  /* ثيم «ليل الجامع»: نجوم وجامع بقبة ومئذنتين */
+  function buildSky() {
+    var G = S.portrait ? NICHE.port : NICHE.land, W = G.W, H = G.H, r = rng(77), st = '', i;
+    for (i = 0; i < 140; i++) {
+      var x = r() * W, y = r() * H * 0.72, s = 0.5 + r() * 1.3;
+      st += '<circle class="twk2" cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + f1(s) + '" fill="#FFF6E0" style="animation-delay:-' + f1(r() * 5) + 's;animation-duration:' + f1(2.5 + r() * 4) + 's"/>';
+    }
+    var win = '', mx = [289, 735];
+    for (i = 0; i < 2; i++) {
+      win += '<path d="M' + (mx[i] - 4) + ' 268V256A4 4 0 0 1 ' + (mx[i] + 4) + ' 256V268Z" fill="#F6C67A" fill-opacity="0.9"/>' +
+        '<path d="M' + (mx[i] - 4) + ' 352V340A4 4 0 0 1 ' + (mx[i] + 4) + ' 340V352Z" fill="#F6C67A" fill-opacity="0.75"/>';
+    }
+    var mos = '<g transform="translate(' + (G.cx - 512) + ' ' + (H - 576) + ')">' +
+      '<g fill="#081236">' +
+        '<path d="M330 576V420H694V576Z"/><path d="M398 420V392H626V420Z"/>' +
+        '<path d="M398 392C398 318 466 286 512 246C558 286 626 318 626 392Z"/>' +
+        '<path d="M330 420C330 396 348 382 366 382C384 382 402 396 402 420Z"/><path d="M622 420C622 396 640 382 658 382C676 382 694 396 694 420Z"/>' +
+        '<path d="M276 576V214H302V576Z"/><path d="M270 222H308V232H270Z"/><path d="M272 300H306V308H272Z"/><path d="M276 214L289 168L302 214Z"/>' +
+        '<path d="M722 576V214H748V576Z"/><path d="M716 222H754V232H716Z"/><path d="M718 300H752V308H718Z"/><path d="M722 214L735 168L748 214Z"/>' +
+        '<path d="M510.5 246V214H513.5V246Z"/>' +
+      '</g>' +
+      '<path d="M518 202A9 9 0 1 1 518 220A7 7 0 1 0 518 202Z" fill="#E8CB86"/>' + win + '</g>';
+    $('sky').innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true">' + st + mos + '</svg>';
+  }
+  /* الدائرة المزخرفة خلف الآية */
+  function medalSVG() {
+    var s = '<svg viewBox="-200 -200 400 400" aria-hidden="true"><g fill="none" stroke="#E2D6AE" stroke-opacity="0.26">' +
+      '<circle r="197" stroke-width="1.2"/><circle r="181" stroke-width="1"/><circle r="170" stroke-width="0.6" stroke-opacity="0.16"/>';
+    for (var k = 0; k < 48; k++) {
+      var a = k * 7.5 * Math.PI / 180, a2 = (k + 0.5) * 7.5 * Math.PI / 180;
+      s += '<circle cx="' + f1(189 * Math.cos(a)) + '" cy="' + f1(189 * Math.sin(a)) + '" r="5.4" stroke-width="0.9"/>' +
+        '<circle cx="' + f1(175.5 * Math.cos(a2)) + '" cy="' + f1(175.5 * Math.sin(a2)) + '" r="1.2" fill="#E2D6AE" fill-opacity="0.26" stroke="none"/>';
+    }
+    return s + '</g></svg>';
+  }
+  /* اللمعات الذهبية (أكثفها في الزاويتين السفليتين) */
+  function buildGlitter() {
+    var mult = CONFIG.shine === 0 ? 0.4 : (CONFIG.shine === 2 ? 1.6 : 1);
+    var r = rng(1448), h = '';
+    function add(n, x0, x1, y0, y1, smin, smax, soft) {
+      n = Math.round(n * mult);
+      for (var i = 0; i < n; i++) {
+        var s = smin + r() * (smax - smin), x = x0 + r() * (x1 - x0), y = y0 + r() * (y1 - y0);
+        h += '<i class="gl' + (soft ? ' soft' : '') + '" style="left:' + f1(x * U - s / 2) + 'rem;top:' + f1(y * U - s / 2) + 'rem;width:' + f1(s) + 'rem;height:' + f1(s) +
+          'rem;animation-duration:' + f1(2 + r() * 4) + 's;animation-delay:-' + f1(r() * 6) + 's"></i>';
+      }
+    }
+    if (S.portrait) {
+      add(60, 0, 90, 480, 660, 0.07, 0.2); add(60, 486, 576, 480, 660, 0.07, 0.2);
+      add(34, 110, 466, 20, 560, 0.06, 0.14); add(12, 0, 576, 0, 300, 0.06, 0.12);
+      add(4, 0, 80, 520, 640, 0.5, 0.9, true); add(4, 496, 576, 520, 640, 0.5, 0.9, true);
+    } else {
+      add(70, 0, 135, 250, 440, 0.07, 0.2); add(26, 0, 60, 300, 420, 0.12, 0.24);
+      add(60, 885, 1024, 260, 440, 0.07, 0.2); add(22, 960, 1024, 300, 420, 0.12, 0.24);
+      add(30, 275, 750, 20, 395, 0.06, 0.14); add(16, 0, 1024, 0, 240, 0.06, 0.12);
+      add(4, 0, 120, 300, 420, 0.5, 0.9, true); add(4, 900, 1024, 300, 420, 0.5, 0.9, true);
+    }
+    $('glitter').innerHTML = h;
+  }
+  /* زر صوت الأذان: قرص زجاجي وحلقات ذهبية وزرقاء وموجات صوت */
+  function arc(r, a0, a1, color, w, op) {
+    if (a1 < a0) a1 += 360;
+    var p0 = [r * Math.cos(a0 * Math.PI / 180), r * Math.sin(a0 * Math.PI / 180)], p1 = [r * Math.cos(a1 * Math.PI / 180), r * Math.sin(a1 * Math.PI / 180)];
+    return '<path d="M' + f1(p0[0]) + ' ' + f1(p0[1]) + 'A' + r + ' ' + r + ' 0 ' + (a1 - a0 > 180 ? 1 : 0) + ' 1 ' + f1(p1[0]) + ' ' + f1(p1[1]) + '" stroke="' + color + '" stroke-width="' + w + '" stroke-opacity="' + op + '"/>';
+  }
+  function micDisc(on) {
+    var ink = '#F3F6FA';
+    return '<svg viewBox="-70 -70 140 140" aria-hidden="true"><defs>' +
+      '<radialGradient id="gDisc" cx="38%" cy="28%" r="78%"><stop offset="0" stop-color="#F1F4F8"/><stop offset="0.5" stop-color="#B9C4D0"/><stop offset="1" stop-color="#6F7F93"/></radialGradient>' +
+      '</defs><circle r="42.5" fill="#07131A" stroke="#27455A" stroke-width="1"/>' +
+      '<circle r="36" fill="url(#gDisc)"/>' +
+      '<ellipse cx="9" cy="-17" rx="22" ry="12" fill="#FFFFFF" fill-opacity="0.22"/>' +
+      '<g transform="translate(-20.4 -20.4) scale(1.7)" fill="none" stroke="' + ink + '" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">' +
+      LU[on ? 'mic' : 'mic-off'] + '</g></svg>';
+  }
+  function buildMic() {
+    var r1 = '<svg viewBox="-70 -70 140 140" aria-hidden="true"><g fill="none" stroke-linecap="round">' +
+      arc(47, 200, 335, '#E3C47E', 5, 0.18) + arc(47, 20, 155, '#E3C47E', 5, 0.18) +
+      arc(47, 200, 335, '#EBCF8E', 1.8, 0.95) + arc(47, 20, 155, '#EBCF8E', 1.8, 0.95) +
+      arc(60.5, 240, 300, '#E3C47E', 1, 0.45) + arc(60.5, 60, 120, '#E3C47E', 1, 0.45) + '</g></svg>';
+    var r2 = '<svg viewBox="-70 -70 140 140" aria-hidden="true"><g fill="none" stroke-linecap="round">' +
+      arc(52.5, 150, 255, '#72C6EE', 7, 0.2) + arc(52.5, 330, 75, '#72C6EE', 7, 0.2) +
+      arc(52.5, 150, 255, '#8AD3F3', 2.4, 1) + arc(52.5, 330, 75, '#8AD3F3', 2.4, 1) +
+      arc(56.5, 0, 360, '#72C6EE', 0.7, 0.3) + '</g></svg>';
+    function bars(side, n, width) {
+      var h = '<div class="spec ' + side + '" style="left:' + (side === 'l' ? '-3rem' : '10.8rem') + ';width:' + width + 'rem">', i;
+      for (i = 0; i < n; i++) {
+        var t = side === 'l' ? i / (n - 1) : 1 - i / (n - 1);
+        var ht = 3.6 * (0.18 + 0.82 * Math.pow(t, 1.15)) * (0.62 + 0.38 * Math.abs(Math.sin(i * 1.9)));
+        h += '<i style="left:' + f1(i * width / n) + 'rem;height:' + f1(ht) + 'rem;margin-top:-' + f1(ht / 2) + 'rem;animation-duration:' + f1(0.6 + ((i * 37) % 9) / 10) + 's;animation-delay:-' + f1(i * 0.17) + 's"></i>';
+      }
+      return h + '</div>';
+    }
+    $('mic').innerHTML = '<div class="glow"></div>' + bars('l', 20, 5.3) + bars('r', 18, 5) +
+      '<div class="rings r1">' + r1 + '</div><div class="rings r2">' + r2 + '</div><div class="disc" id="micDisc"></div>';
+  }
+  function speakerSVG(on) {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="url(#gGoldV)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      LU[on ? 'volume-2' : 'volume-x'] + '</svg>';
+  }
+  var PRAYER_IC = { fajr: 'moon-star', sunrise: 'sunrise', dhuhr: 'sun', asr: 'sun-medium', maghrib: 'sunset', isha: 'moon' };
+  /* قبة صغيرة فوق بطاقة الصلاة القادمة */
+  function ornSVG() {
+    return '<svg viewBox="0 0 44 24" aria-hidden="true">' +
+      '<circle cx="22" cy="20" r="9" fill="url(#gHalo)"/>' +
+      '<path d="M2.5 23C3 17 9 14.2 14 12.6C18.2 11.2 20.6 8.4 22 2.5C23.4 8.4 25.8 11.2 30 12.6C35 14.2 41 17 41.5 23" fill="none" stroke="url(#gGold)" stroke-width="1.5"/>' +
+      '<circle cx="22" cy="2.6" r="1.1" fill="#FCEDBE"/>' +
+      '<path d="M7 23C8 18.6 12 16.6 15.6 15.4C19 14.2 20.8 12 22 8.2C23.2 12 25 14.2 28.4 15.4C32 16.6 36 18.6 37 23" fill="none" stroke="#F0D28E" stroke-opacity="0.55" stroke-width="0.7"/>' +
+      '<circle cx="22" cy="20.6" r="4.3" fill="url(#gOrb)"/>' +
+      '</svg>';
+  }
+  /* بطاقات المواقيت: الفجر يميناً كترتيب القراءة العربية */
+  function buildBays() {
+    var h = '';
+    for (var i = 0; i < 6; i++) {
+      h += '<div class="bay" id="bay' + i + '"><div class="bay-name"></div><div class="bay-sub"></div>' +
+        '<div class="bay-time num silver"></div><div class="bay-orn">' + ornSVG() + '</div></div>';
+    }
+    $('bays').innerHTML = h;
+    layoutBays();
+  }
+  function layoutBays() {
+    for (var i = 0; i < 6; i++) {
+      var b = $('bay' + i); if (!b) return;
+      if (S.portrait) { var c = i % 3, r = Math.floor(i / 3); b.style.left = f1(2.3 + (2 - c) * 16.8) + 'rem'; b.style.top = f1(61 + r * 13.2) + 'rem'; }
+      else { b.style.left = f1(4.22 + (5 - i) * 15) + 'rem'; b.style.top = ''; }
+    }
   }
 
   /* ===== التواريخ والمواقيت ===== */
@@ -717,7 +1247,6 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
     $('gDate').textContent = dg(p.d) + ' ' + GM[p.m - 1] + ' ' + dg(p.y);
     var hj = PrayerEngine.hijri(p.y, p.m, p.d, CONFIG.hijriOffset);
     $('hDate').textContent = dg(hj.day) + ' ' + HM[hj.month - 1] + ' ' + dg(hj.year) + ' هـ';
-    $('moonLit').setAttribute('d', moonPath(PrayerEngine.moonPhase(n)));
     S.lastSky = 0;
   }
 
@@ -739,17 +1268,14 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
     for (var i = 0; i < PRAYERS.length; i++) {
       var k = PRAYERS[i].k, bay = $('bay' + i);
       var t = (next.day === 1 && i === 0) ? S.N.fajr : S.T[k];
-      bay.childNodes[1].textContent = prayerName(k);
-      bay.childNodes[2].innerHTML = timeHTML(t);
       var isNext = next.idx === i;
-      var passed = !isNext && next.day !== -1 && (next.day === 1 || S.T[k] <= n);
-      bay.className = 'bay' + (isNext ? ' is-next' : '') + (passed ? ' is-passed' : '');
-      setCls($('bf' + i), 'next', isNext);
-      setCls($('bp' + i), 'next', isNext);
-      $('bp' + i).setAttribute('fill', isNext ? 'url(#pStarGold)' : 'url(#pStar)');
+      bay.childNodes[0].innerHTML = '<span class="bay-ic">' + lu(PRAYER_IC[k]) + '</span>' + prayerName(k);
+      bay.childNodes[1].textContent = isNext ? (k === 'sunrise' ? 'وقت الشروق' : 'الصلاة القادمة') : '';
+      bay.childNodes[2].innerHTML = timeHTML(t);
+      bay.childNodes[2].className = 'bay-time num ' + (isNext ? 'pale' : 'silver');
+      bay.className = 'bay' + (isNext ? ' is-next' : '');
     }
   }
-
   function renderClock(p) {
     var h = p.h, ap = '';
     if (!CONFIG.use24h) { ap = h < 12 ? 'ص' : 'م'; h = h % 12; if (h === 0) h = 12; }
@@ -770,10 +1296,26 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
   /* ===== الآيات والأذكار ===== */
   function setVerse(i) {
     var v = VERSES[i], txt = v.q ? '﴿' + v.t + '﴾' : v.t;
-    var el = $('verseText');
-    el.textContent = txt;
-    el.className = txt.length > 78 ? 'long' : (txt.length > 56 ? 'mid' : '');
+    $('verseText').textContent = txt;
     $('verseRef').textContent = dg(v.r);
+    fitVerse();
+  }
+  /* أكبر خط يُبقي الآية على سطر واحد، وإلا سطرين */
+  function fitVerse() {
+    var el = $('verseText'), root = parseFloat(document.documentElement.style.fontSize) || 20, sizes = [3.1, 2.8, 2.55];
+    el.style.maxWidth = ''; el.style.lineHeight = '';
+    for (var i = 0; i < sizes.length; i++) {
+      el.style.fontSize = sizes[i] + 'rem';
+      if (el.offsetHeight <= sizes[i] * root * 1.65 * 1.3) return;
+    }
+    /* سطران متوازنان بدل كلمة وحيدة في السطر الثاني */
+    el.style.fontSize = '2.55rem';
+    el.style.lineHeight = '1.5';
+    el.style.whiteSpace = 'nowrap';
+    var w = el.scrollWidth;
+    el.style.whiteSpace = '';
+    el.style.maxWidth = Math.ceil(w / 2 + root * 2.5) + 'px';
+    el.style.marginLeft = 'auto'; el.style.marginRight = 'auto';
   }
   function rotateVerse() {
     var idx = Math.floor(Date.now() / (CONFIG.verseSeconds * 1000)) % VERSES.length;
@@ -785,29 +1327,31 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
     setTimeout(function () { setVerse(idx); $('verse').className = 'shadow show'; }, 950);
   }
 
-  /* ===== السماء الحية ===== */
+  /* ===== الألوان الحية: لون الواجهة يتبدّل مع كل صلاة ===== */
   function periodAt(n) {
-    var T = S.T, M = 60000;
+    var T = S.T;
     if (n < T.fajr) return 'night';
     if (n < T.sunrise) return 'fajr';
-    if (n < T.sunrise + 50 * M) return 'sunrise';
-    if (n < T.asr) return 'day';
-    if (n < T.maghrib - 45 * M) return 'asr';
-    if (n < T.maghrib + 22 * M) return 'sunset';
-    if (n < T.isha) return 'dusk';
+    if (n < T.dhuhr) return 'duha';
+    if (n < T.asr) return 'dhuhr';
+    if (n < T.maghrib) return 'asr';
+    if (n < T.isha) return 'maghrib';
     return 'night';
   }
 
   function setPeriod(per, instant) {
     S.period = per;
-    var pal = PAL[per], A = $('skyA'), B = $('skyB');
-    var bg = 'linear-gradient(to bottom,' + pal.s[0] + ' 0%,' + pal.s[1] + ' 40%,' + pal.s[2] + ' 67.6%,' + pal.w[0] + ' 67.6%,' + pal.w[1] + ' 100%)';
+    var gem = gemFor(per), A = $('bgA'), B = $('bgB'), sky = CONFIG.theme === 'nightsky';
+    var bg = sky ? 'radial-gradient(ellipse 30% 30% at 50% 10%, rgba(150,175,255,0.22) 0%, rgba(150,175,255,0) 100%),linear-gradient(to bottom, #030822 0%, #0A1A52 48%, #18358E 100%)' : 'radial-gradient(ellipse 17% 21% at 50% 9%, rgba(244,210,136,0.15) 0%, rgba(244,210,136,0) 100%),' +
+      'linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.35) 100%),' +
+      'radial-gradient(ellipse 24% 30% at 50% 52%, rgba(' + gem.g + ',' + (gem.ga * 0.3).toFixed(2) + ') 0%, rgba(' + gem.g + ',0) 100%),' +
+      'radial-gradient(ellipse 28% 56% at 50% 20%, ' + gem.c[0] + ' 0%, ' + gem.c[1] + ' 42%, ' + gem.c[2] + ' 88%)';
     var inc = S.front === 'A' ? B : A, out = S.front === 'A' ? A : B;
     S.front = S.front === 'A' ? 'B' : 'A';
     inc.style.transition = 'none';
     inc.style.opacity = '0';
     inc.style.background = bg;
-    inc.style.zIndex = 2; out.style.zIndex = 1;
+    inc.style.zIndex = 1; out.style.zIndex = 0;
     void inc.offsetWidth;
     var fade = Math.max(1, 90 / SPEED);
     if (instant) { inc.style.opacity = '1'; out.style.opacity = '0'; }
@@ -818,50 +1362,13 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
       S.fadeT = setTimeout(function () { out.style.opacity = '0'; }, fade * 1000 + 500);
     }
     $('stage').setAttribute('data-p', per);
-    var nf = pal.night, fadeEls = [$('stars'), $('clouds')], gw = document.querySelectorAll('.glowwrap'), i;
-    for (i = 0; i < gw.length; i++) fadeEls.push(gw[i]);
-    for (i = 0; i < fadeEls.length; i++) fadeEls[i].style.transition = instant ? 'none' : 'opacity ' + Math.max(1, 40 / SPEED) + 's linear';
-    $('stars').style.opacity = nf;
-    $('stars').className = nf > 0.05 ? '' : 'paused';
-    $('clouds').style.opacity = ((1 - nf) * 0.6).toFixed(2);
-    for (i = 0; i < gw.length; i++) gw[i].style.opacity = (0.18 + 0.82 * nf).toFixed(2);
-  }
-
-  function arcPos(f) { return { x: 6 + 84 * f, y: 36.5 - 29.5 * Math.sin(Math.PI * f) }; }
-
-  function moonPath(ph) {
-    ph = clamp(ph, 0.07, 0.93);
-    var r = 46, c = Math.cos(2 * Math.PI * ph), rx = (Math.abs(c) * r).toFixed(2), wax = ph < 0.5;
-    var outer = wax ? 1 : 0, inner = wax ? (c > 0 ? 0 : 1) : (c > 0 ? 1 : 0);
-    return 'M50 4A46 46 0 0 ' + outer + ' 50 96A' + rx + ' 46 0 0 ' + inner + ' 50 4Z';
+    var ov = sky ? 'linear-gradient(to bottom, #030822 0%, #0A1A52 60%, #142E80 100%)' : 'radial-gradient(ellipse 34% 60% at 50% 42%, ' + gem.c[0] + ' 0%, ' + gem.c[1] + ' 60%, ' + gem.c[2] + ' 100%)';
+    $('adhan').style.background = ov; $('reader').style.background = ov; $('adhkar').style.background = ov;
   }
 
   function updateSky(n) {
     var per = periodAt(n);
     if (per !== S.period) setPeriod(per, S.period === null);
-    var T = S.T, sun = $('sun'), moon = $('moon'), refl = $('reflect'), rw = $('reflectWrap');
-    var tr = S.skyInit ? 'transform ' + Math.max(1, 20 / SPEED) + 's linear, opacity 30s linear' : 'none';
-    sun.style.transition = tr; moon.style.transition = tr; rw.style.transition = S.skyInit ? 'transform ' + Math.max(1, 20 / SPEED) + 's linear' : 'none';
-    refl.style.transition = S.skyInit ? 'opacity 20s linear' : 'none';
-
-    var f = (n - T.sunrise) / (T.sunset - T.sunrise), sp = arcPos(f), sunVis = f > -0.06 && f < 1.06;
-    sun.style.transform = 'translate(' + sp.x.toFixed(2) + 'rem,' + sp.y.toFixed(2) + 'rem)';
-    sun.style.opacity = sunVis ? 1 : 0;
-
-    var m0 = n < T.fajr ? S.Y.maghrib : T.maghrib, m1 = n < T.fajr ? T.fajr : S.N.fajr;
-    var g = (n - m0) / (m1 - m0), mp = arcPos(g), moonVis = !sunVis && g > -0.04 && g < 1.04;
-    moon.style.transform = 'translate(' + mp.x.toFixed(2) + 'rem,' + mp.y.toFixed(2) + 'rem)';
-    moon.style.opacity = moonVis ? 1 : 0;
-
-    var src = sunVis ? sp : (moonVis ? mp : null);
-    if (src && src.y < 36.5) {
-      rw.style.transform = 'translateX(' + src.x.toFixed(2) + 'rem)';
-      refl.className = sunVis ? '' : 'moonref';
-      refl.style.opacity = ((sunVis ? 0.9 : 0.5) * clamp((src.y - 12) / 22, 0.15, 1)).toFixed(2);
-    } else {
-      refl.style.opacity = 0;
-    }
-    if (S.skyInit === false) S.skyInit = true;
   }
 
   /* ===== الصوت ===== */
@@ -958,18 +1465,22 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
   function updateStatus() {
     var t, mode;
     if (S.muted) { t = 'الأذان مكتوم'; mode = 'off'; }
-    else if (!S.unlocked) { t = 'اضغط OK لتفعيل الأذان'; mode = 'off'; }
-    else if (S.blocked) { t = 'المتصفح منع الصوت، اضغط OK'; mode = 'off'; }
+    else if (!S.unlocked) { t = 'اضغط <span class="chip">OK</span> لتفعيل الأذان'; mode = 'off'; }
+    else if (S.blocked) { t = 'المتصفح منع الصوت، اضغط <span class="chip">OK</span>'; mode = 'off'; }
     else if (S.fileOk === false) { t = 'ملف adhan.mp3 غير موجود'; mode = 'warn'; }
     else { t = 'الأذان مفعّل'; mode = 'on'; }
-    $('status').className = mode;
-    $('statusText').textContent = t;
-    $('statusIcon').innerHTML = SVG_OPEN + (mode === 'on' ? ICON_ON : ICON_OFF) + '</svg>';
+    var icon = lu(S.muted ? 'volume-x' : 'volume-2');
+    $('status').innerHTML = '<span class="chip">' + icon + '</span> ' + t;
+    $('speaker').innerHTML = speakerSVG(!S.muted);
+    $('mic').className = S.muted ? 'off' : (mode === 'on' || mode === 'warn' ? 'on' : 'idle');
+    if ($('micDisc')) $('micDisc').innerHTML = micDisc(!S.muted);
   }
 
   /* ===== شاشة الأذان ===== */
   function startAdhan(k, t, isTest) {
     if (S.adhan) stopAdhan();
+    if (Q.open) qClose();
+    closeAdhkar(); closePicker(); closeSettings(); closeShelf();
     S.adhan = { k: k, phase: 'adhan', start: Date.now(), sound: 'file' };
     $('adKicker').textContent = isTest ? 'تجربة صوت الأذان' : 'حان الآن موعد';
     $('adTitle').textContent = 'أذان ' + prayerName(k);
@@ -1035,12 +1546,540 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
   }
   function onKey(e) {
     var k = e.keyCode || e.which;
-    var ok = k === 13, back = (k === 8 || k === 27 || k === 461 || k === 10009);
-    if (S.splash) { if (ok) { e.preventDefault(); startFromSplash(); } return; }
-    if (S.adhan) { if (ok || back) { e.preventDefault(); unlock(); stopAdhan(); } return; }
-    if (ok) { unlock(); return; }
-    if (k === 403 || k === 84) { unlock(); startAdhan('dhuhr', now(), true); return; }
-    if (k === 404 || k === 77) { toggleMute(); return; }
+    var K = { ok: k === 13, back: k === 8 || k === 27 || k === 461 || k === 10009, left: k === 37, up: k === 38, right: k === 39, down: k === 40,
+      red: k === 403 || k === 84, green: k === 404 || k === 77, yellow: k === 405 || k === 83, blue: k === 406 || k === 81,
+      play: k === 415 || k === 19 || k === 179 || k === 10252 || k === 80, stop: k === 413, ff: k === 417 || k === 228, rw: k === 412 || k === 227 };
+    if (route(K) && e.preventDefault) e.preventDefault();
+  }
+  function route(K) {
+    if (S.splash) { if (K.ok) { startFromSplash(); return true; } return false; }
+    if (S.adhan) { if (K.ok || K.back) { unlock(); stopAdhan(); return true; } return false; }
+    if (K.ok || K.left || K.right || K.up || K.down || K.play) unlock();
+    if (K.green) { toggleMute(); if (ST.open) renderSettings(); return true; }
+    if (ST.open) return settingsKey(K);
+    if (PK.open) return pickerKey(K);
+    if (AK.open) return adhkarKey(K);
+    if (Q.open) return readerKey(K);
+    if (SH.open) return shelfKey(K);
+    if (K.ok || K.down) { openShelf(); return true; }
+    if (K.yellow || K.blue) { openSettings(); return true; }
+    if (K.red) { startAdhan('dhuhr', now(), true); return true; }
+    if (K.play) { var r = loadResume(); if (r && r.kind === 'ruqyah') openRuqyah(r.idx); else if (r && r.s) openSurah(r.s, r.idx); return true; }
+    return false;
+  }
+
+  /* ===== الإعدادات المحفوظة ===== */
+  var THEME_LIST = [
+    { id: 'auto', n: 'تلقائي: لون لكل صلاة' }, { id: 'emerald', n: 'زمردي' }, { id: 'sapphire', n: 'ياقوت أزرق' },
+    { id: 'ruby', n: 'ياقوت أحمر' }, { id: 'amethyst', n: 'جمشت' }, { id: 'amber', n: 'كهرمان' },
+    { id: 'turquoise', n: 'فيروزي' }, { id: 'onyx', n: 'أسود وذهبي' }, { id: 'nightsky', n: 'ليل الجامع' }
+  ];
+  var SHINE_NAMES = ['هادئة', 'مثل التصميم', 'قوية'];
+  var SET = { theme: CONFIG.theme, reciter: 0, shine: CONFIG.shine };
+  function loadSettings() {
+    try {
+      var j = JSON.parse(window.localStorage.getItem('adhanSettings') || 'null');
+      if (j) {
+        if (!P.theme && j.theme) SET.theme = j.theme;
+        if (typeof j.reciter === 'number' && RECITERS[j.reciter]) SET.reciter = j.reciter;
+        if (!P.shine && (j.shine === 0 || j.shine === 1 || j.shine === 2)) SET.shine = j.shine;
+      }
+    } catch (e) {}
+    CONFIG.theme = SET.theme; CONFIG.shine = SET.shine;
+  }
+  function saveSettings() { try { window.localStorage.setItem('adhanSettings', JSON.stringify(SET)); } catch (e) {} }
+  function themeIndex() { for (var i = 0; i < THEME_LIST.length; i++) if (THEME_LIST[i].id === SET.theme) return i; return 0; }
+
+  function stageClass() {
+    var c = 'shine-' + CONFIG.shine + ' th-' + (CONFIG.theme === 'nightsky' ? 'nightsky' : 'gem');
+    if (S.portrait) c += ' portrait';
+    if (SH.open) c += ' shelf-open';
+    $('stage').className = c;
+  }
+
+  /* ===== رسالة قصيرة ===== */
+  function toast(msg) {
+    var t = $('toast');
+    t.innerHTML = msg; t.className = 'show';
+    clearTimeout(S.toastT);
+    S.toastT = setTimeout(function () { t.className = ''; }, 2600);
+  }
+  function toIndic(n) { return String(n).replace(/[0-9]/g, function (c) { return AR[+c]; }); }
+  /* أكبر خط يتّسع داخل الصندوق */
+  function fitText(el, box, sizes) {
+    for (var i = 0; i < sizes.length; i++) {
+      el.style.fontSize = sizes[i] + 'rem';
+      if (el.offsetHeight <= box.clientHeight && el.scrollWidth <= box.clientWidth + 2) return;
+    }
+  }
+  function ajax(url, ok, fail) {
+    var x, done = false;
+    function f() { if (!done) { done = true; fail(); } }
+    try { x = new XMLHttpRequest(); x.open('GET', url, true); x.timeout = 25000; } catch (e) { f(); return; }
+    x.onreadystatechange = function () {
+      if (x.readyState !== 4 || done) return;
+      var j = null;
+      if (x.status === 200) { try { j = JSON.parse(x.responseText); } catch (e) {} }
+      if (j && j.code === 200 && j.data) { done = true; ok(j.data); } else f();
+    };
+    x.ontimeout = f; x.onerror = f;
+    try { x.send(); } catch (e) { f(); }
+  }
+
+  /* ===== القرّاء المتاحون ===== */
+  var AVAIL = null;
+  function checkReciters() {
+    ajax(QAPI + 'edition/format/audio', function (d) {
+      var m = {}, i, j, any = false;
+      for (i = 0; i < d.length; i++) if (d[i] && d[i].identifier) m[d[i].identifier] = 1;
+      for (i = 0; i < RECITERS.length; i++) {
+        RECITERS[i].na = true;
+        for (j = 0; j < RECITERS[i].ids.length; j++) if (m[RECITERS[i].ids[j]]) { RECITERS[i].na = false; any = true; }
+      }
+      if (any) AVAIL = m; else for (i = 0; i < RECITERS.length; i++) RECITERS[i].na = false;
+      if (RECITERS[SET.reciter].na) SET.reciter = 0;
+    }, function () {});
+  }
+  function recId(r) {
+    var R = RECITERS[r] || RECITERS[0];
+    if (AVAIL) for (var i = 0; i < R.ids.length; i++) if (AVAIL[R.ids[i]]) return R.ids[i];
+    return R.ids[0];
+  }
+  function recName() { return (RECITERS[SET.reciter] || RECITERS[0]).n; }
+  function stepReciter(dir) {
+    var n = RECITERS.length, r = SET.reciter;
+    for (var k = 0; k < n; k++) { r = (r + dir + n) % n; if (!RECITERS[r].na) break; }
+    SET.reciter = r; saveSettings();
+  }
+
+  /* ===== تحميل السور: النص العثماني + رابط صوت كل آية ===== */
+  var QCACHE = {};
+  function plain(t) { return t.replace(/﻿/g, '').replace(/[ؐ-ًؚ-ٰٟۖ-ۭ]/g, '').replace(/[ٱآأإ]/g, 'ا'); }
+  function loadSurah(s, rid, cb) {
+    var key = s + '|' + rid;
+    if (QCACHE[key]) { cb(null, QCACHE[key]); return; }
+    ajax(QAPI + 'surah/' + s + '/editions/quran-uthmani,' + rid, function (d) {
+      var tx = null, au = null, i;
+      for (i = 0; i < d.length; i++) { if (d[i].edition && d[i].edition.identifier === 'quran-uthmani') tx = d[i]; else au = d[i]; }
+      if (!tx || !au || !tx.ayahs || !au.ayahs) { cb(true); return; }
+      var out = [];
+      for (i = 0; i < tx.ayahs.length; i++) {
+        var A = tx.ayahs[i], B = au.ayahs[i] || {};
+        var u2 = B.audioSecondary && B.audioSecondary.length ? B.audioSecondary[0] : '';
+        out.push({ s: s, n: A.numberInSurah, t: String(A.text || '').replace(/﻿/g, ''), u: B.audio || u2 || '', u2: u2 });
+      }
+      if (s !== 1 && out.length && plain(out[0].t).replace(/\s+/g, ' ').indexOf('بسم الله الرحمن الرحيم') === 0) {
+        out[0].t = out[0].t.replace(/﻿/g, '').split(' ').slice(4).join(' ');
+      }
+      QCACHE[key] = out; cb(null, out);
+    }, function () { cb(true); });
+  }
+  function buildItems(list, from, to, basmala) {
+    var out = [];
+    if (basmala && from === 1 && list.length) {
+      var u = list[0].u ? list[0].u.replace(/\/\d+\.mp3(\?.*)?$/, '/1.mp3') : '';
+      out.push({ s: list[0].s, n: 0, t: BASMALA, u: u, u2: '', bas: true });
+    }
+    for (var i = from - 1; i < to && i < list.length; i++) out.push(list[i]);
+    return out;
+  }
+
+  /* ===== مشغّل القرآن ===== */
+  var Q = { open: false, items: [], idx: 0, playing: false, title: '', kind: '', s: 0, segs: [], token: 0, slot: 0, state: '', done: false };
+  var qa = [];
+  function qInit() {
+    for (var i = 0; i < 2; i++) {
+      var a = new Audio(); a.preload = 'auto';
+      (function (el) {
+        el.addEventListener('ended', function () { if (el === qa[Q.slot] && Q.open) qNext(); });
+        el.addEventListener('playing', function () { if (el === qa[Q.slot]) setRdState(''); });
+        el.addEventListener('waiting', function () { if (el === qa[Q.slot] && Q.playing) setRdState('buffer'); });
+        el.addEventListener('error', function () {
+          if (el !== qa[Q.slot] || !Q.open) return;
+          var it = Q.items[Q.idx];
+          if (it && it.u2 && el.getAttribute('data-alt') !== '1') {
+            el.setAttribute('data-alt', '1'); el.src = it.u2;
+            if (Q.playing) { try { var p = el.play(); if (p && p.then) p.then(null, function () {}); } catch (e) {} }
+            return;
+          }
+          Q.playing = false; setRdPlaying(); setRdState('error');
+        });
+      })(a);
+      qa.push(a);
+    }
+  }
+  function openSurah(s, start) {
+    Q.kind = 'surah'; Q.s = s; Q.segs = [[s, 1, SURA_AYAHS[s - 1]]];
+    Q.title = 'سورة ' + SURA_NAMES[s - 1];
+    qLoad(start || 0);
+  }
+  function openRuqyah(start) { Q.kind = 'ruqyah'; Q.s = 0; Q.segs = RUQYAH; Q.title = 'الرقية الشرعية'; qLoad(start || 0); }
+  function qLoad(start) {
+    var tok = ++Q.token, rid = recId(SET.reciter), segs = Q.segs, lists = {}, need = [], i;
+    qPause(); Q.done = false; Q.items = [];
+    showReader(); setRdState('loading');
+    for (i = 0; i < segs.length; i++) if (need.indexOf(segs[i][0]) < 0) need.push(segs[i][0]);
+    var left = need.length, failed = false;
+    for (i = 0; i < need.length; i++) (function (s) {
+      loadSurah(s, rid, function (err, list) {
+        if (tok !== Q.token) return;
+        if (err) failed = true; else lists[s] = list;
+        if (--left > 0) return;
+        if (failed) { Q.retry = start; setRdState('error'); return; }
+        var items = [];
+        for (var k = 0; k < segs.length; k++) items = items.concat(buildItems(lists[segs[k][0]], segs[k][1], segs[k][2], segs[k][0] !== 1 && segs[k][0] !== 9));
+        Q.items = items;
+        qPlay(clamp(start, 0, items.length - 1));
+      });
+    })(need[i]);
+  }
+  function qPlay(i) {
+    if (!Q.items.length) return;
+    Q.idx = i; Q.done = false;
+    var it = Q.items[i], cur = qa[Q.slot], oth = qa[1 - Q.slot];
+    if (it.u && oth.getAttribute('data-u') === it.u) { Q.slot = 1 - Q.slot; var tmp = cur; cur = oth; oth = tmp; }
+    try { oth.pause(); } catch (e) {}
+    if (cur.getAttribute('data-u') !== it.u) { cur.setAttribute('data-u', it.u); cur.setAttribute('data-alt', '0'); cur.src = it.u; }
+    try { cur.currentTime = 0; } catch (e) {}
+    cur.volume = CONFIG.quranVolume;
+    renderAyah(); saveResume();
+    Q.playing = true; setRdPlaying(); setRdState('buffer');
+    try {
+      var p = cur.play();
+      if (p && p.then) p.then(null, function (err) { if (err && err.name === 'NotAllowedError') { Q.playing = false; setRdPlaying(); setRdState('tap'); } });
+    } catch (e) {}
+    var nx = Q.items[i + 1];
+    if (nx && nx.u && oth.getAttribute('data-u') !== nx.u) {
+      oth.setAttribute('data-u', nx.u); oth.setAttribute('data-alt', '0'); oth.src = nx.u;
+      try { oth.load(); } catch (e) {}
+    }
+  }
+  function qNext() { if (Q.idx < Q.items.length - 1) qPlay(Q.idx + 1); else qFinish(); }
+  function qPrev() { if (Q.idx > 0) qPlay(Q.idx - 1); }
+  function qFinish() {
+    qPause(); Q.done = true; clearResume();
+    $('rdText').innerHTML = 'صَدَقَ اللَّهُ الْعَظِيمُ';
+    fitText($('rdText'), $('rdBox'), [4.4]);
+    setRdState('done');
+  }
+  function qPause() { Q.playing = false; for (var i = 0; i < qa.length; i++) { try { qa[i].pause(); } catch (e) {} } setRdPlaying(); }
+  function qToggle() {
+    if (Q.state === 'error') { qLoad(Q.items.length ? Q.idx : (Q.retry || 0)); return; }
+    if (!Q.items.length) return;
+    if (Q.done) { qPlay(0); return; }
+    if (Q.playing) { qPause(); return; }
+    Q.playing = true; setRdPlaying();
+    try { var p = qa[Q.slot].play(); if (p && p.then) p.then(null, function () { Q.playing = false; setRdPlaying(); setRdState('tap'); }); } catch (e) {}
+  }
+  function qClose() { qPause(); Q.token++; Q.open = false; $('reader').className = 'overlay'; }
+  function qReciter(dir) {
+    stepReciter(dir);
+    toast(lu('headphones') + ' ' + recName());
+    $('rdSub').innerHTML = lu('headphones') + ' ' + recName();
+    if (Q.open) qLoad(Q.items.length ? Q.idx : 0);
+  }
+  function showReader() {
+    closeShelf(); Q.open = true;
+    $('rdTitle').textContent = Q.title;
+    $('rdSub').innerHTML = lu('headphones') + ' ' + recName();
+    $('rdText').innerHTML = ''; $('rdInfo').textContent = ''; $('rdBarFill').style.width = '0';
+    $('reader').className = 'overlay show';
+  }
+  function setRdPlaying() { $('rdPlay').innerHTML = lu(Q.playing ? 'pause' : 'play'); }
+  function setRdState(st) {
+    Q.state = st;
+    var m = { loading: lu('loader-circle', ' style="animation:spin 1.2s linear infinite"') + ' جارٍ تحميل التلاوة',
+      buffer: '', error: 'تعذّر تحميل التلاوة. تأكد من الإنترنت ثم اضغط OK', tap: 'اضغط OK لبدء التلاوة', done: 'انتهت التلاوة. اضغط OK للإعادة' };
+    $('rdState').innerHTML = m[st] || '';
+  }
+  function renderAyah() {
+    var i = Q.idx, it = Q.items[i], el = $('rdText');
+    var name = SURA_NAMES[it.s - 1];
+    $('rdInfo').textContent = it.bas ? (Q.kind === 'ruqyah' ? 'سورة ' + name + '، البسملة' : 'البسملة') :
+      (Q.kind === 'ruqyah' ? 'سورة ' + name + '، الآية ' + dg(it.n) : 'الآية ' + dg(it.n) + ' من ' + dg(SURA_AYAHS[it.s - 1]));
+    $('rdBarFill').style.width = ((i + 1) / Q.items.length * 100).toFixed(2) + '%';
+    setCls(el, 'fade', true);
+    setTimeout(function () {
+      if (Q.idx !== i) return;
+      el.innerHTML = it.bas ? it.t : it.t + ' <span class="am">۝' + toIndic(it.n) + '</span>';
+      fitText(el, $('rdBox'), [4.4, 3.9, 3.4, 3, 2.7, 2.4, 2.15, 1.95, 1.75]);
+      setCls(el, 'fade', false);
+    }, 220);
+  }
+  function saveResume() {
+    var it = Q.items[Q.idx];
+    try { window.localStorage.setItem('qResume', JSON.stringify({ kind: Q.kind, s: Q.s, idx: Q.idx, title: Q.title, n: it && !it.bas ? it.n : 0 })); } catch (e) {}
+  }
+  function loadResume() { try { return JSON.parse(window.localStorage.getItem('qResume') || 'null'); } catch (e) { return null; } }
+  function clearResume() { try { window.localStorage.removeItem('qResume'); } catch (e) {} }
+  function readerKey(K) {
+    if (K.ok || K.play) qToggle();
+    else if (K.left || K.ff) { if (Q.items.length) qNext(); }
+    else if (K.right || K.rw) { if (Q.items.length) qPrev(); }
+    else if (K.up) qReciter(-1);
+    else if (K.down) qReciter(1);
+    else if (K.back || K.stop) qClose();
+    else return false;
+    return true;
+  }
+
+  /* ===== الأذكار ===== */
+  var AK = { open: false, list: [], i: 0, left: 0, am: true, done: false };
+  function openAdhkar(am) {
+    closeShelf();
+    AK.am = am; AK.list = adhkar(am); AK.i = 0; AK.left = AK.list[0].c; AK.done = false; AK.open = true;
+    $('akTitle').textContent = am ? 'أذكار الصباح' : 'أذكار المساء';
+    $('adhkar').className = 'overlay show';
+    renderDhikr();
+  }
+  function closeAdhkar() { AK.open = false; $('adhkar').className = 'overlay'; }
+  function renderDhikr() {
+    var d = AK.list[AK.i], el = $('akText');
+    $('akSub').textContent = 'الذكر ' + dg(AK.i + 1) + ' من ' + dg(AK.list.length);
+    el.className = d.q ? 'quran' : '';
+    el.innerHTML = d.q ? '﴿' + d.t + '﴾' : d.t;
+    fitText(el, $('akBox'), [3.6, 3.2, 2.9, 2.6, 2.35, 2.1, 1.9, 1.75]);
+    $('akRef').textContent = d.r;
+    renderCount();
+  }
+  function renderCount() {
+    var d = AK.list[AK.i];
+    $('akNum').textContent = dg(AK.left);
+    $('akOf').textContent = d.c > 1 ? 'من ' + dg(d.c) : 'مرة واحدة';
+    var C = 2 * Math.PI * 46, done = (d.c - AK.left) / d.c;
+    $('akRing').setAttribute('stroke-dasharray', (C * done).toFixed(1) + ' ' + C.toFixed(1));
+  }
+  function akCount() {
+    if (AK.done) { closeAdhkar(); return; }
+    if (AK.left <= 0) return;
+    AK.left--; renderCount();
+    var c = $('akCount'); setCls(c, 'tap', false); void c.offsetWidth; setCls(c, 'tap', true);
+    if (AK.left === 0) setTimeout(function () { if (AK.open && AK.left === 0) akNext(); }, 650);
+  }
+  function akNext() {
+    if (AK.i < AK.list.length - 1) { AK.i++; AK.left = AK.list[AK.i].c; renderDhikr(); return; }
+    AK.done = true;
+    $('akText').className = ''; $('akText').innerHTML = 'تقبّل الله منّا ومنكم';
+    fitText($('akText'), $('akBox'), [4]);
+    $('akRef').textContent = ''; $('akNum').textContent = ''; $('akOf').textContent = 'اضغط OK للإغلاق';
+  }
+  function akPrev() { if (AK.done) { AK.done = false; renderDhikr(); return; } if (AK.i > 0) { AK.i--; AK.left = AK.list[AK.i].c; renderDhikr(); } }
+  function adhkarKey(K) {
+    if (K.ok || K.play) akCount();
+    else if (K.left) akNext();
+    else if (K.right) akPrev();
+    else if (K.back || K.stop) closeAdhkar();
+    else return false;
+    return true;
+  }
+
+  /* ===== رف القرآن والأذكار ===== */
+  var SH = { open: false, i: 0, items: [] };
+  function shelfItems() {
+    var a = [], r = loadResume(), rn = recName();
+    if (r && r.kind) a.push({ id: 'resume', ic: 'history', t: 'متابعة الاستماع', s: r.title + (r.n ? '، الآية ' + dg(r.n) : ''), tint: '214,180,110' });
+    a.push({ id: 's18', ic: 'book-open', t: 'سورة الكهف', s: rn, tint: '72,176,152' });
+    a.push({ id: 's2', ic: 'book-open', t: 'سورة البقرة', s: rn, tint: '206,146,84' });
+    a.push({ id: 's36', ic: 'book-open', t: 'سورة يس', s: rn, tint: '96,168,112' });
+    a.push({ id: 's67', ic: 'book-open', t: 'سورة الملك', s: rn, tint: '112,144,226' });
+    a.push({ id: 's55', ic: 'book-open', t: 'سورة الرحمن', s: rn, tint: '172,132,226' });
+    a.push({ id: 's56', ic: 'book-open', t: 'سورة الواقعة', s: rn, tint: '224,124,112' });
+    a.push({ id: 'am', ic: 'sunrise', t: 'أذكار الصباح', s: 'بعد صلاة الفجر', tint: '244,194,112' });
+    a.push({ id: 'pm', ic: 'moon-star', t: 'أذكار المساء', s: 'بعد صلاة العصر', tint: '126,126,214' });
+    a.push({ id: 'ruq', ic: 'shield-check', t: 'الرقية الشرعية', s: rn, tint: '92,192,204' });
+    a.push({ id: 'all', ic: 'library', t: 'كل السور', s: dg(114) + ' سورة', tint: '210,206,196' });
+    a.push({ id: 'set', ic: 'settings', t: 'الإعدادات', s: 'الثيم والقارئ', tint: '170,170,170' });
+    return a;
+  }
+  function openShelf() {
+    if (SH.open) return;
+    SH.items = shelfItems(); SH.i = 0; SH.open = true;
+    var h = '', list = SH.items.slice(), i;
+    if (!S.portrait) list.reverse();
+    for (i = 0; i < list.length; i++) {
+      var it = list[i], idx = S.portrait ? i : SH.items.length - 1 - i;
+      h += '<div class="sc" id="sc' + idx + '" data-i="' + idx + '" style="background:radial-gradient(ellipse 85% 60% at 50% 0%, rgba(' + it.tint + ',0.42) 0%, rgba(' + it.tint + ',0) 72%),linear-gradient(180deg, rgba(92,94,86,0.82) 0%, rgba(40,41,38,0.88) 45%, rgba(24,25,23,0.92) 100%)">' +
+        '<div class="sc-ic" style="color:rgb(' + it.tint + ')">' + lu(it.ic) + '</div><div class="sc-t">' + it.t + '</div><div class="sc-s">' + it.s + '</div></div>';
+    }
+    $('shelfRow').innerHTML = h;
+    stageClass(); shelfFocus(0); shelfTimer();
+  }
+  function closeShelf() { if (!SH.open) return; SH.open = false; clearTimeout(SH.t); stageClass(); }
+  function shelfTimer() { clearTimeout(SH.t); SH.t = setTimeout(closeShelf, 30000); }
+  function shelfFocus(i) {
+    SH.i = clamp(i, 0, SH.items.length - 1);
+    for (var k = 0; k < SH.items.length; k++) setCls($('sc' + k), 'focus', k === SH.i);
+    var c = $('sc' + SH.i), row = $('shelfRow');
+    if (S.portrait) row.scrollTop = c.offsetTop - (row.clientHeight - c.offsetHeight) / 2;
+    else row.scrollLeft = c.offsetLeft - (row.clientWidth - c.offsetWidth) / 2;
+  }
+  function shelfActivate(i) {
+    var it = SH.items[i];
+    if (!it) return;
+    if (it.id === 'resume') {
+      var r = loadResume();
+      if (r && r.kind === 'ruqyah') openRuqyah(r.idx); else if (r && r.s) openSurah(r.s, r.idx);
+    } else if (it.id.charAt(0) === 's' && it.id !== 'set') openSurah(parseInt(it.id.substring(1), 10), 0);
+    else if (it.id === 'am') openAdhkar(true);
+    else if (it.id === 'pm') openAdhkar(false);
+    else if (it.id === 'ruq') openRuqyah(0);
+    else if (it.id === 'all') openPicker();
+    else if (it.id === 'set') openSettings();
+  }
+  function shelfKey(K) {
+    shelfTimer();
+    var cols = S.portrait ? 3 : 1;
+    if (K.left) shelfFocus(SH.i + 1);
+    else if (K.right) shelfFocus(SH.i - 1);
+    else if (K.down && S.portrait) shelfFocus(SH.i + cols);
+    else if (K.up && S.portrait && SH.i >= cols) shelfFocus(SH.i - cols);
+    else if (K.ok) shelfActivate(SH.i);
+    else if (K.up || K.back) closeShelf();
+    else return false;
+    return true;
+  }
+
+  /* ===== قائمة كل السور ===== */
+  var PK = { open: false, i: 0, built: false };
+  function openPicker() {
+    closeShelf();
+    if (!PK.built) {
+      var h = '';
+      for (var i = 0; i < 114; i++) h += '<div class="pt" id="pt' + i + '" data-i="' + i + '"><span class="pt-n num">' + dg(i + 1) + '</span><span class="pt-t">' + SURA_NAMES[i] + '</span></div>';
+      $('pkGrid').innerHTML = h; PK.built = true;
+    }
+    PK.open = true; $('picker').className = 'overlay show';
+    $('pkSub').innerHTML = lu('headphones') + ' ' + recName();
+    pickFocus(Q.s ? Q.s - 1 : 0);
+  }
+  function closePicker() { PK.open = false; $('picker').className = 'overlay'; }
+  function pickFocus(i) {
+    setCls($('pt' + PK.i), 'focus', false);
+    PK.i = clamp(i, 0, 113);
+    var t = $('pt' + PK.i), g = $('pkGrid');
+    setCls(t, 'focus', true);
+    g.scrollTop = t.offsetTop - (g.clientHeight - t.offsetHeight) / 2;
+  }
+  function pickerKey(K) {
+    var cols = S.portrait ? 3 : 6;
+    if (K.left) pickFocus(PK.i + 1);
+    else if (K.right) pickFocus(PK.i - 1);
+    else if (K.down) pickFocus(PK.i + cols);
+    else if (K.up) pickFocus(PK.i - cols);
+    else if (K.ok) { closePicker(); openSurah(PK.i + 1, 0); }
+    else if (K.back) closePicker();
+    else return false;
+    return true;
+  }
+
+  /* ===== الإعدادات بالريموت ===== */
+  var ST = { open: false, row: 0 };
+  var ST_ROWS = [{ k: 'theme', n: 'الثيم', ic: 'palette' }, { k: 'reciter', n: 'القارئ', ic: 'headphones' }, { k: 'shine', n: 'اللمعة', ic: 'sparkles' }, { k: 'adhan', n: 'صوت الأذان', ic: 'bell' }];
+  function openSettings() {
+    closeShelf();
+    var h = '';
+    for (var i = 0; i < ST_ROWS.length; i++) {
+      h += '<div class="st-row" id="str' + i + '" data-i="' + i + '"><div class="st-label">' + lu(ST_ROWS[i].ic) + ' ' + ST_ROWS[i].n + '</div>' +
+        '<div class="st-val"><span class="st-arr" data-d="-1">' + lu('chevron-right') + '</span><span class="st-v" id="stv' + i + '"></span><span class="st-arr" data-d="1">' + lu('chevron-left') + '</span></div></div>';
+    }
+    $('stRows').innerHTML = h;
+    ST.open = true; $('settings').className = 'overlay show';
+    renderSettings(); stFocus(ST.row);
+  }
+  function closeSettings() { ST.open = false; $('settings').className = 'overlay'; }
+  function swatch(id) {
+    if (id === 'auto') return 'linear-gradient(90deg,#1F6B57,#4A3E9A,#1F4E9E,#8A5A1C,#8C2A40)';
+    if (id === 'nightsky') return 'linear-gradient(180deg,#0B1B57,#2B4FB8)';
+    var g = GEMS[id]; return g ? 'radial-gradient(circle at 35% 30%,' + g.c[0] + ',' + g.c[2] + ')' : '#333';
+  }
+  function renderSettings() {
+    var ti = themeIndex();
+    $('stv0').innerHTML = '<i class="sw" style="background:' + swatch(THEME_LIST[ti].id) + '"></i>' + THEME_LIST[ti].n;
+    $('stv1').textContent = recName();
+    $('stv2').textContent = SHINE_NAMES[CONFIG.shine];
+    $('stv3').textContent = S.muted ? 'مكتوم' : 'مفعّل';
+  }
+  function stFocus(r) {
+    ST.row = clamp(r, 0, ST_ROWS.length - 1);
+    for (var i = 0; i < ST_ROWS.length; i++) setCls($('str' + i), 'focus', i === ST.row);
+  }
+  function stChange(dir) {
+    var k = ST_ROWS[ST.row].k;
+    if (k === 'theme') {
+      var n = THEME_LIST.length, ti = (themeIndex() + dir + n) % n;
+      SET.theme = THEME_LIST[ti].id; applyTheme();
+    } else if (k === 'reciter') {
+      stepReciter(dir);
+      if (Q.open) qLoad(Q.items.length ? Q.idx : 0);
+    } else if (k === 'shine') {
+      SET.shine = (CONFIG.shine + dir + 3) % 3; applyShine();
+    } else if (k === 'adhan') toggleMute();
+    saveSettings(); renderSettings();
+  }
+  function settingsKey(K) {
+    if (K.down) stFocus(ST.row + 1);
+    else if (K.up) stFocus(ST.row - 1);
+    else if (K.left || K.ok) stChange(1);
+    else if (K.right) stChange(-1);
+    else if (K.back || K.yellow || K.blue) closeSettings();
+    else return false;
+    return true;
+  }
+  function applyTheme() {
+    CONFIG.theme = SET.theme; stageClass();
+    S.period = null; S.lastSky = 0; updateSky(now());
+  }
+  function applyShine() { CONFIG.shine = SET.shine; stageClass(); buildGlitter(); startSweep(); }
+  function startSweep() {
+    clearInterval(S.sweepT);
+    if (CONFIG.shine === 0) return;
+    var sweep = function () {
+      var els = document.querySelectorAll('#ckHm, #ckSec, #adTitle, .bay.is-next .bay-time, .ov-title');
+      for (var i = 0; i < els.length; i++) { setCls(els[i], 'go', false); void els[i].offsetWidth; setCls(els[i], 'go', true); }
+    };
+    setTimeout(sweep, 1500);
+    S.sweepT = setInterval(sweep, CONFIG.shine === 2 ? 5000 : 9000);
+  }
+
+  /* ساعة صغيرة داخل شاشات القرآن والأذكار */
+  function renderMini(n, next) {
+    if (!Q.open && !AK.open) return;
+    var t = hm(n), html = '<div class="t num">' + t.t + (t.ap ? ' <span class="ap">' + t.ap + '</span>' : '') + '</div><div class="n">' +
+      (next.k === 'sunrise' ? 'الشروق' : 'أذان ' + prayerName(next.k)) + ' بعد <span class="num">' + dur(next.t - n) + '</span></div>';
+    if (Q.open) $('rdClock').innerHTML = html;
+    if (AK.open) $('akClock').innerHTML = html;
+  }
+
+  /* اللمس والفأرة */
+  function bindPointer() {
+    $('hintShelf').addEventListener('click', function (e) { e.stopPropagation(); unlock(); openShelf(); });
+    $('hintSet').addEventListener('click', function (e) { e.stopPropagation(); unlock(); openSettings(); });
+    $('shelfRow').addEventListener('click', function (e) {
+      e.stopPropagation(); var t = e.target;
+      while (t && t !== this && !t.getAttribute('data-i')) t = t.parentNode;
+      if (t && t.getAttribute && t.getAttribute('data-i')) { unlock(); var i = parseInt(t.getAttribute('data-i'), 10); shelfFocus(i); shelfActivate(i); }
+    });
+    $('rdPlay').addEventListener('click', function (e) { e.stopPropagation(); unlock(); qToggle(); });
+    $('rdNext').addEventListener('click', function (e) { e.stopPropagation(); if (Q.items.length) qNext(); });
+    $('rdPrev').addEventListener('click', function (e) { e.stopPropagation(); if (Q.items.length) qPrev(); });
+    $('rdRec').addEventListener('click', function (e) { e.stopPropagation(); qReciter(1); });
+    $('rdClose').addEventListener('click', function (e) { e.stopPropagation(); qClose(); });
+    $('akCount').addEventListener('click', function (e) { e.stopPropagation(); akCount(); });
+    $('akNext').addEventListener('click', function (e) { e.stopPropagation(); akNext(); });
+    $('akPrev').addEventListener('click', function (e) { e.stopPropagation(); akPrev(); });
+    $('akClose').addEventListener('click', function (e) { e.stopPropagation(); closeAdhkar(); });
+    $('pkClose').addEventListener('click', function (e) { e.stopPropagation(); closePicker(); });
+    $('pkGrid').addEventListener('click', function (e) {
+      e.stopPropagation(); var t = e.target;
+      while (t && t !== this && !t.getAttribute('data-i')) t = t.parentNode;
+      if (t && t.getAttribute && t.getAttribute('data-i')) { unlock(); closePicker(); openSurah(parseInt(t.getAttribute('data-i'), 10) + 1, 0); }
+    });
+    $('stClose').addEventListener('click', function (e) { e.stopPropagation(); closeSettings(); });
+    $('stRows').addEventListener('click', function (e) {
+      e.stopPropagation(); var t = e.target, d = 1;
+      while (t && t !== this && !t.getAttribute('data-i')) { if (t.getAttribute && t.getAttribute('data-d')) d = parseInt(t.getAttribute('data-d'), 10); t = t.parentNode; }
+      if (t && t.getAttribute && t.getAttribute('data-i')) { stFocus(parseInt(t.getAttribute('data-i'), 10)); stChange(d); }
+    });
   }
 
   /* ===== الحلقة الرئيسية ===== */
@@ -1051,6 +2090,7 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
     var r = findNext(n), nk = r.next.k + r.next.day;
     if (nk !== S.nextKey) { S.nextKey = nk; renderBays(n, r.next); }
     renderCountdown(n, r.next);
+    renderMini(n, r.next);
     checkAdhan(n);
     if (Math.abs(n - S.lastSky) > 15000 * Math.max(1, SPEED / 20) || S.lastSky === 0) { updateSky(n); S.lastSky = n; }
     rotateVerse();
@@ -1063,15 +2103,23 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
 
   function init() {
     fit();
-    window.addEventListener('resize', fit);
+    window.addEventListener('resize', function () { fit(); fitVerse(); });
+    try { if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fitVerse(); }); } catch (e) {}
     try { S.muted = window.localStorage.getItem('adhanMuted') === '1'; } catch (e) {}
     $('city').textContent = CONFIG.city;
     $('country').textContent = CONFIG.country;
     $('splashTitle').textContent = 'مواقيت الصلاة في ' + CONFIG.city;
-    $('splashIcon').innerHTML = SVG_OPEN.replace('stroke-width="1.5"', 'stroke-width="1.2"') + ICONS.isha + '</svg>';
-    buildStars(); buildWaves(); buildArcade();
-    buildLantern($('lanternL'), 6.5);
-    buildLantern($('lanternR'), 8.8);
+    loadSettings(); stageClass();
+    $('crescent').innerHTML = crescentSVG('a');
+    $('adCrescent').innerHTML = crescentSVG('b');
+    $('splashIcon').innerHTML = crescentSVG('c');
+    $('rdCres').innerHTML = crescentSVG('d');
+    $('akCres').innerHTML = crescentSVG('e');
+    $('medal').innerHTML = medalSVG();
+    buildScene(); buildGlitter(); buildMic(); buildBays();
+    S.built = true;
+    qInit(); bindPointer(); startSweep();
+    setTimeout(checkReciters, 3000);
     initAudio();
     updateStatus();
     document.addEventListener('keydown', onKey);
@@ -1086,7 +2134,6 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
       var r = rng(Date.now() % 100000);
       $('ui').style.transform = 'translate(' + ((r() - 0.5) * 0.3).toFixed(2) + 'rem,' + ((r() - 0.5) * 0.3).toFixed(2) + 'rem)';
     }, 240000);
-    setInterval(function () { $('moonLit').setAttribute('d', moonPath(PrayerEngine.moonPhase(now()))); }, 3600000);
     if (P.nosplash === '1') hideSplash();
     if (P.demo === 'adhan' || P.demo === 'dua') {
       hideSplash();
