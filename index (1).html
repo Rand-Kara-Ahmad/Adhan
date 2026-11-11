@@ -356,6 +356,86 @@ body { font-family: 'Noto Naskh Arabic', 'Amiri', 'Tahoma', serif; color: #F2F0E
 @media (prefers-reduced-motion: reduce) {
   #medal, .gl, #crescent, .twk, .halo, .go, #mic .r1, #mic .r2, #mic.on .spec i, #countdown.soon #cdTime { animation: none !important; }
 }
+
+/* ===== التصميم الجديد: زجاج داكن وذهب لامع ===== */
+#medal, #glitter { display: none; }
+.th-nightsky #glitter { display: block; }
+#vignette { background: radial-gradient(ellipse 76% 82% at 50% 40%, rgba(0,0,0,0) 48%, rgba(0,0,0,0.62) 100%); }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .gold { background-image: linear-gradient(105deg, rgba(255,253,240,0) 38%, rgba(255,253,240,1) 50%, rgba(255,253,240,0) 62%),
+    linear-gradient(180deg, #FFF5D2 0%, #F8DE9C 20%, #E6BE6C 42%, #BB8C40 58%, #EFCE88 76%, #FFF0C6 88%, #D2A65E 100%); }
+  .go { animation: shine 1.9s ease-in-out 1; }
+}
+#crescent { left: 50%; margin-left: -2.1rem; top: 2rem; width: 4.2rem; height: 4.2rem; animation: none; }
+#crescent:before { content: ''; position: absolute; left: -3.4rem; top: -3.4rem; right: -3.4rem; bottom: -3.4rem; border-radius: 50%;
+  background: radial-gradient(circle, rgba(246,206,120,0.34) 0%, rgba(246,206,120,0.08) 45%, rgba(246,206,120,0) 70%); animation: halo 4s ease-in-out infinite alternate; }
+#crescent svg { position: relative; }
+#dateBlock { top: 2.9rem; left: 3.95rem; }
+#dateBlock .rule { width: 0.12rem; background: linear-gradient(to bottom, rgba(214,180,110,0) 0%, rgba(214,180,110,0.95) 14%, rgba(214,180,110,0.95) 86%, rgba(214,180,110,0) 100%); }
+#dayName, #city { color: #E5CA90; font-size: 2.45rem; }
+#gDate, #country { color: #F3F3F1; font-size: 1.7rem; }
+#hDate { color: #DDB46C; font-size: 1.7rem; }
+#cityBlock { top: 2.9rem; right: 4.8rem; padding-right: 0; }
+#cityBlock .rule { display: none; }
+#status { font-size: 1.4rem; color: #E8E8E4; }
+.chip { background: none; padding: 0 0.15rem; font-weight: 700; font-size: 1.3rem; }
+#speaker { left: 88.2rem; top: 10.8rem; width: 3.7rem; height: 3.7rem; border-radius: 50%; border: 0.1rem solid rgba(225,225,220,0.55); text-align: center;
+  background: radial-gradient(circle at 40% 30%, #8E8E8B 0%, #4C4C4A 55%, #262625 100%); box-shadow: 0 0.3rem 0.9rem rgba(0,0,0,0.55), inset 0 0.1rem 0 rgba(255,255,255,0.35); }
+#speaker svg { display: inline-block; width: 1.9rem; height: 1.9rem; margin-top: 0.8rem; }
+#clock { top: 8.7rem; }
+#ckHm { font-size: 11.2rem; filter: drop-shadow(0 0 0.8rem rgba(246,206,120,0.3)); }
+#ckSec { display: none !important; }
+#ckAp { margin-right: 0; margin-left: 1.2rem; vertical-align: 0.4rem; font-size: 3rem; color: #EACB88; }
+
+/* صندوق الآية: يكبر ويصغر حسب طولها */
+#vbox { position: absolute; top: 20.25rem; left: 50%; z-index: 1; display: inline-block; text-align: center; white-space: nowrap; padding: 0.9rem 2.8rem 1.15rem; border-radius: 1rem;
+  border: 0.12rem solid rgba(195,195,190,0.45); background: linear-gradient(180deg, rgba(64,64,63,0.8) 0%, rgba(36,36,35,0.84) 50%, rgba(24,24,24,0.88) 100%);
+  box-shadow: 0 0.8rem 2rem rgba(0,0,0,0.6), inset 0 0.1rem 0 rgba(255,255,255,0.14); transform: translateX(-50%); transition: width 0.7s ease, height 0.7s ease; }
+.vorn { position: absolute; top: 50%; width: 3.8rem; height: 10.4rem; margin-top: -5.2rem; }
+.vorn.l { left: -3rem; } .vorn.r { right: -3rem; transform: scaleX(-1); }
+.vorn svg { display: block; width: 100%; height: 100%; }
+#countdown { position: static; width: auto; }
+#cdBox { height: 4rem; line-height: 3.7rem; padding: 0 1.9rem; border-radius: 2rem; border: 0.12rem solid rgba(218,184,112,0.88);
+  background: linear-gradient(180deg, rgba(44,42,37,0.96) 0%, rgba(18,18,16,0.96) 100%); box-shadow: 0 0 1.1rem rgba(218,184,112,0.2), inset 0 0.1rem 0 rgba(255,240,200,0.16); }
+#cdBox:before, #cdBox:after { display: none; }
+#cdLabel { font-size: 2.1rem; font-weight: 700; color: #F3F1EA; }
+#cdTime { font-size: 3rem; margin-right: 0.7rem; }
+#verse { position: static; width: auto; margin-top: 0.75rem; white-space: normal; }
+#verseText { display: inline-block; font-size: 2.9rem; line-height: 1.55; color: #F4F0E6; }
+#verseRef { font-size: 1.3rem; color: #ADA79A; margin-top: 0.25rem; }
+
+/* بطاقات المواقيت */
+.bay { top: 38.1rem; height: 11.8rem; border-radius: 0.9rem; border: 0.12rem solid rgba(178,178,172,0.5);
+  background: linear-gradient(180deg, rgba(66,66,64,0.82) 0%, rgba(37,37,36,0.86) 45%, rgba(22,22,22,0.9) 100%);
+  box-shadow: 0 0.7rem 1.8rem rgba(0,0,0,0.6), inset 0 0.1rem 0 rgba(255,255,255,0.13); }
+.bay:before { display: none; }
+.bay-name { top: 1.25rem; font-size: 2.3rem; color: #DED7C6; }
+.bay-time { top: 4.55rem; font-size: 4.6rem; }
+.bay-time .ap { color: #B8B2A4; -webkit-text-fill-color: #B8B2A4; font-size: 1.5rem; }
+.bay-orn { display: block; top: auto; bottom: 0.75rem; width: 7rem; height: 1.2rem; margin-left: -3.5rem; }
+.bay-sub { top: auto; bottom: 0.7rem; font-size: 1.6rem; color: #EEE0BA; }
+.bay.is-next { border: 0.14rem solid #E5C47E;
+  background: linear-gradient(180deg, rgba(58,52,40,0.9) 0%, rgba(31,28,22,0.92) 50%, rgba(20,18,15,0.94) 100%);
+  box-shadow: 0 0 1.8rem rgba(242,200,112,0.6), 0 0 4.2rem rgba(242,200,112,0.25), 0 0.7rem 1.8rem rgba(0,0,0,0.6), inset 0 0 1.3rem rgba(242,200,112,0.16); }
+.bay.is-next:before { display: block; content: ''; position: absolute; left: 0.38rem; right: 0.38rem; top: 0.38rem; bottom: 0.38rem; height: auto; z-index: 0;
+  border-radius: 0.6rem; border: 0.08rem solid rgba(232,198,128,0.75); background: none; }
+.bay.is-next:after { display: none; }
+.bay.is-next .bay-name { top: 1.25rem; color: #EED196; }
+.bay.is-next .bay-time { top: 4.2rem; font-size: 4.6rem; }
+.bay.is-next .bay-time .ap { color: #E6C47E; -webkit-text-fill-color: #E6C47E; }
+.bay.is-next .bay-orn { display: none; }
+.bay.is-next .bay-sub { display: block; }
+.sep { position: absolute; top: 42.5rem; width: 1rem; height: 3.4rem; margin-left: -0.5rem; }
+.sep svg { display: block; width: 100%; height: 100%; }
+#hints { bottom: 0.5rem; }
+.hint { border-color: rgba(218,184,112,0.62); background: linear-gradient(180deg, rgba(46,44,40,0.92), rgba(20,20,18,0.94)); color: #ECE2C8; font-size: 1.45rem; padding: 0.1rem 1.35rem 0.3rem; }
+.ov-cres, #adCrescent { width: 4.6rem; height: 4.6rem; margin-left: -2.3rem; top: 2.4rem; }
+#splashIcon { top: 2.2rem; width: 6rem; height: 6rem; margin-left: -3rem; }
+.portrait #crescent { left: 50%; margin-left: -2.1rem; top: 2.3rem; }
+.portrait #vbox { top: 26.2rem; }
+.portrait #verse { width: auto; }
+.portrait .sep { display: none; }
+.portrait #adCrescent { top: 9rem; }
 </style>
 </head>
 <body>
@@ -397,12 +477,14 @@ body { font-family: 'Noto Naskh Arabic', 'Amiri', 'Tahoma', serif; color: #F2F0E
       <div id="status"></div>
     </div>
     <div id="speaker"></div>
-    <div id="clock"><span id="ckAp"></span><span id="ckHm" class="num gold"></span><span id="ckSec" class="num gold"></span></div>
-    <div id="countdown"><span id="cdBox"><span id="cdLabel"></span><span id="cdTime" class="num pale"></span></span></div>
-    <div id="verse"><div id="verseText"></div><div id="verseRef"></div></div>
+    <div id="clock"><span id="ckHm" class="num gold"></span><span id="ckSec" class="num gold"></span><span id="ckAp"></span></div>
+    <div id="vbox"><i class="vorn l" id="vornL"></i><i class="vorn r" id="vornR"></i>
+      <div id="countdown"><span id="cdBox"><span id="cdLabel"></span><span id="cdTime" class="num gold"></span></span></div>
+      <div id="verse"><div id="verseText"></div><div id="verseRef"></div></div>
+    </div>
     <div id="mic" class="off"></div>
     <div id="bays"></div>
-    <div id="hints"><span class="hint" id="hintShelf"><svg class="lu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>القرآن والأذكار</span><span class="hint" id="hintSet"><svg class="lu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>الإعدادات</span></div>
+    <div id="hints"><span class="hint" id="hintShelf">القرآن والأذكار</span><span class="hint" id="hintSet"><svg class="lu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>الإعدادات</span></div>
     <div id="shelf">
       <div id="shelfTitle"><svg class="lu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14"/><path d="M16 12h2"/><path d="M16 8h2"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/><path d="M6 12h2"/><path d="M6 8h2"/></svg>القرآن والأذكار</div>
       <div id="shelfKeys">الأسهم للتنقل، OK للفتح، رجوع للإغلاق</div>
@@ -902,13 +984,13 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
 
   /* لكل صلاة لون حجر كريم، والذهب ثابت فوقها */
   var GEMS = {
-    emerald:   { c: ['#0F3229', '#08221C', '#020D0A'], g: '70,160,135',  ga: 0.30 },
-    amethyst:  { c: ['#251E52', '#141136', '#060517'], g: '178,146,222', ga: 0.30 },
-    turquoise: { c: ['#0A3D47', '#06272F', '#021115'], g: '112,206,206', ga: 0.26 },
-    sapphire:  { c: ['#112B5D', '#0A1A3D', '#030919'], g: '120,160,235', ga: 0.26 },
-    amber:     { c: ['#352410', '#201507', '#0C0702'], g: '240,186,104', ga: 0.26 },
-    ruby:      { c: ['#431522', '#280C14', '#0F0407'], g: '238,132,112', ga: 0.28 },
-    onyx:      { c: ['#1C1812', '#0C0A07', '#030202'], g: '220,190,130', ga: 0.16 },
+    emerald:   { c: ['#16251F', '#0C1612', '#040807'], g: '70,160,135',  ga: 0.30 },
+    amethyst:  { c: ['#1F1A2E', '#13101D', '#07060B'], g: '178,146,222', ga: 0.30 },
+    turquoise: { c: ['#12252A', '#0B171A', '#040809'], g: '112,206,206', ga: 0.26 },
+    sapphire:  { c: ['#141D31', '#0C111F', '#05070C'], g: '120,160,235', ga: 0.26 },
+    amber:     { c: ['#272016', '#18130C', '#080604'], g: '240,186,104', ga: 0.26 },
+    ruby:      { c: ['#2A171D', '#1A0E12', '#090405'], g: '238,132,112', ga: 0.28 },
+    onyx:      { c: ['#1F1F1F', '#131313', '#060606'], g: '220,190,130', ga: 0.16 },
     nightsky:  { c: ['#18348A', '#0C1E5A', '#040A26'], g: '150,175,255', ga: 0.28 }
   };
   /* العشاء والليل زمرد، الفجر جمشت، الضحى فيروز، الظهر ياقوت أزرق، العصر كهرمان، المغرب ياقوت أحمر */
@@ -990,34 +1072,9 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
       'L' + f1(x + q) + ' ' + f1(y + q) + 'L' + f1(x) + ' ' + f1(y + s) + 'L' + f1(x - q) + ' ' + f1(y + q) + 'L' + f1(x - s) + ' ' + f1(y) + 'L' + f1(x - q) + ' ' + f1(y - q) + 'Z"/>';
   }
   /* الهلال الذهبي المرصّع بالألماس، ونجمته */
-  function crescentSVG(uid) {
-    var C = { x: 512, y: 51 }, R = 32.8, O = { x: 522.1, y: 43.4 }, r = 26.4, k = 3.2;
-    var outer = crescentGeo(C.x, C.y, R, O.x, O.y, r), band = crescentGeo(C.x, C.y, R - k, O.x, O.y, r + k);
-    var rnd = rng(911), dots = '', spots = [], n = 0, guard = 0;
-    var cols = ['#FFFFFF', '#F4F3EE', '#DEDDD6', '#BDBCB4', '#97968E', '#FFFDF0'];
-    while (n < 190 && guard++ < 6000) {
-      var x = C.x - R + rnd() * 2 * R, y = C.y - R + rnd() * 2 * R;
-      var d1 = Math.sqrt((x - C.x) * (x - C.x) + (y - C.y) * (y - C.y)), d2 = Math.sqrt((x - O.x) * (x - O.x) + (y - O.y) * (y - O.y));
-      if (d1 > R - k - 0.4 || d2 < r + k + 0.4) continue;
-      var rr = 0.7 + rnd() * 1.1;
-      dots += '<circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + f1(rr) + '" fill="' + cols[Math.floor(rnd() * cols.length)] + '"/>';
-      if (n % 37 === 5) spots.push([x, y]);
-      n++;
-    }
-    var glints = '';
-    for (var g = 0; g < spots.length; g++) glints += glint(spots[g][0], spots[g][1], 3.4, g * 0.9);
-    return '<svg viewBox="440 0 150 110" aria-hidden="true">' +
-      '<defs><clipPath id="cpPave' + uid + '"><path d="' + band + '"/></clipPath></defs>' +
-      '<circle class="halo" cx="514" cy="49" r="62" fill="url(#gHalo)"/>' +
-      '<path d="' + outer + '" fill="url(#gGold)"/>' +
-      '<path d="' + outer + '" fill="none" stroke="#FFF2C8" stroke-opacity="0.55" stroke-width="0.5"/>' +
-      '<path d="' + band + '" fill="#6E6D66"/>' +
-      '<g clip-path="url(#cpPave' + uid + ')">' + dots + '</g>' +
-      '<path d="' + band + '" fill="none" stroke="#8A6928" stroke-width="0.7"/>' + glints +
-      '<circle cx="526" cy="41" r="16" fill="url(#gHalo)"/>' +
-      '<g stroke="#FFF6DA" stroke-linecap="round" class="twk" style="animation-delay:-2.2s"><path d="M526 22V60" stroke-width="0.6"/><path d="M507 41H545" stroke-width="0.6"/></g>' +
-      '<polygon points="' + star5(526, 41.5, 11.8, 4.7) + '" fill="url(#gStar)" stroke="#FFF4D0" stroke-opacity="0.6" stroke-width="0.4"/>' +
-      '</svg>';
+  function crescentSVG() {
+    return '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="' + crescentGeo(18, 21, 15, 23.6, 16.6, 12.6) + '" fill="url(#gGold)"/>' +
+      '<polygon points="' + star5(26.8, 21.4, 5.8, 2.35) + '" fill="url(#gGold)"/></svg>';
   }
 
   /* المحراب: نصفه الأيسر من الأسفل حتى الرأس، والنصف الأيمن مرآته. هندسة للأفقي والعمودي */
@@ -1074,33 +1131,30 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
     return s;
   }
   function buildScene() {
-    var G = S.portrait ? NICHE.port : NICHE.land, W = G.W, H = G.H, T = 66, tile = carveTile(T);
-    var panel = S.portrait ? 'M-6 -6H' + (W + 6) + 'V' + (H + 6) + 'H-6Z' : 'M150 -6H874V212Q874 232 894 232H962Q984 232 984 254V600H40V254Q40 232 62 232H130Q150 232 150 212Z';
-    var hole = nichePath(-9, true, G), vb = '0 0 ' + W + ' ' + H;
+    var P2 = S.portrait, W = P2 ? 576 : 1024, H = P2 ? 1024 : 576, cx = W / 2, cy = P2 ? 150 : 72, R = P2 ? 232 : 244, T = 66, tile = carveTile(T), vb = '0 0 ' + W + ' ' + H, k;
+    var ros = '<g fill="none" stroke="#F2E6CC" stroke-opacity="0.15" stroke-width="1.3">' +
+      '<circle cx="' + cx + '" cy="' + cy + '" r="' + R + '"/><circle cx="' + cx + '" cy="' + cy + '" r="' + (R - 12) + '" stroke-opacity="0.05"/>' +
+      '<polygon points="' + starPts(cx, cy, R - 12, (R - 12) * 0.7654) + '"/><polygon points="' + starPts(cx, cy, R - 12, (R - 12) * 0.7654, 22.5) + '"/>' +
+      '<circle cx="' + cx + '" cy="' + cy + '" r="' + f1(R * 0.6) + '"/>' +
+      '<polygon points="' + starPts(cx, cy, R * 0.6, R * 0.6 * 0.7654) + '" stroke-opacity="0.1"/><circle cx="' + cx + '" cy="' + cy + '" r="' + f1(R * 0.36) + '" stroke-opacity="0.1"/>';
+    for (k = 0; k < 16; k++) {
+      var a = (k * 22.5 - 90) * Math.PI / 180;
+      ros += '<path stroke-opacity="0.08" d="M' + f1(cx + R * 0.6 * Math.cos(a)) + ' ' + f1(cy + R * 0.6 * Math.sin(a)) + 'L' + f1(cx + (R - 12) * Math.cos(a)) + ' ' + f1(cy + (R - 12) * Math.sin(a)) + '"/>';
+    }
+    ros += '</g>';
     $('scene').innerHTML = '<svg viewBox="' + vb + '" aria-hidden="true"><defs>' +
       '<pattern id="pCarve" width="' + T + '" height="' + T + '" patternUnits="userSpaceOnUse" x="17" y="-20">' +
-        '<g fill="none" stroke="#000000" stroke-opacity="0.55" stroke-width="4.2" transform="translate(0.9 1.3)">' + tile + '</g>' +
-        '<g fill="none" stroke="#A8D8C6" stroke-opacity="0.11" stroke-width="2.6">' + tile + '</g>' +
-        '<g fill="none" stroke="#E9FFF6" stroke-opacity="0.07" stroke-width="0.7" transform="translate(-0.7 -0.9)">' + tile + '</g>' +
-      '</pattern>' +
-      '<radialGradient id="gFade" cx="50%" cy="28%" r="60%"><stop offset="0.3" stop-color="#FFF"/><stop offset="1" stop-color="#FFF" stop-opacity="0"/></radialGradient>' +
-      '<mask id="mFade"><rect width="' + W + '" height="' + H + '" fill="url(#gFade)"/></mask>' +
-      '<linearGradient id="gLow" x1="0" y1="0" x2="0" y2="1"><stop offset="0.8" stop-color="#FFF"/><stop offset="0.95" stop-color="#FFF" stop-opacity="0"/></linearGradient>' +
-      '<mask id="mLow"><rect width="' + W + '" height="' + H + '" fill="url(#gLow)"/></mask>' +
-      '</defs>' +
-      '<path d="M-10 -10H' + (W + 10) + 'V' + (H + 10) + 'H-10Z' + hole + '" fill-rule="evenodd" fill="#000" fill-opacity="0.5"/>' +
-      '<g mask="url(#mFade)"><path d="' + panel + hole + '" fill-rule="evenodd" fill="url(#pCarve)"/></g>' +
-      (S.portrait ? '' : '<path d="' + panel + '" fill="none" stroke="#000" stroke-opacity="0.5" stroke-width="3"/><path d="' + panel + '" fill="none" stroke="#BFE6D6" stroke-opacity="0.08" stroke-width="1.2"/>') +
-      '<g mask="url(#mLow)"><path d="' + nichePath(0, false, G) + '" fill="none" stroke="#000" stroke-opacity="0.5" stroke-width="19"/>' +
-      '<path d="' + nichePath(0, false, G) + '" fill="none" stroke="#8FD1BA" stroke-opacity="0.13" stroke-width="13"/>' +
-      '<path d="' + nichePath(-6, false, G) + '" fill="none" stroke="#D8F2E8" stroke-opacity="0.12" stroke-width="1"/>' +
-      '<path d="' + nichePath(10.5, false, G) + '" fill="none" stroke="#E8DDB4" stroke-opacity="0.72" stroke-width="1.3"/></g>' +
-      '</svg>';
+        '<g fill="none" stroke="#000000" stroke-opacity="0.6" stroke-width="4.2" transform="translate(0.9 1.3)">' + tile + '</g>' +
+        '<g fill="none" stroke="#FFFFFF" stroke-opacity="0.075" stroke-width="2.6">' + tile + '</g>' +
+        '<g fill="none" stroke="#FFFFFF" stroke-opacity="0.05" stroke-width="0.7" transform="translate(-0.7 -0.9)">' + tile + '</g>' +
+      '</pattern></defs>' +
+      '<rect width="' + W + '" height="' + H + '" fill="url(#pCarve)"/>' + ros + '</svg>';
+    var circ = function (r) { return 'M' + cx + ' ' + (cy - r) + 'A' + r + ' ' + r + ' 0 1 1 ' + f1(cx - 0.01) + ' ' + (cy - r); };
     var ids = ['adArch', 'rdArch', 'akArch'];
     for (var i = 0; i < ids.length; i++) {
       var sv = $(ids[i]); if (!sv) continue;
       sv.setAttribute('viewBox', vb);
-      sv.innerHTML = '<path' + (ids[i] === 'adArch' ? ' id="adArchPath"' : '') + ' class="draw" d="' + nichePath(10.5, false, G) + '"/><path class="thin" d="' + nichePath(0, false, G) + '"/>';
+      sv.innerHTML = '<path' + (ids[i] === 'adArch' ? ' id="adArchPath"' : '') + ' class="draw" d="' + circ(R) + '"/><path class="thin" d="' + circ(R - 12) + '"/>';
     }
     buildSky();
   }
@@ -1201,27 +1255,31 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
       '<div class="rings r1">' + r1 + '</div><div class="rings r2">' + r2 + '</div><div class="disc" id="micDisc"></div>';
   }
   function speakerSVG(on) {
-    return '<svg viewBox="0 0 24 24" fill="none" stroke="url(#gGoldV)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="#F4F4F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
       LU[on ? 'volume-2' : 'volume-x'] + '</svg>';
   }
   var PRAYER_IC = { fajr: 'moon-star', sunrise: 'sunrise', dhuhr: 'sun', asr: 'sun-medium', maghrib: 'sunset', isha: 'moon' };
   /* قبة صغيرة فوق بطاقة الصلاة القادمة */
   function ornSVG() {
-    return '<svg viewBox="0 0 44 24" aria-hidden="true">' +
-      '<circle cx="22" cy="20" r="9" fill="url(#gHalo)"/>' +
-      '<path d="M2.5 23C3 17 9 14.2 14 12.6C18.2 11.2 20.6 8.4 22 2.5C23.4 8.4 25.8 11.2 30 12.6C35 14.2 41 17 41.5 23" fill="none" stroke="url(#gGold)" stroke-width="1.5"/>' +
-      '<circle cx="22" cy="2.6" r="1.1" fill="#FCEDBE"/>' +
-      '<path d="M7 23C8 18.6 12 16.6 15.6 15.4C19 14.2 20.8 12 22 8.2C23.2 12 25 14.2 28.4 15.4C32 16.6 36 18.6 37 23" fill="none" stroke="#F0D28E" stroke-opacity="0.55" stroke-width="0.7"/>' +
-      '<circle cx="22" cy="20.6" r="4.3" fill="url(#gOrb)"/>' +
-      '</svg>';
+    return '<svg viewBox="0 0 70 12" aria-hidden="true"><path d="M3 6H28M42 6H67" stroke="#BCA77A" stroke-opacity="0.6" stroke-width="0.8"/>' +
+      '<path d="M35 1.6L39.4 6L35 10.4L30.6 6Z" fill="none" stroke="#CBB07A" stroke-width="0.9"/><circle cx="35" cy="6" r="1.3" fill="#DCC189"/></svg>';
+  }
+  function vornSVG() {
+    return '<svg viewBox="0 0 34 94" fill="none" stroke="#D2AF6C" stroke-linecap="round" aria-hidden="true">' +
+      '<path d="M34 4C22 12 8 26 6 47C8 68 22 82 34 90" stroke-opacity="0.75" stroke-width="1.3"/>' +
+      '<path d="M34 16C26 22 17 32 16 47C17 62 26 72 34 78" stroke-opacity="0.5" stroke-width="0.9"/>' +
+      '<path d="M6 47C2 44 1 40 3 37C5 34 9 35 9 38" stroke-opacity="0.6" stroke-width="0.9"/><path d="M6 47C2 50 1 54 3 57C5 60 9 59 9 56" stroke-opacity="0.6" stroke-width="0.9"/>' +
+      '<polygon points="' + starPts(25, 47, 6, 4.6) + '" stroke-opacity="0.6" stroke-width="0.8"/><circle cx="25" cy="47" r="1.4" fill="#D2AF6C" fill-opacity="0.7" stroke="none"/>' +
+      '<circle cx="31" cy="10" r="1" fill="#D2AF6C" fill-opacity="0.6" stroke="none"/><circle cx="31" cy="84" r="1" fill="#D2AF6C" fill-opacity="0.6" stroke="none"/></svg>';
   }
   /* بطاقات المواقيت: الفجر يميناً كترتيب القراءة العربية */
   function buildBays() {
-    var h = '';
-    for (var i = 0; i < 6; i++) {
+    var h = '', i, sep = '<svg viewBox="0 0 10 34" aria-hidden="true"><path d="M5 2V13M5 21V32" stroke="#9E957F" stroke-opacity="0.45" stroke-width="0.8"/><path d="M5 14L8 17L5 20L2 17Z" fill="#BFAE86" fill-opacity="0.7"/></svg>';
+    for (i = 0; i < 6; i++) {
       h += '<div class="bay" id="bay' + i + '"><div class="bay-name"></div><div class="bay-sub"></div>' +
         '<div class="bay-time num silver"></div><div class="bay-orn">' + ornSVG() + '</div></div>';
     }
+    for (i = 0; i < 5; i++) h += '<div class="sep" style="left:' + f1(4.22 + i * 15 + 14.06) + 'rem">' + sep + '</div>';
     $('bays').innerHTML = h;
     layoutBays();
   }
@@ -1269,10 +1327,10 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
       var k = PRAYERS[i].k, bay = $('bay' + i);
       var t = (next.day === 1 && i === 0) ? S.N.fajr : S.T[k];
       var isNext = next.idx === i;
-      bay.childNodes[0].innerHTML = '<span class="bay-ic">' + lu(PRAYER_IC[k]) + '</span>' + prayerName(k);
+      bay.childNodes[0].textContent = prayerName(k);
       bay.childNodes[1].textContent = isNext ? (k === 'sunrise' ? 'وقت الشروق' : 'الصلاة القادمة') : '';
       bay.childNodes[2].innerHTML = timeHTML(t);
-      bay.childNodes[2].className = 'bay-time num ' + (isNext ? 'pale' : 'silver');
+      bay.childNodes[2].className = 'bay-time num ' + (isNext ? 'gold' : 'silver');
       bay.className = 'bay' + (isNext ? ' is-next' : '');
     }
   }
@@ -1295,27 +1353,29 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
 
   /* ===== الآيات والأذكار ===== */
   function setVerse(i) {
-    var v = VERSES[i], txt = v.q ? '﴿' + v.t + '﴾' : v.t;
+    var v = VERSES[i], txt = v.q ? '\uFD3F' + v.t + '\uFD3E' : v.t, box = $('vbox');
+    var ow = box.offsetWidth, oh = box.offsetHeight;
     $('verseText').textContent = txt;
-    $('verseRef').textContent = dg(v.r);
+    $('verseRef').textContent = v.r ? '(' + dg(v.r) + ')' : '';
     fitVerse();
+    box.style.transition = 'none'; box.style.width = ''; box.style.height = '';
+    var nw = box.offsetWidth, nh = box.offsetHeight;
+    if (S.vboxInit && ow) {
+      box.style.width = ow + 'px'; box.style.height = oh + 'px'; void box.offsetWidth;
+      box.style.transition = ''; box.style.width = nw + 'px'; box.style.height = nh + 'px';
+      clearTimeout(S.vboxT);
+      S.vboxT = setTimeout(function () { box.style.transition = 'none'; box.style.width = ''; box.style.height = ''; }, 800);
+    }
+    S.vboxInit = true;
   }
   /* أكبر خط يُبقي الآية على سطر واحد، وإلا سطرين */
   function fitVerse() {
-    var el = $('verseText'), root = parseFloat(document.documentElement.style.fontSize) || 20, sizes = [3.1, 2.8, 2.55];
-    el.style.maxWidth = ''; el.style.lineHeight = '';
-    for (var i = 0; i < sizes.length; i++) {
-      el.style.fontSize = sizes[i] + 'rem';
-      if (el.offsetHeight <= sizes[i] * root * 1.65 * 1.3) return;
-    }
-    /* سطران متوازنان بدل كلمة وحيدة في السطر الثاني */
-    el.style.fontSize = '2.55rem';
-    el.style.lineHeight = '1.5';
-    el.style.whiteSpace = 'nowrap';
+    var el = $('verseText'), root = parseFloat(document.documentElement.style.fontSize) || 20, maxW = (S.portrait ? 41 : 58) * root, sizes = [2.9, 2.65, 2.45], i;
+    el.style.width = ''; el.style.whiteSpace = 'nowrap';
+    for (i = 0; i < sizes.length; i++) { el.style.fontSize = sizes[i] + 'rem'; if (el.scrollWidth <= maxW) return; }
     var w = el.scrollWidth;
-    el.style.whiteSpace = '';
-    el.style.maxWidth = Math.ceil(w / 2 + root * 2.5) + 'px';
-    el.style.marginLeft = 'auto'; el.style.marginRight = 'auto';
+    el.style.whiteSpace = 'normal';
+    el.style.width = Math.min(maxW, Math.ceil(w / 2 + root * 3)) + 'px';
   }
   function rotateVerse() {
     var idx = Math.floor(Date.now() / (CONFIG.verseSeconds * 1000)) % VERSES.length;
@@ -1342,10 +1402,7 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
   function setPeriod(per, instant) {
     S.period = per;
     var gem = gemFor(per), A = $('bgA'), B = $('bgB'), sky = CONFIG.theme === 'nightsky';
-    var bg = sky ? 'radial-gradient(ellipse 30% 30% at 50% 10%, rgba(150,175,255,0.22) 0%, rgba(150,175,255,0) 100%),linear-gradient(to bottom, #030822 0%, #0A1A52 48%, #18358E 100%)' : 'radial-gradient(ellipse 17% 21% at 50% 9%, rgba(244,210,136,0.15) 0%, rgba(244,210,136,0) 100%),' +
-      'linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.35) 100%),' +
-      'radial-gradient(ellipse 24% 30% at 50% 52%, rgba(' + gem.g + ',' + (gem.ga * 0.3).toFixed(2) + ') 0%, rgba(' + gem.g + ',0) 100%),' +
-      'radial-gradient(ellipse 28% 56% at 50% 20%, ' + gem.c[0] + ' 0%, ' + gem.c[1] + ' 42%, ' + gem.c[2] + ' 88%)';
+    var bg = sky ? 'radial-gradient(ellipse 30% 30% at 50% 10%, rgba(150,175,255,0.22) 0%, rgba(150,175,255,0) 100%),linear-gradient(to bottom, #030822 0%, #0A1A52 48%, #18358E 100%)' : 'radial-gradient(ellipse 22% 26% at 50% 8%, rgba(246,206,120,0.1) 0%, rgba(246,206,120,0) 100%),radial-gradient(ellipse 72% 82% at 50% 36%, ' + gem.c[0] + ' 0%, ' + gem.c[1] + ' 55%, ' + gem.c[2] + ' 100%)';
     var inc = S.front === 'A' ? B : A, out = S.front === 'A' ? A : B;
     S.front = S.front === 'A' ? 'B' : 'A';
     inc.style.transition = 'none';
@@ -1470,7 +1527,7 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
     else if (S.fileOk === false) { t = 'ملف adhan.mp3 غير موجود'; mode = 'warn'; }
     else { t = 'الأذان مفعّل'; mode = 'on'; }
     var icon = lu(S.muted ? 'volume-x' : 'volume-2');
-    $('status').innerHTML = '<span class="chip">' + icon + '</span> ' + t;
+    $('status').innerHTML = t + ' <span class="chip">' + icon + '</span>';
     $('speaker').innerHTML = speakerSVG(!S.muted);
     $('mic').className = S.muted ? 'off' : (mode === 'on' || mode === 'warn' ? 'on' : 'idle');
     if ($('micDisc')) $('micDisc').innerHTML = micDisc(!S.muted);
@@ -2034,11 +2091,11 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
     clearInterval(S.sweepT);
     if (CONFIG.shine === 0) return;
     var sweep = function () {
-      var els = document.querySelectorAll('#ckHm, #ckSec, #adTitle, .bay.is-next .bay-time, .ov-title');
+      var els = document.querySelectorAll('#ckHm, #cdTime, #adTitle, .bay.is-next .bay-time, .ov-title');
       for (var i = 0; i < els.length; i++) { setCls(els[i], 'go', false); void els[i].offsetWidth; setCls(els[i], 'go', true); }
     };
     setTimeout(sweep, 1500);
-    S.sweepT = setInterval(sweep, CONFIG.shine === 2 ? 5000 : 9000);
+    S.sweepT = setInterval(sweep, CONFIG.shine === 2 ? 3000 : 5000);
   }
 
   /* ساعة صغيرة داخل شاشات القرآن والأذكار */
@@ -2103,7 +2160,7 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
 
   function init() {
     fit();
-    window.addEventListener('resize', function () { fit(); fitVerse(); });
+    window.addEventListener('resize', function () { fit(); fitVerse(); var b = $('vbox'); b.style.transition = 'none'; b.style.width = ''; b.style.height = ''; });
     try { if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fitVerse(); }); } catch (e) {}
     try { S.muted = window.localStorage.getItem('adhanMuted') === '1'; } catch (e) {}
     $('city').textContent = CONFIG.city;
@@ -2117,6 +2174,7 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = PrayerEn
     $('akCres').innerHTML = crescentSVG('e');
     $('medal').innerHTML = medalSVG();
     buildScene(); buildGlitter(); buildMic(); buildBays();
+    $('vornL').innerHTML = vornSVG(); $('vornR').innerHTML = vornSVG();
     S.built = true;
     qInit(); bindPointer(); startSweep();
     setTimeout(checkReciters, 3000);
